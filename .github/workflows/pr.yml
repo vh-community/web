@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  build_deploy:
+  build:
     name: Install and build
     runs-on: ubuntu-latest
     steps:
