@@ -41,7 +41,7 @@ jobs:
       - name: Deploy to Google Cloud Storage
         uses: google-github-actions/upload-cloud-storage@v2
         with:
-          path: build
+          path: dist
           destination: ${{ secrets.GCS_BUCKET_NAME }}
           process_gcloudignore: false
           parent: false
