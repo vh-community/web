@@ -54,7 +54,7 @@ jobs:
 
       - name: Run Biome
         run: |
-          biome ci src .github *.json *.yml *.yaml *.ts *.js
+          biome ci
 
   vulnerabilities:
     name: Check for security vulnerabilities
