@@ -1,6 +1,6 @@
 # Feature Specification: Loot Table - Chests
 
-**Feature Branch**: `001-chest-loot-table`  
+**Feature Branch**: `002-chest-loot-table`  
 **Created**: 2026-02-11  
 **Status**: Draft  
 **Input**: User description: "Loot Table → Chests page + transform vault chest loot tables into flattened public JSON; settings persist; level affects results"

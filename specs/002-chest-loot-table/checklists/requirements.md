@@ -2,7 +2,7 @@
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning  
 **Created**: 2026-02-11  
-**Feature**: [specs/001-chest-loot-table/spec.md](../spec.md)
+**Feature**: [specs/002-chest-loot-table/spec.md](../spec.md)
 
 ## Content Quality
 
