@@ -38,6 +38,8 @@ description: "Tasks for implementing Loot Table → Chests"
 - [ ] T010 Add minimal dev sample index in `public/data/loot_tables/index.json` (FR-002)
 - [ ] T011 Add minimal dev sample chest data in `public/data/loot_tables/chest_sample.json` (FR-008, FR-017/FR-017a)
 - [ ] T012 Add empty/missing data UI block in `src/features/loot-tables/shared/EmptyState.tsx` (Edge Case: missing/empty index)
+- [ ] T012a Add loading status UI block in `src/features/loot-tables/shared/LoadingState.tsx` (FR-002a)
+- [ ] T012b Add error status UI block in `src/features/loot-tables/shared/ErrorState.tsx` (FR-002c)
 
 **Checkpoint**: A `yarn dev` run can fetch the sample index + chest JSON.
 
@@ -65,6 +67,7 @@ description: "Tasks for implementing Loot Table → Chests"
 - [ ] T021 [P] [US1] Add settings controls UI in `src/features/loot-tables/chests/ChestsControls.tsx` (FR-004)
 - [ ] T022 [US1] Wire settings changes to recompute results in `src/features/loot-tables/chests/ChestsPage.tsx` (FR-006, FR-007)
 - [ ] T023 [P] [US1] Add table component with grouped item rows + tier sub-rows and tier rarity visual treatment in `src/features/loot-tables/chests/ChestsTable.tsx` and `src/features/loot-tables/chests/tierStyles.ts` (FR-003, FR-003a, FR-020)
+- [ ] T023a [P] [US1] Enforce deterministic row ordering (index order for chests, item id ascending, tier order Common→Rare→Epic→Omega) in `src/features/loot-tables/chests/ChestsTable.tsx` (FR-020a)
 - [ ] T024 [US1] Apply formatting (2 decimals, trim zeros) and ensure tier is indicated via text (not color alone) in `src/features/loot-tables/chests/ChestsTable.tsx` (FR-006a, FR-003a)
 - [ ] T025 [US1] Handle zero total weight pools safely in `src/features/loot-tables/chests/expectedValue.ts` (Edge Case)
 - [ ] T026 [US1] Memoize derived computations to meet responsiveness criteria in `src/features/loot-tables/chests/ChestsPage.tsx` (SC-003/SC-003a/SC-003b)
@@ -81,6 +84,7 @@ description: "Tasks for implementing Loot Table → Chests"
 - Confirm values are restored and results match (SC-004).
 
 - [ ] T027 [US2] Define storage schema + defaults in `src/features/loot-tables/chests/settingsStorage.ts` (FR-005)
+- [ ] T027a [US2] Use a single versioned `localStorage` key `vh.community.lootTables.chests.settings.v1` in `src/features/loot-tables/chests/settingsStorage.ts` (FR-005a)
 - [ ] T028 [US2] Add `useLootSettings` hook with persistence in `src/features/loot-tables/chests/useLootSettings.ts` (FR-005)
 - [ ] T029 [US2] Sync slider + text input for Per X chests in `src/features/loot-tables/chests/ChestsControls.tsx` (Story 2 scenario #2)
 - [ ] T030 [US2] Persist and restore all four settings in `src/features/loot-tables/chests/useLootSettings.ts` (Story 2 scenarios #1 and #3)
@@ -113,6 +117,8 @@ description: "Tasks for implementing Loot Table → Chests"
 
 - [ ] T040 [P] Add accessible labels + keyboard focus handling in `src/features/loot-tables/chests/ChestsControls.tsx` (Constitution accessibility intent)
 - [ ] T041 Add explicit empty/error messaging in `src/features/loot-tables/chests/ChestsPage.tsx` (Edge Cases)
+- [ ] T041a Add explicit loading messaging in `src/features/loot-tables/chests/ChestsPage.tsx` (FR-002a)
+- [ ] T041b Handle partial failures (some chest files fail) while still showing successful results in `src/features/loot-tables/chests/ChestsPage.tsx` (FR-002c)
 - [ ] T042 [P] Add performance notes to `specs/002-chest-loot-table/quickstart.md` (SC-003/SC-003a/SC-003b)
 
 ---

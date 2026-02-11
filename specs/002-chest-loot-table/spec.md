@@ -79,12 +79,20 @@ As a maintainer, I can run a single repository command that extracts the source 
 
 ### Functional Requirements
 
-- **FR-001**: The site MUST provide a menu entry at **Loot Table → Chests** that navigates to the chest loot table page.
+- **FR-001**: The site MUST provide a navigation entry labeled **Chests** under **Loot Table** that navigates to the chest loot table page.
 - **FR-002**: The Chests page MUST load a loot table index from `public/data/loot_tables/index.json` and render all index entries flagged for display.
+- **FR-002d (Index entry handling)**: The UI MUST treat an index entry as “flagged for display” when `show: true`. If an entry has an unexpected `type` value, the UI MUST ignore it (future-proofing for non-chest loot tables).
+- **FR-002a (Loading state)**: While the index and/or chest files are being loaded, the UI MUST display a perceivable loading status message.
+- **FR-002b (No data state)**: If the index is missing, empty, or contains no entries with `show: true`, the UI MUST display a clear “no data available” message and MUST still render the settings controls.
+- **FR-002c (Error state)**: If the index fails to load, the UI MUST display a clear error message. If a specific chest file fails to load or is malformed, the UI MUST still display the remaining successfully loaded chest results and MUST show an inline error indicator for the failed chest.
 - **FR-003**: For each displayed chest type, the page MUST show loot rows containing:
-  - Chest type identifier (and/or display name)
-  - Item identifier (human-readable label if available)
-  - Expected amount for the current “per X chests” setting
+  - **Chest**: chest display name (if available) otherwise chest id
+  - **Item**: item id
+  - **Amount per X**: expected amount for the current “per X chests” setting
+  The table columns MUST be ordered as: **Chest**, **Item**, **Amount per X**.
+- **FR-003b (Label source and fallbacks)**:
+  - Chest label MUST use the index entry’s `name` when present and non-empty; otherwise it MUST fall back to the index entry’s `id`.
+  - Item label MUST use the item `id` (no additional item-name lookup is required).
 - **FR-003a (Tier rarity visual treatment)**: The UI MUST visually indicate the tier rarity for each displayed item using translucent background coloring with this mapping:
   - Common → Gray
   - Rare → Blue
@@ -94,13 +102,20 @@ As a maintainer, I can run a single repository command that extracts the source 
   - For the item identity (icon + item name), if the item appears in multiple tiers, the background color MUST be based on the **lowest** tier in which the item appears (Common < Rare < Epic < Omega).
   - For the displayed count/amount breakdown, the background color MUST reflect the **specific tier** for that tier’s sub-row/count entry (i.e., the same item may show multiple count entries with different tier background colors).
 - **FR-004**: The page MUST provide user-configurable options:
-  - **Per X chests**: slider plus text input, kept in sync (min 1, max 10000, default 100)
-  - **Level**: integer from 0 to 100
-  - **Item Rarity**: percentage from 0% to 300%
-  - **Item Quantity**: percentage from 0% to 300%
+  - **Per X chests**: slider plus numeric text input, kept in sync (min 1, max 10000, default 100, step 1)
+  - **Level**: numeric input (integer) from 0 to 100 (default 0)
+  - **Item Rarity**: numeric input (percentage) from 0% to 300% (default 0%)
+  - **Item Quantity**: numeric input (percentage) from 0% to 300% (default 0%)
+- **FR-004a (Input validation and synchronization rules)**:
+  - For **Per X chests**, the slider and text input MUST remain synchronized whenever either changes to a valid integer value.
+  - For **Level**, **Item Rarity**, and **Item Quantity**, non-numeric input MUST NOT crash the page.
+  - For all numeric inputs, values outside the allowed range MUST be clamped into range when the user commits the value (e.g., on blur or Enter). If the user leaves an input empty, the UI MUST revert to the last valid value on commit.
 - **FR-005**: All options MUST be persisted locally and restored on next visit.
+- **FR-005a (Persistence key and versioning)**: Persisted settings MUST be stored in browser `localStorage` under a single versioned key: `vh.community.lootTables.chests.settings.v1`.
 - **FR-006**: Changing **Per X chests** MUST update displayed expected amounts based on multiplication by X.
 - **FR-006a**: Displayed expected amounts MUST be formatted with up to 2 decimal places and trailing zeros trimmed (e.g., `1`, `1.2`, `1.23`).
+- **FR-006b (Rounding rule)**: When formatting to “up to 2 decimals”, values MUST be rounded to the nearest 0.01 before trimming trailing zeros.
+- **FR-006c (Non-finite values)**: If an expected value is not a finite number (NaN/Infinity), the UI MUST display `0` for that value.
 - **FR-007**: **Level**, **Item Rarity**, and **Item Quantity** MUST all affect the displayed expected amounts.
 - **FR-008**: The system MUST load chest loot tables from `public/data/loot_tables/chest_[name].json` (or equivalent index-provided path) and select the applicable level segment whose `[minLevel,maxLevel]` contains the current Level.
 
@@ -121,6 +136,7 @@ As a maintainer, I can run a single repository command that extracts the source 
   - `maxRoll = min(floor(maxRoll * m_q), 54)`
   - `minStack = floor(minStack * m_q)`
   - `maxStack = floor(maxStack * m_q)`
+  If any scaled range collapses (e.g., `min == max`) or becomes `0`, the UI MUST still compute and display the deterministic expectation from that range.
 
 - **FR-009**: The transform step MUST scan the repository’s source loot table directory and extract all loot tables whose file names contain `chest`.
 - **FR-010**: The transform step MUST skip any source files ending with `_raw.json`.
@@ -135,6 +151,15 @@ As a maintainer, I can run a single repository command that extracts the source 
 - **FR-018**: The index file MUST enumerate all consolidated chest files intended for display, including a stable identifier and the relative path to the data file.
 - **FR-019**: The published tiered loot items MAY contain duplicate `id` values across tiers and/or within a tier.
 - **FR-020**: The UI MUST group rows by item `id` for display and calculations but have sub-rows for each tier so that the item's value is broken down by tier in the display.
+- **FR-020a (Deterministic ordering)**:
+  - Chest sections MUST be rendered in the same order as the index entries.
+  - Within a chest section, grouped items MUST be ordered by ascending item `id` (lexicographic).
+  - Tier sub-rows MUST be ordered: Common, Rare, Epic, Omega.
+
+- **FR-023 (Accessibility and semantics)**:
+  - All interactive controls MUST have an associated visible label.
+  - All settings controls MUST be keyboard operable.
+  - Loading/error/no-data status messaging MUST be perceivable and screen-reader friendly.
 
 - **FR-021 (Expected value definition)**: For any uniform integer range with inclusive bounds `[min,max]`, the expected value MUST be computed as $(min + max) / 2$ after applying any required floor-based scaling to the bounds.
 - **FR-022 (Per-item expectation)**: For a given level entry, the expected amount per chest for an item MUST be computed as:
@@ -187,12 +212,13 @@ Note: The published chest data MUST also include the roll range and item count/s
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can reach the Chests loot page from the main navigation and see chest loot rows without errors.
-- **SC-002**: Changing Level updates the displayed loot for at least one chest type in a way that matches the level-threshold applicability rules.
+- **SC-001**: When the index contains at least one entry with `show: true`, users can reach the Chests loot page from the main navigation and see at least one rendered loot row.
+- **SC-002**: For any chest that has 2 or more level segments, changing Level across a segment boundary updates the displayed loot in a way that matches the level-threshold applicability rules.
 - **SC-003**: Changing Per X chests updates the displayed expected amounts within 0.5 seconds.
 - **SC-003a**: Changing Item Quantity updates the displayed expected amounts within 0.5 seconds.
 - **SC-003b**: Changing Item Rarity updates the displayed expected amounts within 0.5 seconds.
-- **SC-004**: After changing any setting, a page reload restores the same values with no additional user action.
+- **SC-003c (Responsiveness scope)**: SC-003/003a/003b are measured on a modern desktop-class browser for a dataset up to 50 chests and up to 5,000 grouped item rows rendered.
+- **SC-004**: After changing any setting, a page reload in the same browser profile restores the same values with no additional user action.
 - **SC-005**: Running the transform step produces consolidated chest loot files for all eligible source chest tables and produces an index that drives the UI.
 - **SC-006**: No output is produced from `_raw.json` source files, and they do not affect consolidated results.
 
@@ -201,3 +227,8 @@ Note: The published chest data MUST also include the roll range and item count/s
 - “How many you get” is displayed as an expected (average) value per X chests; the UI may present rounding suitable for readability.
 - The published loot table format is allowed to change as long as it remains stable for the site and contains the required entities/fields.
 - Item Quantity and Item Rarity calculations follow the definitions in `docs/ItemQuantity.md` and `docs/ItemRarity.md`.
+
+## Out of Scope
+
+- Sorting, filtering, and pagination controls for the table.
+- Additional loot-table pages beyond **Loot Table → Chests**.

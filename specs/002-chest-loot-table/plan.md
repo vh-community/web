@@ -89,6 +89,8 @@ Goal: Lock down implementation choices that are allowed by the spec but not expl
 - Decide routing approach: implement minimal hash-based routing in `App.tsx` (no extra dependency) to satisfy **FR-001**.
 - Decide Level out-of-range behavior: clamp Level into `[0,100]` (allowed by Edge Cases).
 - Decide how to provide “human-readable label”: show `id` as label unless a mapping exists (FR-003).
+- Decide label fallbacks: chest label uses index `name` when present, else `id`; item label uses item `id` only (FR-003b).
+- Decide deterministic ordering: chests follow index order; items sorted by item id; tier sub-rows fixed order Common→Rare→Epic→Omega (FR-020a).
 
 Deliverable: specs/002-chest-loot-table/research.md
 
@@ -160,14 +162,16 @@ Implements User Story 1 and FR-001..FR-008, SC-001..SC-004.
 - B2. Data loading (FR-002, FR-008)
   - Fetch `public/data/loot_tables/index.json`.
   - For each entry with `show: true`, fetch its chest file and select the segment matching Level.
-  - Handle missing/empty index gracefully (Edge Case).
+  - Show a loading status while fetches are in-flight (FR-002a).
+  - Handle missing/empty index with a no-data message while leaving controls usable (FR-002b).
+  - Handle index/chest fetch failures with explicit messaging and partial results (FR-002c).
 
 - B3. Settings UI + persistence (FR-004, FR-005)
   - Controls:
     - Per X chests slider + numeric input, synced (FR-004, Story 2 scenario #2)
     - Level integer input 0–100 (clamp) (FR-004, Edge Case)
     - Item Rarity and Item Quantity percent inputs 0–300 (FR-004)
-  - Store to `localStorage` on change; read defaults on load (FR-005, Story 2 scenario #1/#3, SC-004).
+  - Store to `localStorage` on change; read defaults on load using a single versioned key (FR-005/FR-005a, Story 2 scenario #1/#3, SC-004).
 
 - B4. Expected value computation (FR-006..FR-008c, FR-021, FR-022)
   - For the selected level segment:
@@ -183,6 +187,7 @@ Implements User Story 1 and FR-001..FR-008, SC-001..SC-004.
 
 - B5. Table rendering (FR-003)
   - Render rows grouped by item id (FR-020) and show chest type, item id/label, expected per X.
+  - Use deterministic ordering for chest sections, items, and tiers (FR-020a).
   - Apply tier rarity visual treatment (FR-003a):
     - Item identity (icon + name) uses the **lowest** tier the item appears in for its translucent background.
     - Per-tier breakdown values use the tier-specific translucent background for that tier.

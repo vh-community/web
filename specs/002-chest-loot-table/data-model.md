@@ -9,9 +9,9 @@ This document describes the domain entities implied by specs/002-chest-loot-tabl
 - Storage: browser `localStorage`
 - Fields:
   - `perXChests: number` (min 1, max 10000, default 100)
-  - `level: number` (0–100)
-  - `itemRarityPct: number` (0–300)
-  - `itemQuantityPct: number` (0–300)
+  - `level: number` (0–100, default 0)
+  - `itemRarityPct: number` (0–300, default 0)
+  - `itemQuantityPct: number` (0–300, default 0)
 
 ### Loot Table Index (published)
 
