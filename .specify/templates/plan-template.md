@@ -62,7 +62,7 @@ src/
 ├── cli/
 └── lib/
 
-scripts/
+transformer/
 └── [mapping + generation scripts: Vault Hunters models -> domain models/pages -> public/]
 
 public/
