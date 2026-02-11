@@ -92,7 +92,7 @@ history.
 	into simplified domain models and JSON page structures. Generated artifacts
 	intended for the website MUST be written into `public/` (or another documented
 	build output directory) and treated as derived data. The original configuration
-	files will be stored in `vh-configs/` which is part of `.gitignore`.
+	files will be stored in `the_vault/` which is part of `.gitignore`.
 
 ## Development Workflow
 
