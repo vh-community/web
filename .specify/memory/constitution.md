@@ -1,11 +1,10 @@
 <!--
 Sync Impact Report
 
-- Version change: 0.1.0 -> 0.2.0
+- Version change: 0.2.0 -> 0.3.0
 - Modified principles: content updated ->
- 	- Quality Gates & Testing -> Minimal tests policy (model mapping only)
- 	- Constraints & Standards -> Vault Hunters config handling (never commit; generate JSON)
- 	- Minor clarifications across Development Workflow and Governance
+	- Quality Gates & Testing -> Unit tests only, colocated; no contract/integration tests
+	- Constraints & Standards -> Root scripts/ folder for mapping + generation into public/
 - Templates updated: .specify/templates/plan-template.md ✅ updated
 - Templates pending manual review: .specify/templates/spec-template.md ⚠ pending
 	.specify/templates/tasks-template.md ⚠ pending
@@ -46,13 +45,21 @@ experience across networks and devices.
 
 All contributions MUST pass automated quality gates before merge: formatting,
 linting, type-check, and a successful production build. Testing is intentionally
-minimal: by default, tests are NOT required. Tests MUST only be added when a
-change maps one data model into another (for example, transforming extracted
-game configuration into the site's JSON page structure). When a new spec
-requires tests, the spec author MUST declare this explicitly in the spec. PRs
-MUST include a short testing note describing local verification steps. Rationale:
-keep the test surface small while ensuring correctness for critical data
-mappings.
+minimal: by default, tests are NOT required.
+
+- This project has NO integration tests and NO contract tests.
+- Only unit tests are allowed.
+- Unit tests MUST be colocated with the file under test, using `*.test.ts` next
+	to the implementation (e.g., `mapper.ts` + `mapper.test.ts`).
+- Unit tests MUST be added when a change maps one data model into another (for
+	example, transforming extracted game configuration into the site's JSON page
+	structure).
+- If a new spec requires tests beyond the mapping rule above, the spec author
+	MUST declare that explicitly in the spec.
+
+PRs MUST include a short testing note describing local verification steps.
+Rationale: keep the test surface small while ensuring correctness for critical
+data mappings.
 
 ### Governance & Versioning
 
@@ -65,9 +72,10 @@ history.
 
 ## Constraints & Standards
 
-- Technology stack: Vite, React, TypeScript, Biome (format/lint), and Node/yarn.
-- CI MUST run `yarn lint`, `yarn run build`, and `yarn test` (if
-	tests exist) on each feature branch before merge.
+- Technology stack: Vite, React, TypeScript, Biome (format/lint), and Node.
+- Package manager: Yarn is currently used (see `yarn.lock`).
+- CI MUST run `yarn lint`, `yarn run build`, and `yarn test` (if tests exist)
+	on each feature branch before merge.
 - Security: Dependencies MUST be reviewed for known vulnerabilities before
 	large upgrades; secrets MUST not be committed.
 - Vault Hunters extracted configuration: This project will rely on extracted
@@ -80,6 +88,12 @@ history.
 	contributors MUST NOT commit any extracted mod config. Rationale: protect
 	license, privacy, and repository hygiene while enabling reproducible content
 	generation.
+
+- Repository layout for data generation: A root `scripts/` folder SHOULD contain
+	the mapping/transformation scripts that convert extracted Vault Hunters models
+	into simplified domain models and JSON page structures. Generated artifacts
+	intended for the website MUST be written into `public/` (or another documented
+	build output directory) and treated as derived data.
 
 ## Development Workflow
 
@@ -111,6 +125,4 @@ Versioning policy:
 - MINOR: New principle/section added or material expansion of guidance.
 - PATCH: Clarifications, wording fixes, or non-semantic refinements.
 
-**Version**: 0.2.0 | **Ratified**: 2026-02-11 | **Last Amended**: 2026-02-11
-
-``` 
+**Version**: 0.3.0 | **Ratified**: 2026-02-11 | **Last Amended**: 2026-02-11
