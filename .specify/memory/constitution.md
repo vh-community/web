@@ -1,50 +1,116 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+- Version change: 0.1.0 -> 0.2.0
+- Modified principles: content updated ->
+ 	- Quality Gates & Testing -> Minimal tests policy (model mapping only)
+ 	- Constraints & Standards -> Vault Hunters config handling (never commit; generate JSON)
+ 	- Minor clarifications across Development Workflow and Governance
+- Templates updated: .specify/templates/plan-template.md ✅ updated
+- Templates pending manual review: .specify/templates/spec-template.md ⚠ pending
+	.specify/templates/tasks-template.md ⚠ pending
+- Follow-up TODOs:
+	- TODO(SCRIPT_WORKFLOW): define extraction -> transformation scripts and paths
+	- Confirm any existing command templates under .specify/templates/commands/ (folder missing)
+-->
+
+# Vault Hunters Community Website Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Content & Accessibility (NON-NEGOTIABLE)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+The site MUST prioritize clear, accurate, and accessible content. All user-facing
+pages (marketing, docs, and key user flows) MUST meet WCAG 2.1 AA or better, where
+practical. Content published to the site MUST include a brief provenance statement
+when it is not official (see README). Rationale: Accessibility is a non-optional
+requirement for public-facing community content and reduces support burden.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Minimal Tooling & Reproducible Builds
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+Build and development tooling MUST be minimal and reproducible. The project uses
+Vite for local development and production builds, TypeScript for static typing,
+and Biome for linting/formatting. CI pipelines MUST reproduce `yarn run build` and
+`yarn run lint` results. Rationale: predictable tooling reduces onboarding
+costs and prevents environment-specific failures.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Progressive Enhancement & Performance
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Pages MUST be progressively enhanced: core content should be available and useful
+even if JavaScript fails to load. Performance budgets (e.g., first contentful
+paint within reasonable limits for key pages) SHOULD be tracked and improved over
+time. Rationale: good performance and graceful degradation improve user
+experience across networks and devices.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### Quality Gates & Testing
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+All contributions MUST pass automated quality gates before merge: formatting,
+linting, type-check, and a successful production build. Testing is intentionally
+minimal: by default, tests are NOT required. Tests MUST only be added when a
+change maps one data model into another (for example, transforming extracted
+game configuration into the site's JSON page structure). When a new spec
+requires tests, the spec author MUST declare this explicitly in the spec. PRs
+MUST include a short testing note describing local verification steps. Rationale:
+keep the test surface small while ensuring correctness for critical data
+mappings.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Governance & Versioning
+
+Releases of the site SHALL follow semantic versioning for the published site
+artifacts (MAJOR.MINOR.PATCH). Governance changes that alter principles or add
+new required behaviors are MAJOR changes; adding new non-breaking principles or
+material operational guidance are MINOR; wording fixes and clarifications are
+PATCH. Rationale: clear versioning ties policy changes to observable release
+history.
+
+## Constraints & Standards
+
+- Technology stack: Vite, React, TypeScript, Biome (format/lint), and Node/yarn.
+- CI MUST run `yarn lint`, `yarn run build`, and `yarn test` (if
+	tests exist) on each feature branch before merge.
+- Security: Dependencies MUST be reviewed for known vulnerabilities before
+	large upgrades; secrets MUST not be committed.
+- Vault Hunters extracted configuration: This project will rely on extracted
+	configuration from the Vault Hunters Minecraft Java Mod to generate site
+	content. Raw extracted mod configuration files MUST NEVER be committed to the
+	repository. Instead, scripts (to be added under a tooling directory) will be
+	used to convert the extracted configs into simplified JSON page structures
+	consumable by the site. The exact extraction and transformation workflow is
+	TODO and MUST be documented before any automation is merged. Until then,
+	contributors MUST NOT commit any extracted mod config. Rationale: protect
+	license, privacy, and repository hygiene while enabling reproducible content
+	generation.
+
+## Development Workflow
+
+- Branches: feature branches follow `feature/<short-description>` or
+	`fix/<short-description>` conventions.
+- Pull Requests: PRs MUST include a description, link to related issue/spec,
+	and a testing checklist. At least one approving reviewer is REQUIRED for
+	non-trivial changes; a maintainer approval is REQUIRED for releases and
+	governance amendments.
+- CI gates: PRs MUST pass lint, type-check, and build. Merge is blocked until
+	gates succeed.
+- Releases: Release PRs MUST update `package.json` version (if applicable),
+	update `CHANGELOG.md`, and include a concise summary of user-visible changes.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Amendments to this constitution MUST be proposed as a documented PR that:
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- Describes the proposed change and motivation.
+- Lists the affected principles or sections.
+- Includes a migration plan for any required developer changes.
+
+Approval: A governance amendment MUST be approved by at least one project
+maintainer and pass CI.
+
+Versioning policy:
+
+- MAJOR: Backward-incompatible governance or principle removals/redefinitions.
+- MINOR: New principle/section added or material expansion of guidance.
+- PATCH: Clarifications, wording fixes, or non-semantic refinements.
+
+**Version**: 0.2.0 | **Ratified**: 2026-02-11 | **Last Amended**: 2026-02-11
+
+``` 

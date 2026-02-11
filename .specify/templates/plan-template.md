@@ -56,39 +56,21 @@ specs/[###-feature]/
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
 ├── models/
 ├── services/
 ├── cli/
 └── lib/
 
-tests/
-├── contract/
-├── integration/
-└── unit/
+scripts/
+└── [mapping + generation scripts: Vault Hunters models -> domain models/pages -> public/]
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
+public/
+└── [generated JSON page structures (output), plus static assets]
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+# Unit tests are colocated (no top-level tests/ folder by default):
+# - src/foo/mapper.ts
+# - src/foo/mapper.test.ts
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real
