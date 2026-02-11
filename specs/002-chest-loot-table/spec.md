@@ -10,10 +10,11 @@
 ### Session 2026-02-11
 
 - Q: How should “how many you get if you loot X chests” be computed from the VH/Minecraft loot tables? → A: Exact analytic expected value computed deterministically from the published tiered loot model (no simulation).
-- Q: What should the published loot-table file format look like? → A: One file per chest type containing a level-indexed tiered loot model; plus a single index listing which chest tables to display.
+- Q: What should the published loot-table file format look like? → A: One file per chest type containing a level-based tiered loot model (stored as level segments); plus a single index listing which chest tables to display.
 - Q: What should the Per X chests control’s range/default be? → A: 1-10000 def100
 - Q: How should the UI display/round the “expected amount per X chests”? → A: Show up to 2 decimals; trim trailing zeros.
 - Q: If the same item id appears multiple times (across tiers and/or within a tier), how should it be represented? → A: Keep separate rows but group visually by itemId (UI aggregates).
+- Q: How should the published chest file represent “levels”? → A: As an array of level segments, each with `[minLevel,maxLevel]` and a tiered loot definition; the UI selects the matching segment for the current Level.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -92,7 +93,7 @@ As a maintainer, I can run a single repository command that extracts the source 
 - **FR-006**: Changing **Per X chests** MUST update displayed expected amounts based on multiplication by X.
 - **FR-006a**: Displayed expected amounts MUST be formatted with up to 2 decimal places and trailing zeros trimmed (e.g., `1`, `1.2`, `1.23`).
 - **FR-007**: **Level**, **Item Rarity**, and **Item Quantity** MUST all affect the displayed expected amounts.
-- **FR-008**: The system MUST load chest loot tables from `public/data/loot_tables/chest_[name].json` (or equivalent index-provided path) and select the applicable level entry based on the current Level.
+- **FR-008**: The system MUST load chest loot tables from `public/data/loot_tables/chest_[name].json` (or equivalent index-provided path) and select the applicable level segment whose `[minLevel,maxLevel]` contains the current Level.
 
 - **FR-008a**: The system MUST compute expected amounts deterministically from the published tiered loot model and the current settings (no simulation).
 
@@ -120,7 +121,8 @@ As a maintainer, I can run a single repository command that extracts the source 
 - **FR-014**: The published model MUST preserve (per level) the chest roll range and (per item) the item count/stack range required by the Item Quantity formula.
 - **FR-015**: The published model MUST preserve (per level) pool weights and item weights required by the Item Rarity formula.
 - **FR-016**: The transform step MUST output one consolidated published file per chest type.
-- **FR-017**: Each consolidated chest file MUST contain a level-indexed list covering levels 0–100 inclusive, where each level entry points to the applicable tiered loot definition for that level.
+- **FR-017**: Each consolidated chest file MUST contain a list of level segments that collectively cover levels 0–100 inclusive.
+- **FR-017a**: Each level segment MUST include an inclusive `[minLevel,maxLevel]` and the applicable tiered loot definition for that level range.
 - **FR-018**: The index file MUST enumerate all consolidated chest files intended for display, including a stable identifier and the relative path to the data file.
 - **FR-019**: The published tiered loot items MAY contain duplicate `id` values across tiers and/or within a tier.
 - **FR-020**: The UI MUST group rows by item `id` for display and calculations, aggregating expected values by summing across all occurrences with the same item `id`.
@@ -142,13 +144,12 @@ As a maintainer, I can run a single repository command that extracts the source 
 ### Published Data Shape (informative)
 
 - **Index entry**: `{ id, type, name?, file, show }`
-- **Chest file**: `{ id, levels: TieredLootTableLevel[] }`
+- **Chest file**: `{ id, levels: TieredLootTableLevelSegment[] }`
 
 ### Published Level Shape (informative)
 
 Each level entry MUST include:
 
-- Level range: `[minLevel, maxLevel]`
 - Roll range: `{ roll: { min, max } }`
 - Four tier pools: `common`, `rare`, `epic`, `omega`
 - Each tier pool MUST include:
@@ -159,8 +160,9 @@ Each level entry MUST include:
 
 This feature uses the project’s tiered loot table domain model (see `src/models/tiered_loot_table.ts`) as the baseline shape.
 
-- A chest file contains `levels`, indexed by vault level `0..100`.
+- A chest file contains `levels` a list of level entries.
 - Each level contains 4 tiers: `common`, `rare`, `epic`, `omega`.
+- Each level contains a level range `[minLevel,maxLevel]`.
 - Each tier contains:
   - A tier weight (for choosing the tier)
   - A list of items each with `id`, `weight`, and a base count/stack definition
