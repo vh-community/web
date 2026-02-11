@@ -7,7 +7,13 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["dist", "node_modules", ".vscode", "the_vault"]
+    "ignore": [
+      "dist",
+      "node_modules",
+      ".vscode",
+      "the_vault",
+      "transformer/dist"
+    ]
   },
   "formatter": {
     "enabled": true,

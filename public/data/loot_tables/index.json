@@ -1,0 +1,50 @@
+[
+  {
+    "id": "enigma_chest",
+    "type": "chest",
+    "file": "chest_enigma_chest.json",
+    "show": true
+  },
+  {
+    "id": "flesh_chest",
+    "type": "chest",
+    "file": "chest_flesh_chest.json",
+    "show": true
+  },
+  {
+    "id": "gilded_chest",
+    "type": "chest",
+    "file": "chest_gilded_chest.json",
+    "show": true
+  },
+  {
+    "id": "hardened_chest",
+    "type": "chest",
+    "file": "chest_hardened_chest.json",
+    "show": true
+  },
+  {
+    "id": "living_chest",
+    "type": "chest",
+    "file": "chest_living_chest.json",
+    "show": true
+  },
+  {
+    "id": "ornate_chest",
+    "type": "chest",
+    "file": "chest_ornate_chest.json",
+    "show": true
+  },
+  {
+    "id": "treasure_chest",
+    "type": "chest",
+    "file": "chest_treasure_chest.json",
+    "show": true
+  },
+  {
+    "id": "wooden_chest",
+    "type": "chest",
+    "file": "chest_wooden_chest.json",
+    "show": true
+  }
+]

@@ -23,5 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+# Transformer build output
+transformer/dist/
+
 # VH Configs
 the_vault/
