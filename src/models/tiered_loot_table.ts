@@ -3,6 +3,7 @@ export interface TieredLootTable {
 }
 
 export interface TieredLootTableLevel {
+  levelRange: [number, number];
   common: LevelPool;
   rare: LevelPool;
   epic: LevelPool;

@@ -34,3 +34,4 @@
 - Items marked incomplete require spec updates before `/speckit.clarify` or `/speckit.plan`
 
 - Acceptance criteria are covered by the User Story acceptance scenarios; functional requirements map to those scenarios.
+- Spec updated to make Item Quantity and Item Rarity functional per docs, and to align published chest data with the tiered loot table domain model.
