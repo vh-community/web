@@ -60,7 +60,7 @@ As a maintainer, I can run a single repository command that extracts the source 
 
 **Acceptance Scenarios**:
 
-1. **Given** source loot table files exist for multiple level thresholds (e.g., `gilded_chest_0`, `gilded_chest_20`, `gilded_chest_50`), **When** the transform is run, **Then** the output contains a single consolidated `gilded_chest` chest file whose `levels[0..100]` entries reflect the applicable source threshold definitions.
+1. **Given** source loot table files exist for multiple level thresholds (e.g., `gilded_chest_0`, `gilded_chest_20`, `gilded_chest_50`), **When** the transform is run, **Then** the output contains a single consolidated `gilded_chest` chest file whose `levels[..]` entries have levelRange: `[minLevel,maxLevel]` ranges derived from those thresholds (e.g., `[0,19]`, `[20,49]`, `[50,100]`).
 2. **Given** a source loot table file ends with `_raw`, **When** the transform is run, **Then** that file is excluded from outputs and does not affect consolidation.
 
 ---
@@ -125,7 +125,7 @@ As a maintainer, I can run a single repository command that extracts the source 
 - **FR-017a**: Each level segment MUST include an inclusive `[minLevel,maxLevel]` and the applicable tiered loot definition for that level range.
 - **FR-018**: The index file MUST enumerate all consolidated chest files intended for display, including a stable identifier and the relative path to the data file.
 - **FR-019**: The published tiered loot items MAY contain duplicate `id` values across tiers and/or within a tier.
-- **FR-020**: The UI MUST group rows by item `id` for display and calculations, aggregating expected values by summing across all occurrences with the same item `id`.
+- **FR-020**: The UI MUST group rows by item `id` for display and calculations but have sub-rows for each tier so that the item's value is broken down by tier in the display.
 
 - **FR-021 (Expected value definition)**: For any uniform integer range with inclusive bounds `[min,max]`, the expected value MUST be computed as $(min + max) / 2$ after applying any required floor-based scaling to the bounds.
 - **FR-022 (Per-item expectation)**: For a given level entry, the expected amount per chest for an item MUST be computed as:
