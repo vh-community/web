@@ -108,8 +108,8 @@ As a maintainer, I can run a single repository command that extracts the source 
   - The number of rolls for the chest at the selected level
   - The stack/count range for each item
   using these floor-based scaling rules:
-  - `minRoll = floor(minRoll * m_q)`
-  - `maxRoll = floor(maxRoll * m_q)`
+  - `minRoll = min(floor(minRoll * m_q), 54)`
+  - `maxRoll = min(floor(maxRoll * m_q), 54)`
   - `minStack = floor(minStack * m_q)`
   - `maxStack = floor(maxStack * m_q)`
 

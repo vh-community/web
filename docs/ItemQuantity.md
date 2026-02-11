@@ -7,8 +7,8 @@ It increases both the amount of rolls and the stack size of each roll, so it has
 ## Formula
 
 ```javascript
-minRoll = floor(minRoll * (1 + itemQuantity))
-maxRoll = floor(maxRoll * (1 + itemQuantity))
+minRoll = min(54, floor(minRoll * (1 + itemQuantity)))
+maxRoll = min(54, floor(maxRoll * (1 + itemQuantity)))
 
 minStack = floor(minStack * (1 + itemQuantity))
 maxStack = floor(maxStack * (1 + itemQuantity))
