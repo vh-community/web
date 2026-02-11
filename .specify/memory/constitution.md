@@ -70,7 +70,7 @@ history.
 
 ## Constraints & Standards
 
-- Technology stack: Vite, React, TypeScript, Biome (format/lint), and Node.
+- Technology stack: Vite, Tailwind, React, TypeScript, Biome (format/lint), and Node.
 - Package manager: Yarn is currently used (see `yarn.lock`).
 - CI MUST run `yarn lint`, `yarn run build`, and `yarn test` (if tests exist)
 	on each feature branch before merge.
