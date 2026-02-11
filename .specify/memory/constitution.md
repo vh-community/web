@@ -33,13 +33,11 @@ and Biome for linting/formatting. CI pipelines MUST reproduce `yarn run build` a
 `yarn run lint` results. Rationale: predictable tooling reduces onboarding
 costs and prevents environment-specific failures.
 
-### Progressive Enhancement & Performance
+### Enhancement & Performance
 
-Pages MUST be progressively enhanced: core content should be available and useful
-even if JavaScript fails to load. Performance budgets (e.g., first contentful
-paint within reasonable limits for key pages) SHOULD be tracked and improved over
-time. Rationale: good performance and graceful degradation improve user
-experience across networks and devices.
+Performance optimizations MUST focus on user-perceived performance. The site MUST
+load and become interactive quickly on typical connections (3G/4G mobile). Rationale:
+fast load times improve user experience and accessibility.
 
 ### Quality Gates & Testing
 
