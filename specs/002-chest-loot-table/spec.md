@@ -31,6 +31,7 @@ As a site user, I can open **Loot Table → Chests** and see a table of chest lo
 1. **Given** the user navigates to Loot Table → Chests, **When** chest data exists in the published index, **Then** the page shows a table with columns for chest type, item, and amount per X chests.
 2. **Given** the page is open, **When** the user changes Level, **Then** the displayed loot updates to the level-appropriate loot table for each chest.
 3. **Given** the page is open, **When** the user changes Item Quantity or Item Rarity, **Then** the displayed expected amounts update according to the documented formulas.
+4. **Given** the page is open and loot rows are displayed, **When** an item has results in one or more tiers, **Then** the item row visually indicates tier rarity using the tier-based translucent background rules defined in the functional requirements.
 
 ---
 
@@ -84,6 +85,14 @@ As a maintainer, I can run a single repository command that extracts the source 
   - Chest type identifier (and/or display name)
   - Item identifier (human-readable label if available)
   - Expected amount for the current “per X chests” setting
+- **FR-003a (Tier rarity visual treatment)**: The UI MUST visually indicate the tier rarity for each displayed item using translucent background coloring with this mapping:
+  - Common → Gray
+  - Rare → Blue
+  - Epic → Purple
+  - Omega → Green
+  The tier-based background coloring MUST follow these rules:
+  - For the item identity (icon + item name), if the item appears in multiple tiers, the background color MUST be based on the **lowest** tier in which the item appears (Common < Rare < Epic < Omega).
+  - For the displayed count/amount breakdown, the background color MUST reflect the **specific tier** for that tier’s sub-row/count entry (i.e., the same item may show multiple count entries with different tier background colors).
 - **FR-004**: The page MUST provide user-configurable options:
   - **Per X chests**: slider plus text input, kept in sync (min 1, max 10000, default 100)
   - **Level**: integer from 0 to 100

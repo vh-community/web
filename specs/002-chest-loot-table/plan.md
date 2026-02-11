@@ -5,7 +5,7 @@
 
 ## Summary
 
-Deliver a new **Loot Table → Chests** view that loads published chest loot JSON from `public/data/loot_tables/`, computes deterministic expected values under Level + Item Rarity + Item Quantity modifiers, and persists user settings locally. Provide a repo command that transforms VH loot tables from `the_vault/gen/1.0/loot_tables/` into the published tiered segment model plus an index.
+Deliver a new **Loot Table → Chests** view that loads published chest loot JSON from `public/data/loot_tables/`, computes deterministic expected values under Level + Item Rarity + Item Quantity modifiers, and persists user settings locally. Provide a repo command that transforms VH loot tables from `the_vault/gen/1.0/loot_tables/` into the published tiered segment model plus an index. The UI also applies tier rarity visual treatment (FR-003a) using translucent backgrounds for item identity and per-tier breakdown values.
 
 ## Technical Context
 
@@ -183,6 +183,11 @@ Implements User Story 1 and FR-001..FR-008, SC-001..SC-004.
 
 - B5. Table rendering (FR-003)
   - Render rows grouped by item id (FR-020) and show chest type, item id/label, expected per X.
+  - Apply tier rarity visual treatment (FR-003a):
+    - Item identity (icon + name) uses the **lowest** tier the item appears in for its translucent background.
+    - Per-tier breakdown values use the tier-specific translucent background for that tier.
+    - Implement using existing Tailwind utility classes/tokens with opacity (no hard-coded colors).
+    - Ensure the tier is also conveyed via text in the tier breakdown (do not rely on color alone).
   - Keep updates responsive (SC-003/003a/003b) by memoizing derived computations.
 
 Acceptance mapping:
