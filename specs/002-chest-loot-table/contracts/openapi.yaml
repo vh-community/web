@@ -1,0 +1,126 @@
+openapi: 3.0.3
+info:
+  title: Loot Tables — Chests (Static JSON)
+  version: 1.0.0
+  description: |
+    Static JSON contracts served from the site's public/ directory.
+    Shapes are derived from specs/002-chest-loot-table/spec.md.
+servers:
+  - url: /
+paths:
+  /data/loot_tables/index.json:
+    get:
+      summary: Loot table index
+      responses:
+        "200":
+          description: Index listing published loot tables
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LootTableIndex"
+  /data/loot_tables/{file}:
+    get:
+      summary: Fetch a published chest loot table
+      parameters:
+        - name: file
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Relative file path such as `chest_gilded_chest.json`.
+      responses:
+        "200":
+          description: Published chest loot table
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChestLootTable"
+components:
+  schemas:
+    LootTableIndex:
+      type: array
+      items:
+        $ref: "#/components/schemas/LootTableIndexEntry"
+    LootTableIndexEntry:
+      type: object
+      additionalProperties: false
+      required: [id, type, file, show]
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          description: Type discriminator (e.g., `chest`).
+        name:
+          type: string
+          nullable: true
+        file:
+          type: string
+          description: Relative path under /data/loot_tables/
+        show:
+          type: boolean
+    ChestLootTable:
+      type: object
+      additionalProperties: false
+      required: [id, levels]
+      properties:
+        id:
+          type: string
+        levels:
+          type: array
+          items:
+            $ref: "#/components/schemas/LevelSegment"
+    LevelSegment:
+      type: object
+      additionalProperties: false
+      required: [minLevel, maxLevel, roll, common, rare, epic, omega]
+      properties:
+        minLevel:
+          type: integer
+          minimum: 0
+          maximum: 100
+        maxLevel:
+          type: integer
+          minimum: 0
+          maximum: 100
+        roll:
+          $ref: "#/components/schemas/UniformIntRange"
+        common:
+          $ref: "#/components/schemas/TierPool"
+        rare:
+          $ref: "#/components/schemas/TierPool"
+        epic:
+          $ref: "#/components/schemas/TierPool"
+        omega:
+          $ref: "#/components/schemas/TierPool"
+    TierPool:
+      type: object
+      additionalProperties: false
+      required: [weight, items]
+      properties:
+        weight:
+          type: number
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/TierItem"
+    TierItem:
+      type: object
+      additionalProperties: false
+      required: [id, weight, count]
+      properties:
+        id:
+          type: string
+        weight:
+          type: number
+        count:
+          $ref: "#/components/schemas/UniformIntRange"
+    UniformIntRange:
+      type: object
+      additionalProperties: false
+      required: [min, max]
+      properties:
+        min:
+          type: integer
+        max:
+          type: integer
