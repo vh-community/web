@@ -1,6 +1,6 @@
 ---
 
-description: "Task list for implementing Loot Table → Chests"
+description: "Tasks for implementing Loot Table → Chests"
 ---
 
 # Tasks: Loot Table - Chests
@@ -8,163 +8,153 @@ description: "Task list for implementing Loot Table → Chests"
 **Input**: Design documents from `specs/002-chest-loot-table/`
 **Prerequisites**: `spec.md` (required), `plan.md` (required), `research.md`, `data-model.md`, `contracts/openapi.yaml`, `quickstart.md`
 
-**Tests**: Unit tests are included ONLY where the project constitution requires them (data model mapping / deterministic math).
+**Tests**: No automated test tasks are included because the feature spec does not explicitly request them.
 
-## Format
+## Format: `T### [P?] [US?] Description (with file path)`
 
-Every task uses this format:
-
-- [ ] T### [P?] [US?] Description with file path
+- [P] = parallelizable (different files, no unmet dependencies)
+- [US#] = user story label (required for story phases only)
 
 ---
 
 ## Phase 1: Setup (Shared Infrastructure)
 
-- [ ] T001 Create feature folder structure in `src/features/loot-tables/chests/` and `src/features/loot-tables/shared/`
-- [ ] T002 Create transformer folder structure in `transformer/loot_tables/`
+- [ ] T001 Create feature folders `src/features/loot-tables/chests/` and `src/features/loot-tables/shared/`
+- [ ] T002 Create transformer folders `transformer/loot_tables/` and `transformer/bin/`
 - [ ] T003 Add transformer TypeScript config in `transformer/tsconfig.json`
-- [ ] T004 Update TS project references to include transformer build in `tsconfig.json`
-- [ ] T005 Add transformer build output folder ignore rules in `.gitignore`
-- [ ] T006 Add unit test runner (Vitest) + `test` script in `package.json`
-- [ ] T007 [P] Add Vitest config (if needed) in `vitest.config.ts`
+- [ ] T004 Add transformer entrypoint runner in `transformer/bin/generate-loot-tables.ts`
+- [ ] T005 Add build output ignore for `transformer/dist/` in `.gitignore`
+- [ ] T006 Add `generate:loot-tables` script in `package.json` that runs `tsc -p transformer/tsconfig.json` then `node transformer/dist/bin/generate-loot-tables.js`
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-**⚠️ CRITICAL**: No user story work should start until this phase is complete.
+**⚠️ CRITICAL**: Complete this phase before starting any user story implementation.
 
-- [ ] T008 Define published loot-table index + chest file TS types in `src/models/published_chest_loot_table.ts`
-- [ ] T009 [P] Add typed JSON fetch helper in `src/features/loot-tables/shared/fetchJson.ts`
-- [ ] T010 [P] Add number formatting helper (2 decimals, trim zeros) in `src/features/loot-tables/shared/formatNumber.ts`
-- [ ] T011 Add minimal sample published data for local UI dev in `public/data/loot_tables/index.json`
-- [ ] T012 [P] Add one sample chest file matching the segment model in `public/data/loot_tables/chest_sample.json`
-- [ ] T013 Add “missing/empty index” empty-state component in `src/features/loot-tables/shared/EmptyState.tsx`
+- [ ] T007 Define published loot table types in `src/models/published_chest_loot_table.ts` (IndexEntry + ChestLootTable + LevelSegment)
+- [ ] T008 [P] Add typed JSON fetch helper in `src/features/loot-tables/shared/fetchJson.ts` (used for index + chest files)
+- [ ] T009 [P] Add number formatting helper in `src/features/loot-tables/shared/formatExpected.ts` (FR-006a)
+- [ ] T010 Add minimal dev sample index in `public/data/loot_tables/index.json` (FR-002)
+- [ ] T011 Add minimal dev sample chest data in `public/data/loot_tables/chest_sample.json` (FR-008, FR-017/FR-017a)
+- [ ] T012 Add empty/missing data UI block in `src/features/loot-tables/shared/EmptyState.tsx` (Edge Case: missing/empty index)
 
-**Checkpoint**: Foundation ready — UI and transformer stories can proceed.
+**Checkpoint**: A `yarn dev` run can fetch the sample index + chest JSON.
 
 ---
 
 ## Phase 3: User Story 1 — View chest loot outcomes (Priority: P1) 🎯 MVP
 
-**Goal**: User can open **Loot Table → Chests** and view expected loot per X chests, with Level/Item Rarity/Item Quantity changing the displayed results.
+**Goal**: Open Loot Table → Chests and see expected loot per X chests.
 
-**Independent Test**: Run `yarn dev`, navigate to the Chests page, confirm the table renders from `public/data/loot_tables/index.json`, and changing Level changes the selected segment and displayed amounts.
+**Independent Test**:
+- Navigate to the Chests page.
+- Confirm it loads rows based on `public/data/loot_tables/index.json` + referenced chest files.
+- Change Level and confirm a different level segment is selected (SC-002).
 
-### Implementation (US1)
+### Implementation
 
-- [ ] T014 [US1] Add minimal routing + nav entry “Loot Table → Chests” in `src/App.tsx` (FR-001)
-- [ ] T015 [P] [US1] Create chests page component scaffold in `src/features/loot-tables/chests/ChestsPage.tsx`
-- [ ] T016 [P] [US1] Add settings state (non-persisted) + defaults in `src/features/loot-tables/chests/useLootSettings.ts`
-- [ ] T017 [P] [US1] Implement level segment selection utility in `src/features/loot-tables/chests/selectLevelSegment.ts` (FR-008, clamp 0–100)
-- [ ] T018 [US1] Load index + chest JSON and wire into page in `src/features/loot-tables/chests/ChestsPage.tsx` (FR-002, FR-008)
-- [ ] T019 [P] [US1] Implement rarity weight adjustment logic in `src/features/loot-tables/chests/rarity.ts` (FR-008b)
-- [ ] T020 [P] [US1] Implement quantity scaling rules in `src/features/loot-tables/chests/quantity.ts` (FR-008c)
-- [ ] T021 [P] [US1] Implement deterministic expected value math in `src/features/loot-tables/chests/expectedValue.ts` (FR-008a, FR-021, FR-022)
-- [ ] T022 [US1] Aggregate duplicate item ids deterministically in `src/features/loot-tables/chests/aggregateItems.ts` (FR-019, FR-020)
-- [ ] T023 [US1] Render table with columns (chest, item, amount per X) in `src/features/loot-tables/chests/ChestsTable.tsx` (FR-003)
-- [ ] T024 [US1] Add controls for Per X chests, Level, Item Rarity, Item Quantity in `src/features/loot-tables/chests/ChestsControls.tsx` (FR-004, FR-006)
-- [ ] T025 [US1] Apply number formatting rules (2 decimals, trim zeros) in `src/features/loot-tables/chests/ChestsTable.tsx` (FR-006a)
-- [ ] T026 [US1] Handle weight=0 edge cases without crashing in `src/features/loot-tables/chests/expectedValue.ts` (Edge Cases)
-- [ ] T027 [US1] Ensure derived recomputation stays responsive via memoization in `src/features/loot-tables/chests/ChestsPage.tsx` (SC-003/003a/003b)
-
-### Unit tests (required by constitution for deterministic math)
-
-- [ ] T028 [P] [US1] Add expected value unit tests for simple synthetic inputs in `src/features/loot-tables/chests/expectedValue.test.ts`
-- [ ] T029 [P] [US1] Add quantity/rarity scaling unit tests in `src/features/loot-tables/chests/quantity.test.ts` and `src/features/loot-tables/chests/rarity.test.ts`
-
-**Checkpoint**: US1 works end-to-end using sample `public/data/loot_tables/` data.
+- [ ] T013 [US1] Add navigation entry and route handling in `src/App.tsx` (FR-001)
+- [ ] T014 [P] [US1] Add page scaffold component in `src/features/loot-tables/chests/ChestsPage.tsx`
+- [ ] T015 [P] [US1] Add level clamp + segment selection helper in `src/features/loot-tables/chests/selectLevelSegment.ts` (FR-008)
+- [ ] T016 [US1] Implement index loading + per-chest file loading in `src/features/loot-tables/chests/ChestsPage.tsx` (FR-002, FR-008)
+- [ ] T017 [P] [US1] Implement rarity-adjusted tier weight logic in `src/features/loot-tables/chests/rarity.ts` (FR-008b)
+- [ ] T018 [P] [US1] Implement quantity scaling rules in `src/features/loot-tables/chests/quantity.ts` (FR-008c)
+- [ ] T019 [P] [US1] Implement expected value math in `src/features/loot-tables/chests/expectedValue.ts` (FR-008a, FR-021, FR-022)
+- [ ] T020 [P] [US1] Implement duplicate item id aggregation in `src/features/loot-tables/chests/aggregateByItemId.ts` (FR-019, FR-020)
+- [ ] T021 [P] [US1] Add settings controls UI in `src/features/loot-tables/chests/ChestsControls.tsx` (FR-004)
+- [ ] T022 [US1] Wire settings changes to recompute results in `src/features/loot-tables/chests/ChestsPage.tsx` (FR-006, FR-007)
+- [ ] T023 [P] [US1] Add table component in `src/features/loot-tables/chests/ChestsTable.tsx` (FR-003)
+- [ ] T024 [US1] Apply formatting (2 decimals, trim zeros) to displayed amounts in `src/features/loot-tables/chests/ChestsTable.tsx` (FR-006a)
+- [ ] T025 [US1] Handle zero total weight pools safely in `src/features/loot-tables/chests/expectedValue.ts` (Edge Case)
+- [ ] T026 [US1] Memoize derived computations to meet responsiveness criteria in `src/features/loot-tables/chests/ChestsPage.tsx` (SC-003/SC-003a/SC-003b)
 
 ---
 
 ## Phase 4: User Story 2 — Configure and persist settings (Priority: P2)
 
-**Goal**: Settings (Per X, Level, Item Rarity, Item Quantity) persist across reloads and stay in sync between slider and text input.
+**Goal**: Settings persist across reloads and future sessions.
 
-**Independent Test**: Change settings on Chests page, reload, verify values restored and results identical.
+**Independent Test**:
+- Change each setting.
+- Reload.
+- Confirm values are restored and results match (SC-004).
 
-- [ ] T030 [US2] Define localStorage schema + keys + migration-safe parsing in `src/features/loot-tables/chests/settingsStorage.ts` (FR-005)
-- [ ] T031 [US2] Integrate persistence into settings hook in `src/features/loot-tables/chests/useLootSettings.ts` (FR-005)
-- [ ] T032 [US2] Implement slider <-> numeric input sync for Per X in `src/features/loot-tables/chests/ChestsControls.tsx` (Story 2 scenario #2)
-- [ ] T033 [US2] Persist and restore Item Quantity/Item Rarity in `src/features/loot-tables/chests/useLootSettings.ts` (Story 2 scenario #3)
-- [ ] T034 [P] [US2] Add persistence unit tests for parse/serialize + defaults in `src/features/loot-tables/chests/settingsStorage.test.ts`
-
-**Checkpoint**: US2 persistence verified via reload.
+- [ ] T027 [US2] Define storage schema + defaults in `src/features/loot-tables/chests/settingsStorage.ts` (FR-005)
+- [ ] T028 [US2] Add `useLootSettings` hook with persistence in `src/features/loot-tables/chests/useLootSettings.ts` (FR-005)
+- [ ] T029 [US2] Sync slider + text input for Per X chests in `src/features/loot-tables/chests/ChestsControls.tsx` (Story 2 scenario #2)
+- [ ] T030 [US2] Persist and restore all four settings in `src/features/loot-tables/chests/useLootSettings.ts` (Story 2 scenarios #1 and #3)
+- [ ] T031 [US2] Clamp or reject invalid inputs (range enforcement) in `src/features/loot-tables/chests/settingsStorage.ts` (FR-004)
 
 ---
 
 ## Phase 5: User Story 3 — Maintain published chest loot data (Priority: P3)
 
-**Goal**: Maintainer runs one command to generate `public/data/loot_tables/index.json` and consolidated `public/data/loot_tables/chest_*.json` from VH sources.
+**Goal**: One repo command generates consolidated published chest files + index.
 
-**Independent Test**: Run the command, confirm outputs exist, thresholds consolidate correctly, and `_raw.json` is excluded.
+**Independent Test**:
+- Run `yarn run generate:loot-tables`.
+- Confirm `public/data/loot_tables/index.json` exists.
+- Confirm `public/data/loot_tables/chest_*.json` exists.
+- Confirm `_raw.json` sources are excluded (SC-006).
 
-### Implementation (US3)
-
-- [ ] T035 [P] [US3] Define source loot-table input types and parser in `transformer/loot_tables/minecraftLootTable.ts`
-- [ ] T036 [US3] Implement chest file discovery + `_raw` exclusion in `transformer/loot_tables/chests.ts` (FR-009, FR-010)
-- [ ] T037 [US3] Implement threshold grouping + segment range derivation in `transformer/loot_tables/chests.ts` (FR-011, FR-012, FR-017/FR-017a)
-- [ ] T038 [US3] Implement transform from source pools to tiered segment model in `transformer/loot_tables/chests.ts` (FR-013, FR-014, FR-015, FR-019)
-- [ ] T039 [US3] Implement index generation + write outputs into `public/data/loot_tables/` in `transformer/loot_tables/chests.ts` (FR-016, FR-018)
-- [ ] T040 [US3] Add repository command `yarn run generate:loot-tables` in `package.json` to run transformer build + execution
-- [ ] T041 [US3] Update quickstart command section in `specs/002-chest-loot-table/quickstart.md` to match the real script name
-
-### Unit tests (required by constitution for mapping)
-
-- [ ] T042 [P] [US3] Add segment consolidation unit tests (ranges + ordering) in `transformer/loot_tables/chests.test.ts` (FR-012)
-- [ ] T043 [P] [US3] Add `_raw` exclusion test in `transformer/loot_tables/chests.test.ts` (FR-010)
-- [ ] T044 [P] [US3] Add transform shape tests (roll/count ranges, weights preserved) in `transformer/loot_tables/chests.test.ts` (FR-014, FR-015)
-
-**Checkpoint**: US3 command produces publishable JSON and UI loads it.
+- [ ] T032 [P] [US3] Define source loot table input types in `transformer/loot_tables/minecraftLootTable.ts`
+- [ ] T033 [US3] Implement source scan + filter in `transformer/loot_tables/chests.ts` (FR-009, FR-010)
+- [ ] T034 [US3] Implement threshold grouping + segment range derivation in `transformer/loot_tables/chests.ts` (FR-011, FR-012, FR-017, FR-017a)
+- [ ] T035 [US3] Implement transform to tiered segment model in `transformer/loot_tables/chests.ts` (FR-013, FR-014, FR-015, FR-019)
+- [ ] T036 [US3] Implement output writing for chest files in `transformer/loot_tables/chests.ts` (FR-016)
+- [ ] T037 [US3] Implement index generation in `transformer/loot_tables/chests.ts` (FR-018)
+- [ ] T038 [US3] Wire the CLI entrypoint to run the transform in `transformer/bin/generate-loot-tables.ts` (User Story 3)
+- [ ] T039 [US3] Update docs with the real command in `specs/002-chest-loot-table/quickstart.md` (SC-005)
 
 ---
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T045 [P] Accessibility pass for controls (labels, keyboard nav, focus) in `src/features/loot-tables/chests/ChestsControls.tsx` (Constitution: WCAG intent)
-- [ ] T046 Add “no data” messaging for missing/empty index in `src/features/loot-tables/chests/ChestsPage.tsx` (Edge Case)
-- [ ] T047 [P] Add brief PR testing note template to `README.md` (Constitution: testing note)
-- [ ] T048 Run end-to-end local verification checklist update in `specs/002-chest-loot-table/quickstart.md`
+- [ ] T040 [P] Add accessible labels + keyboard focus handling in `src/features/loot-tables/chests/ChestsControls.tsx` (Constitution accessibility intent)
+- [ ] T041 Add explicit empty/error messaging in `src/features/loot-tables/chests/ChestsPage.tsx` (Edge Cases)
+- [ ] T042 [P] Add performance notes to `specs/002-chest-loot-table/quickstart.md` (SC-003/SC-003a/SC-003b)
 
 ---
 
 ## Dependencies & Execution Order
 
-### Story completion order
+### Phase dependencies
 
-- Setup → Foundational → US1 (MVP) → US2 → US3 → Polish
+- Setup (Phase 1) → Foundational (Phase 2) → User stories (Phases 3–5) → Polish
 
-### User story dependency graph
+### User story dependencies
 
-- US1 depends on Foundational sample data in `public/data/loot_tables/`
-- US2 depends on US1 UI existing (persistence wraps the same controls)
-- US3 can be developed in parallel with US1/US2 after Foundational, but is required to satisfy maintainer workflow (SC-005/SC-006)
-
----
-
-## Parallel Execution Examples
-
-### US1 parallel work
-
-- [P] `src/features/loot-tables/chests/expectedValue.ts` math (T021)
-- [P] `src/features/loot-tables/chests/ChestsControls.tsx` controls (T024)
-- [P] `src/features/loot-tables/chests/ChestsTable.tsx` table (T023)
-
-### US3 parallel work
-
-- [P] `transformer/loot_tables/minecraftLootTable.ts` parser (T035)
-- [P] `transformer/loot_tables/chests.test.ts` test scaffolding (T042)
+- US1 depends on Phase 2 sample data (or US3-generated data) to render anything.
+- US2 depends on US1’s settings controls existing.
+- US3 can be done after Phase 2 in parallel with US1/US2, but is required to meet SC-005/SC-006.
 
 ---
 
-## Implementation Strategy
+## Parallel execution examples
 
-### MVP scope (recommended)
+### US1
 
-- Complete Phase 1 + Phase 2 + Phase 3 (US1) using sample data in `public/data/loot_tables/`.
+- T017 [P] [US1] `src/features/loot-tables/chests/rarity.ts`
+- T018 [P] [US1] `src/features/loot-tables/chests/quantity.ts`
+- T019 [P] [US1] `src/features/loot-tables/chests/expectedValue.ts`
+- T021 [P] [US1] `src/features/loot-tables/chests/ChestsControls.tsx`
+- T023 [P] [US1] `src/features/loot-tables/chests/ChestsTable.tsx`
+
+### US3
+
+- T032 [P] [US3] `transformer/loot_tables/minecraftLootTable.ts`
+- T033 [US3]–T037 [US3] `transformer/loot_tables/chests.ts`
+
+---
+
+## Implementation strategy
+
+### MVP scope
+
+- Phase 1 + Phase 2 + Phase 3 (US1) using sample `public/data/loot_tables/` data.
 
 ### Incremental delivery
 
-- US1 first for user-facing value.
-- US2 next to satisfy persistence requirements.
-- US3 last to provide maintainable, repeatable data publishing.
+- Add US2 persistence.
+- Add US3 generator command.
