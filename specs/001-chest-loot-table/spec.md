@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "Loot Table → Chests page + transform vault chest loot tables into flattened public JSON; settings persist; level affects results"
 
+## Clarifications
+
+### Session 2026-02-11
+
+- Q: How should “how many you get if you loot X chests” be computed from the VH/Minecraft loot tables? → A: Exact analytic expected value (implement loot-table probability math precisely during transform).
+- Q: What should the published loot-table file format look like? → A: One file per chest type containing level ranges + a flattened item list per range; plus a single index listing which chest tables to display.
+- Q: What should the Per X chests control’s range/default be? → A: 1-10000 def100
+- Q: How should the UI display/round the “expected amount per X chests”? → A: Show up to 2 decimals; trim trailing zeros.
+- Q: When flattening loot for a level range, if the same itemId appears multiple times, how should it be represented? → A: Keep separate rows but group visually by itemId (UI aggregates).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View chest loot outcomes (Priority: P1)
@@ -56,7 +66,7 @@ As a maintainer, I can run a single repository command that extracts the source 
 
 - When there is no chest loot table data available (missing index or empty index).
 - When a selected Level falls outside all defined level ranges for a chest type.
-- When a chest loot table contains an item more than once across different internal pools (the flattened view must combine them deterministically).
+- When a chest loot table contains an item more than once across different internal pools (the UI must aggregate per itemId deterministically).
 - When X chests is set to its minimum or maximum value.
 
 ## Requirements *(mandatory)*
@@ -64,20 +74,21 @@ As a maintainer, I can run a single repository command that extracts the source 
 ### Functional Requirements
 
 - **FR-001**: The site MUST provide a menu entry at **Loot Table → Chests** that navigates to the chest loot table page.
-- **FR-002**: The Chests page MUST load a published loot table index and render all index entries flagged for display.
+- **FR-002**: The Chests page MUST load a loot table index from `public/data/loot_tables/index.json` and render all index entries flagged for display.
 - **FR-003**: For each displayed chest type, the page MUST show loot rows containing:
   - Chest type identifier (and/or display name)
   - Item identifier (human-readable label if available)
   - Expected amount for the current “per X chests” setting
 - **FR-004**: The page MUST provide user-configurable options:
-  - **Per X chests**: slider plus text input, kept in sync
+  - **Per X chests**: slider plus text input, kept in sync (min 1, max 10000, default 100)
   - **Level**: integer from 0 to 100
   - **Item Rarity**: percentage from 0% to 300%
   - **Item Quantity**: percentage from 0% to 300%
 - **FR-005**: All options MUST be persisted locally and restored on next visit.
 - **FR-006**: Changing **Per X chests** MUST update displayed expected amounts based on multiplication by X.
+- **FR-006a**: Displayed expected amounts MUST be formatted with up to 2 decimal places and trailing zeros trimmed (e.g., `1`, `1.2`, `1.23`).
 - **FR-007**: For this feature version, only **Level** MUST change which loot data is used (by selecting the correct level range for each chest type). Item Rarity and Item Quantity MUST be stored/restored but MUST NOT change results yet.
-- **FR-008**: The system MUST load published chest loot tables (as referenced by the index) and select the applicable level range based on the current Level.
+- **FR-008**: The system MUST load chest loot tables from `public/data/loot_tables/chest_[name].json` (or equivalent index-provided path) and select the applicable level range based on the current Level.
 
 - **FR-009**: The transform step MUST scan the repository’s source loot table directory and extract all loot tables whose file names contain `chest`.
 - **FR-010**: The transform step MUST skip any source files ending with `_raw.json`.
@@ -85,6 +96,12 @@ As a maintainer, I can run a single repository command that extracts the source 
 - **FR-012**: The transform step MUST derive level ranges using the numeric suffix as the inclusive minimum level, and the next threshold minus 1 as the inclusive maximum level (with the last range extending through level 100).
 - **FR-013**: Output loot tables MUST be flattened so that each chest-level-range provides a single list of item rows suitable for direct calculation.
 - **FR-014**: For each item row in a flattened list, the output MUST include an “expected items per chest” value (a non-negative number) that can be multiplied by X to produce “expected items per X chests”.
+- **FR-015**: The transform step MUST compute “expected items per chest” using exact analytic expected-value math derived from the source loot table rules (not simulation).
+- **FR-016**: The transform step MUST output one consolidated published file per chest type.
+- **FR-017**: Each consolidated chest file MUST contain a list of level ranges, each with a flattened list of loot rows.
+- **FR-018**: The index file MUST enumerate all consolidated chest files intended for display, including a stable identifier and the relative path to the data file.
+- **FR-019**: The published flattened loot rows MAY contain duplicate `itemId` values.
+- **FR-020**: The UI MUST group rows by `itemId` for display and calculations, aggregating expected values by summing across rows with the same `itemId`.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -93,6 +110,11 @@ As a maintainer, I can run a single repository command that extracts the source 
 - **Chest Loot Table**: A published, consolidated definition of a chest type’s loot across level ranges.
 - **Level Range**: A minimum and maximum level boundary with an associated flattened loot row list.
 - **Loot Row**: A single item entry for display and calculations, including item identifier and expected items per chest.
+
+### Published Data Shape (informative)
+
+- **Index entry**: `{ id, type, name?, file, show }`
+- **Chest file**: `{ id, ranges: [{ minLevel, maxLevel, items: [{ itemId, expectedPerChest, source? }] }] }`
 
 ## Success Criteria *(mandatory)*
 
