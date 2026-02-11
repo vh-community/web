@@ -28,10 +28,11 @@ requirement for public-facing community content and reduces support burden.
 ### Minimal Tooling & Reproducible Builds
 
 Build and development tooling MUST be minimal and reproducible. The project uses
-Vite for local development and production builds, TypeScript for static typing,
-and Biome for linting/formatting. CI pipelines MUST reproduce `yarn run build` and
-`yarn run lint` results. Rationale: predictable tooling reduces onboarding
-costs and prevents environment-specific failures.
+Vite for local development and production builds, React + TypeScript for UI and
+static typing, Tailwind CSS for styling, and Biome for linting/formatting. CI
+pipelines MUST reproduce `yarn run build` and `yarn run lint` results. Rationale:
+predictable tooling reduces onboarding costs and prevents environment-specific
+failures.
 
 ### Enhancement & Performance
 
