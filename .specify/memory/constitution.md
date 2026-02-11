@@ -1,7 +1,7 @@
 <!--
 Sync Impact Report
 
-- Version change: 0.2.0 -> 0.3.0
+- Version change: 0.3.0 -> 0.3.1
 - Modified principles: content updated ->
 	- Quality Gates & Testing -> Unit tests only, colocated; no contract/integration tests
 	- Constraints & Standards -> Root scripts/ folder for mapping + generation into public/
@@ -77,21 +77,21 @@ history.
 - Security: Dependencies MUST be reviewed for known vulnerabilities before
 	large upgrades; secrets MUST not be committed.
 - Vault Hunters extracted configuration: This project will rely on extracted
-	configuration from the Vault Hunters Minecraft Java Mod to generate site
-	content. Raw extracted mod configuration files MUST NEVER be committed to the
-	repository. Instead, scripts (to be added under a tooling directory) will be
-	used to convert the extracted configs into simplified JSON page structures
-	consumable by the site. The exact extraction and transformation workflow is
-	TODO and MUST be documented before any automation is merged. Until then,
-	contributors MUST NOT commit any extracted mod config. Rationale: protect
-	license, privacy, and repository hygiene while enabling reproducible content
-	generation.
+ 	configuration from the Vault Hunters Minecraft Java Mod to generate site
+ 	content. Raw extracted mod configuration files MUST NEVER be committed to the
+ 	repository. Instead, transformer in the root `transformer/` folder will be used to
+ 	convert the extracted configs into simplified JSON page structures consumable
+ 	by the site. The exact extraction and transformation workflow is TODO and MUST
+ 	be documented before any automation is merged. Until then, contributors MUST
+ 	NOT commit any extracted mod config. Rationale: protect license, privacy, and
+ 	repository hygiene while enabling reproducible content generation.
 
-- Repository layout for data generation: A root `scripts/` folder SHOULD contain
+- Repository layout for data generation: A root `transformer/` folder SHOULD contain
 	the mapping/transformation scripts that convert extracted Vault Hunters models
 	into simplified domain models and JSON page structures. Generated artifacts
 	intended for the website MUST be written into `public/` (or another documented
-	build output directory) and treated as derived data.
+	build output directory) and treated as derived data. The original configuration
+	files will be stored in `vh-configs/` which is part of `.gitignore`.
 
 ## Development Workflow
 
@@ -123,4 +123,4 @@ Versioning policy:
 - MINOR: New principle/section added or material expansion of guidance.
 - PATCH: Clarifications, wording fixes, or non-semantic refinements.
 
-**Version**: 0.3.0 | **Ratified**: 2026-02-11 | **Last Amended**: 2026-02-11
+**Version**: 0.3.1 | **Ratified**: 2026-02-11 | **Last Amended**: 2026-02-11
