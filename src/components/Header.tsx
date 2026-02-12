@@ -2,7 +2,7 @@
  * Reusable site header component (FR-006).
  * Contains logo + site title and description.
  */
-export default function Header() {
+export function Header() {
 	return (
 		<header className="mx-auto flex w-full max-w-4xl items-center gap-3 px-4 py-6">
 			<a href="#/" className="shrink-0">
