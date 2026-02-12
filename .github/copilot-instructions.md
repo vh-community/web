@@ -12,7 +12,7 @@
 ## Data flow (loot tables)
 - Generator: `yarn generate:loot-tables` compiles/runs `transformer/bin/generate-loot-tables.ts`.
 - Source → output: reads `the_vault/gen/1.0/loot_tables/` and writes `public/data/loot_tables/index.json` + `public/data/loot_tables/chest_*.json`.
-- UI loads data in `src/features/loot-tables/chests/ChestsPage.tsx` via `fetchJson<T>()` from `src/features/loot-tables/shared/fetchJson.ts`.
+- UI loads data in `src/loot-tables/chests/ChestsPage.tsx` via `fetchJson<T>()` from `src/loot-tables/shared/fetchJson.ts`.
 
 ## Commands (use Yarn; `yarn.lock` is present)
 - Dev server: `yarn dev`
@@ -24,4 +24,4 @@
 ## Repo-specific conventions
 - Formatting is enforced by Biome; indentation is **tabs** in TS/TSX (see `biome.json`). Prefer double quotes and trailing commas.
 - Tailwind CSS is integrated via `@tailwindcss/vite` and `@import "tailwindcss";` in `src/index.css` (no Tailwind config file).
-- Settings persistence uses versioned localStorage keys; for chests: `vh.community.lootTables.chests.settings.v1` in `src/features/loot-tables/chests/settingsStorage.ts`.
+- Settings persistence uses versioned localStorage keys; for chests: `vh.community.lootTables.chests.settings.v1` in `src/loot-tables/chests/settingsStorage.ts`.
