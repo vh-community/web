@@ -6,6 +6,18 @@ export function Footer() {
 		<footer className="mx-auto w-full max-w-4xl px-4 pb-10">
 			<div className="flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-white/80 sm:flex-row sm:items-center sm:justify-between">
 				<p>Made by the community.</p>
+				<p>
+					Not affiliated with{" "}
+					<a
+						href="https://vaulthunters.gg"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+					>
+						official Vault Hunters
+					</a>
+					.
+				</p>
 				<a
 					href="https://github.com/vh-community/web"
 					target="_blank"

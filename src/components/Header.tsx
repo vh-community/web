@@ -15,7 +15,7 @@ export function Header() {
 				/>
 			</a>
 			<div className="min-w-0">
-				<h1 className="text-balance text-xl font-semibold leading-tight sm:text-2xl">
+				<h1 className="text-balance leading-tight">
 					<a href="#/" className="hover:underline">
 						Vault Hunters Community
 					</a>
