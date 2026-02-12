@@ -19,14 +19,93 @@ interface ChestsControlsProps {
 	onChange: (settings: LootSettings) => void
 }
 
+interface SliderNumberFieldProps {
+	id: string
+	label: string
+	value: number
+	min: number
+	max: number
+	step: number
+	unit?: string
+	onValueChange: (raw: string) => void
+	onValueBlur: (raw: string) => void
+}
+
+function SliderNumberField({
+	id,
+	label,
+	value,
+	min,
+	max,
+	step,
+	unit,
+	onValueChange,
+	onValueBlur,
+}: SliderNumberFieldProps) {
+	const labelId = `${id}-label`
+	const sliderId = `${id}-slider`
+
+	return (
+		<div className="rounded-lg border border-white/10 bg-black/20 p-3">
+			<div className="flex items-center justify-between gap-3">
+				<label
+					id={labelId}
+					htmlFor={id}
+					className="text-sm font-medium text-white/90"
+				>
+					{label}
+				</label>
+
+				<div className="flex items-center gap-1">
+					<input
+						type="number"
+						id={id}
+						min={min}
+						max={max}
+						step={step}
+						value={value}
+						onChange={(e) => onValueChange(e.target.value)}
+						onBlur={(e) => onValueBlur(e.target.value)}
+						className="w-24 rounded-md border border-white/15 bg-black/40 px-2 py-1.5 text-right text-sm tabular-nums text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+					/>
+					{unit ? (
+						<span className="text-xs tabular-nums text-white/60">{unit}</span>
+					) : null}
+				</div>
+			</div>
+
+			<input
+				type="range"
+				id={sliderId}
+				min={min}
+				max={max}
+				step={step}
+				value={value}
+				onChange={(e) => onValueChange(e.target.value)}
+				className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-white"
+				aria-labelledby={labelId}
+			/>
+
+			<div className="mt-1 flex justify-between text-[11px] tabular-nums text-white/40">
+				<span>
+					{min}
+					{unit ?? ""}
+				</span>
+				<span>
+					{max}
+					{unit ?? ""}
+				</span>
+			</div>
+		</div>
+	)
+}
+
 /**
  * Settings controls for the Chests loot table page.
  * - Per X chests: slider + numeric text input, synced (min 1, max 10000, step 1)
- * - Level: numeric input 0–100
- * - Item Rarity: percentage input 0–300
- * - Item Quantity: percentage input 0–300
- *
- * All inputs have visible labels, consistent spacing, and keyboard accessibility.
+ * - Level: slider + numeric text input, synced (min 0, max 100, step 1)
+ * - Item Rarity: slider + numeric text input, synced (min 0, max 300, step 1)
+ * - Item Quantity: slider + numeric text input, synced (min 0, max 300, step 1)
  */
 export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 	const handleNumericChange = useCallback(
@@ -44,7 +123,6 @@ export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 		(field: keyof LootSettings, min: number, max: number, raw: string) => {
 			const parsed = Number.parseInt(raw, 10)
 			if (Number.isNaN(parsed) || raw.trim() === "") {
-				// Revert to last valid value — no change needed since state holds the valid value
 				return
 			}
 			const clamped = Math.max(min, Math.min(max, parsed))
@@ -56,114 +134,60 @@ export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 	)
 
 	return (
-		<fieldset className="mb-6">
+		<fieldset className="mb-6 rounded-xl border border-white/10 bg-black/15 p-4">
 			<legend className="sr-only">Loot table settings</legend>
-			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-				{/* Per X chests */}
-				<div className="flex flex-col gap-1.5">
-					<label
-						htmlFor="perXChests"
-						className="text-sm font-medium text-white/90"
-					>
-						Per X chests
-					</label>
-					<div className="flex items-center gap-2">
-						<input
-							type="range"
-							id="perXChests-slider"
-							min={1}
-							max={10000}
-							step={1}
-							value={settings.perXChests}
-							onChange={(e) =>
-								handleNumericChange("perXChests", 1, 10000, e.target.value)
-							}
-							className="h-2 flex-1 cursor-pointer appearance-none rounded-lg bg-white/10 accent-white"
-							aria-label="Per X chests slider"
-						/>
-						<input
-							type="number"
-							id="perXChests"
-							min={1}
-							max={10000}
-							step={1}
-							value={settings.perXChests}
-							onChange={(e) =>
-								handleNumericChange("perXChests", 1, 10000, e.target.value)
-							}
-							onBlur={(e) => handleBlur("perXChests", 1, 10000, e.target.value)}
-							className="w-20 rounded-md border border-white/15 bg-black/40 px-2 py-1.5 text-center text-sm text-white focus:outline-none focus:ring-2 focus:ring-white/30"
-						/>
-					</div>
-				</div>
+			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+				<SliderNumberField
+					id="perXChests"
+					label="Per X chests"
+					value={settings.perXChests}
+					min={1}
+					max={10000}
+					step={1}
+					onValueChange={(raw) =>
+						handleNumericChange("perXChests", 1, 10000, raw)
+					}
+					onValueBlur={(raw) => handleBlur("perXChests", 1, 10000, raw)}
+				/>
 
-				{/* Level */}
-				<div className="flex flex-col gap-1.5">
-					<label htmlFor="level" className="text-sm font-medium text-white/90">
-						Level
-					</label>
-					<input
-						type="number"
-						id="level"
-						min={0}
-						max={100}
-						step={1}
-						value={settings.level}
-						onChange={(e) =>
-							handleNumericChange("level", 0, 100, e.target.value)
-						}
-						onBlur={(e) => handleBlur("level", 0, 100, e.target.value)}
-						className="rounded-md border border-white/15 bg-black/40 px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white/30"
-					/>
-				</div>
+				<SliderNumberField
+					id="level"
+					label="Level"
+					value={settings.level}
+					min={0}
+					max={100}
+					step={1}
+					onValueChange={(raw) => handleNumericChange("level", 0, 100, raw)}
+					onValueBlur={(raw) => handleBlur("level", 0, 100, raw)}
+				/>
 
-				{/* Item Rarity */}
-				<div className="flex flex-col gap-1.5">
-					<label
-						htmlFor="itemRarity"
-						className="text-sm font-medium text-white/90"
-					>
-						Item Rarity (%)
-					</label>
-					<input
-						type="number"
-						id="itemRarity"
-						min={0}
-						max={300}
-						step={1}
-						value={settings.itemRarityPct}
-						onChange={(e) =>
-							handleNumericChange("itemRarityPct", 0, 300, e.target.value)
-						}
-						onBlur={(e) => handleBlur("itemRarityPct", 0, 300, e.target.value)}
-						className="rounded-md border border-white/15 bg-black/40 px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white/30"
-					/>
-				</div>
+				<SliderNumberField
+					id="itemRarity"
+					label="Item Rarity"
+					value={settings.itemRarityPct}
+					min={0}
+					max={300}
+					step={1}
+					unit="%"
+					onValueChange={(raw) =>
+						handleNumericChange("itemRarityPct", 0, 300, raw)
+					}
+					onValueBlur={(raw) => handleBlur("itemRarityPct", 0, 300, raw)}
+				/>
 
-				{/* Item Quantity */}
-				<div className="flex flex-col gap-1.5">
-					<label
-						htmlFor="itemQuantity"
-						className="text-sm font-medium text-white/90"
-					>
-						Item Quantity (%)
-					</label>
-					<input
-						type="number"
-						id="itemQuantity"
-						min={0}
-						max={300}
-						step={1}
-						value={settings.itemQuantityPct}
-						onChange={(e) =>
-							handleNumericChange("itemQuantityPct", 0, 300, e.target.value)
-						}
-						onBlur={(e) =>
-							handleBlur("itemQuantityPct", 0, 300, e.target.value)
-						}
-						className="rounded-md border border-white/15 bg-black/40 px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white/30"
-					/>
-				</div>
+				<SliderNumberField
+					id="itemQuantity"
+					label="Item Quantity"
+					value={settings.itemQuantityPct}
+					min={0}
+					max={300}
+					step={1}
+					unit="%"
+					onValueChange={(raw) =>
+						handleNumericChange("itemQuantityPct", 0, 300, raw)
+					}
+					onValueBlur={(raw) => handleBlur("itemQuantityPct", 0, 300, raw)}
+				/>
 			</div>
 		</fieldset>
 	)

@@ -28,3 +28,6 @@ transformer/dist/
 
 # VH Configs
 the_vault/
+
+# Operator workflow state
+.operator/
