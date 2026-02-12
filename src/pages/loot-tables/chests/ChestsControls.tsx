@@ -44,6 +44,7 @@ function SliderNumberField({
 }: SliderNumberFieldProps) {
 	const labelId = `${id}-label`
 	const sliderId = `${id}-slider`
+	const fillPct = ((value - min) / (max - min)) * 100
 
 	return (
 		<div className="rounded-lg border border-white/10 bg-black/20 p-3">
@@ -66,7 +67,7 @@ function SliderNumberField({
 						value={value}
 						onChange={(e) => onValueChange(e.target.value)}
 						onBlur={(e) => onValueBlur(e.target.value)}
-						className="w-24 rounded-md border border-white/15 bg-black/40 px-2 py-1.5 text-right text-sm tabular-nums text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+						className="no-spin w-24 rounded-md border border-white/15 bg-black/40 px-2 py-1.5 text-right text-sm tabular-nums text-white focus:border-[#ffa800]/50 focus:outline-none focus:ring-2 focus:ring-[#ffa800]/40"
 					/>
 					{unit ? (
 						<span className="text-xs tabular-nums text-white/60">{unit}</span>
@@ -82,7 +83,10 @@ function SliderNumberField({
 				step={step}
 				value={value}
 				onChange={(e) => onValueChange(e.target.value)}
-				className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-white"
+				className="slider-gold mt-2 h-4 w-full cursor-pointer appearance-none rounded-full bg-white/10"
+				style={{
+					background: `linear-gradient(to right, var(--slider-gold) ${fillPct}%, rgba(255,255,255,0.1) ${fillPct}%)`,
+				}}
 				aria-labelledby={labelId}
 			/>
 
