@@ -12,15 +12,23 @@
 		}
 	},
 	"$defs": {
+		"range": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["min", "max"],
+			"properties": {
+				"min": { "type": "integer" },
+				"max": { "type": "integer" }
+			}
+		},
 		"itemPool": {
 			"type": "object",
 			"additionalProperties": false,
-			"required": ["id", "weight", "min", "max"],
+			"required": ["id", "weight", "stackSize"],
 			"properties": {
 				"id": { "type": "string", "minLength": 1 },
 				"weight": { "type": "number", "minimum": 0 },
-				"min": { "type": "integer" },
-				"max": { "type": "integer" }
+				"stackSize": { "$ref": "#/$defs/range" }
 			}
 		},
 		"levelPool": {
@@ -39,16 +47,16 @@
 			"type": "object",
 			"additionalProperties": false,
 			"required": [
-				"minLevel",
-				"maxLevel",
+				"level",
+				"rolls",
 				"common",
 				"rare",
 				"epic",
 				"omega"
 			],
 			"properties": {
-				"minLevel": { "type": "integer", "minimum": 0 },
-				"maxLevel": { "type": "integer", "minimum": 0 },
+				"level": { "$ref": "#/$defs/range" },
+				"rolls": { "$ref": "#/$defs/range" },
 				"common": { "$ref": "#/$defs/levelPool" },
 				"rare": { "$ref": "#/$defs/levelPool" },
 				"epic": { "$ref": "#/$defs/levelPool" },

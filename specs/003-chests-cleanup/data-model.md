@@ -4,7 +4,7 @@ This feature standardizes the data contracts for published loot-table JSON and t
 
 ## Entities
 
-### JsonIndexEntry
+### JsonIndex / JsonIndexEntry
 
 Represents one published JSON file.
 
@@ -14,7 +14,9 @@ Represents one published JSON file.
 Proposed shape:
 
 ```ts
-export interface JsonIndex {
+export type JsonIndex = JsonIndexEntry[]
+
+export interface JsonIndexEntry {
 	id: string
 	type: "chest"
 	file: string
@@ -23,6 +25,7 @@ export interface JsonIndex {
 
 Notes:
 - `name` / `show` are removed; UI derives a display label from `id`.
+- The order of entries in `JsonIndex` is significant: it defines the order chest sections are displayed.
 
 ### TieredLootTable (Chest)
 
@@ -41,9 +44,14 @@ export interface TieredLootTable {
 	levels: TieredLootTableLevel[]
 }
 
+export interface Range {
+	min: number
+	max: number
+}
+
 export interface TieredLootTableLevel {
-	minLevel: number
-	maxLevel: number
+	level: Range
+	rolls: Range
 	common: LevelPool
 	rare: LevelPool
 	epic: LevelPool
@@ -58,16 +66,16 @@ export interface LevelPool {
 export interface ItemPool {
 	id: string
 	weight: number
-	min: number
-	max: number
+	stackSize: Range
 }
 ```
 
 Notes:
 
 Validation rules (generator responsibility):
-- `minLevel <= maxLevel`
-- `min <= max` for each `ItemPool`
+- `level.min <= level.max` for each `TieredLootTableLevel`
+- `rolls.min <= rolls.max` for each `TieredLootTableLevel`
+- `stackSize.min <= stackSize.max` for each `ItemPool`
 - All weights are non-negative numbers
 
 ## Derived/UX Entities
@@ -91,6 +99,12 @@ const CHEST_CATEGORY_ORDER = [
 Mapping rule:
 - If `id` equals `<category>_chest`, map to that category.
 - Unknown ids are uncategorized and appear after known categories.
+
+### Chest Display Order
+
+Chest sections are rendered in the exact order they appear in `JsonIndex`.
+
+The generator is responsible for emitting `index.json` entries in the required category order (and appending unknown chests after known categories in a stable order).
 
 ### Item Display Name
 

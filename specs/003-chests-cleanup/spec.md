@@ -16,7 +16,7 @@ This spec is based on the amendment list captured in `specs/003-chests-cleanup/a
 - Q: What is the exact rule for concise generated chest filenames? → A: Remove `_chest` only when it is a trailing suffix of the chest id.
 - Q: Where should the canonical loot table model live, and how should the transformer consume it? → A: Canonical model lives in `src/models/tieredLootTable.ts` and the transformer imports it directly (no type duplication).
 - Q: What model should define the published JSON index format? → A: Use `src/models/jsonIndex.ts` as the canonical model; the transformer imports and emits `public/data/loot_tables/index.json` using this type.
-- Q: Can we change the `TieredLootTable` interface shape while unifying models? → A: No. `src/models/tieredLootTable.ts` is the canonical contract and MUST remain unchanged; generator output and UI consumption MUST adapt to its existing field names and structure.
+- Q: Can we change the `TieredLootTable` interface shape while unifying models? → A: `src/models/tieredLootTable.ts` is the canonical contract; generator output and UI consumption MUST stay aligned with its field names and structure.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -125,7 +125,8 @@ As a maintainer, I can regenerate published chest loot tables and evolve the cod
 
 ## Assumptions
 
-- Chest category ordering is derived from chest identifiers and/or display names; unknown chests are treated as “uncategorized” and appear after the known categories.
+- Chest display order is defined by the order of entries in `public/data/loot_tables/index.json` (the `JsonIndex` array). The generator is responsible for emitting entries in the required category order.
+- Unknown/uncategorized chests (if any) are appended after the known categories in a stable order (alphabetical by chest id).
 - The “Treasure chest” is identifiable in source loot tables and can be excluded deterministically during generation.
 - “Friendly item names” are derived from item ids by: removing any namespace prefix (text before `:`), splitting on `_`, and title-casing words (e.g., `minecraft:diamond_sword` → “Diamond Sword”).
 - Concise generated filenames are derived from the chest id by removing a trailing `_chest` suffix when present.
@@ -143,7 +144,7 @@ As a maintainer, I can regenerate published chest loot tables and evolve the cod
 
 ## Key Entities *(include if feature involves data)*
 
-- **Chest Category Order**: The fixed ordering list used to present chest sections.
+- **Chest Index Order**: The entry order in `public/data/loot_tables/index.json` which defines the chest render order.
 - **Chest Search Query**: User-entered text used to filter chest sections by name.
 - **Item Display Name**: The user-friendly representation of an item id.
 - **Published Chest Loot Files**: Static JSON files used by the Chests page.
@@ -158,6 +159,6 @@ As a maintainer, I can regenerate published chest loot tables and evolve the cod
 ### Measurable Outcomes
 
 - **SC-001**: Users can locate a specific chest via search and see its loot section within 10 seconds.
-- **SC-002**: Chest sections always render in the specified category order, with any unknown chests consistently placed after known categories.
+- **SC-002**: Chest sections always render in the specified category order, with any unknown chests consistently placed after known categories (as defined by index entry order).
 - **SC-003**: Item labels are readable and consistently formatted (e.g., `minecraft:diamond_sword` → “Diamond Sword”) across all displayed results.
 - **SC-004**: Running the loot-table generation command produces the expected published JSON outputs and does not introduce new transformer build output files that would be committed.

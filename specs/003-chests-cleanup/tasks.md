@@ -40,14 +40,14 @@ description: "Task list for implementing 003-chests-cleanup"
 - [ ] T007 Update route imports to new page-based path in src/App.tsx
 
 - [ ] T008 Update the canonical index contract to represent the index file as an array of entries in src/models/jsonIndex.ts
-- [ ] T009 Refactor chest generator to use canonical models and new rules in transformer/loot_tables/chests.ts (TieredLootTable + JsonIndex, concise filenames, skip treasure)
+- [ ] T009 Refactor chest generator to use canonical models and new rules in transformer/loot_tables/chests.ts (TieredLootTable + JsonIndex, concise filenames using suffix-only `_chest` removal, skip treasure, emit index entries in display order)
 - [ ] T010 Align generator entrypoint with the refactor in transformer/bin/generate-loot-tables.ts
 
 - [ ] T011 Update Chests page data loading to use canonical models in src/pages/loot-tables/chests/ChestsPage.tsx (load JsonIndex entries and fetch TieredLootTable)
 - [ ] T012 Update computation pipeline to consume TieredLootTable in src/pages/loot-tables/chests/expectedValue.ts, src/pages/loot-tables/chests/quantity.ts, src/pages/loot-tables/chests/rarity.ts, src/pages/loot-tables/chests/aggregateByItemId.ts
 - [ ] T013 Remove deprecated published model types in src/models/published_chest_loot_table.ts and update remaining imports to src/models/tieredLootTable.ts
 
-- [ ] T014 Regenerate and commit published loot table outputs under public/data/loot_tables/ (rename chest files, remove treasure, update index.json)
+- [ ] T014 Regenerate and commit published loot table outputs under public/data/loot_tables/ (rename chest files using suffix-only `_chest` removal, remove treasure, update index.json ordering)
 - [ ] T015 Keep JSON schema docs aligned with the final published output in specs/003-chests-cleanup/contracts/jsonIndex.schema.json and specs/003-chests-cleanup/contracts/tieredLootTable.schema.json
 - [ ] T016 Verify no OpenAPI contract exists and remove it if found; document the confirmation in specs/003-chests-cleanup/contracts/README.md
 
@@ -61,10 +61,10 @@ description: "Task list for implementing 003-chests-cleanup"
 
 **Independent Test**: Open `#/loot-table/chests` and verify: per-chest sections render, ordering is Wooden→Living→Gilded→Ornate→Hardened→Flesh→Enigma, search filters sections, Treasure is not visible.
 
-- [ ] T017 [P] [US1] Add chest category ordering helper in src/pages/loot-tables/chests/chestCategory.ts
-- [ ] T018 [US1] Sort chest sections using the required category order in src/pages/loot-tables/chests/ChestsPage.tsx
+- [ ] T017 [US1] Render chest sections in JsonIndex entry order (no additional UI-side sorting) in src/pages/loot-tables/chests/ChestsPage.tsx
+- [ ] T018 [US1] Ensure JsonIndex entry order matches the required category order (Wooden → Living → Gilded → Ornate → Hardened → Flesh → Enigma) in transformer/loot_tables/chests.ts
 - [ ] T019 [US1] Render each chest as its own section with a visible header in src/pages/loot-tables/chests/ChestsTable.tsx
-- [ ] T020 [US1] Add chest search input and filter logic (including “no matches” state) in src/pages/loot-tables/chests/ChestsPage.tsx
+- [ ] T020 [US1] Add chest search input and filter logic (including “no matches” state); query matches both derived display label and raw chest id in src/pages/loot-tables/chests/ChestsPage.tsx
 - [ ] T021 [US1] Defensively exclude Treasure from rendering even if present in data in src/pages/loot-tables/chests/ChestsPage.tsx
 - [ ] T022 [US1] Make settings controls consistent and accessible (labels/spacing/keyboard) in src/pages/loot-tables/chests/ChestsControls.tsx
 
@@ -144,7 +144,7 @@ graph TD
 
 ### Parallel Example: User Story 1
 
-- T017 can be implemented in parallel with other non-overlapping work because it is isolated to src/pages/loot-tables/chests/chestCategory.ts
+- (No dedicated parallelizable helper task; chest ordering comes from JsonIndex order.)
 
 ### Parallel Example: User Story 2
 
