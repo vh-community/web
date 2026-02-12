@@ -90,7 +90,7 @@ function SliderNumberField({
 				aria-labelledby={labelId}
 			/>
 
-			<div className="mt-1 flex justify-between text-[11px] tabular-nums text-white/40">
+			<div className="mt-1 flex justify-between text-xs tabular-nums text-white/40">
 				<span>
 					{min}
 					{unit ?? ""}
