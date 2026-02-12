@@ -2,7 +2,6 @@
 
 ## Next up
 
-  Space should be treated as "or" operator.
 - Improve UI for controls
 - Increase font size
 
