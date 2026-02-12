@@ -1,0 +1,447 @@
+{
+  "name": "wooden_chest",
+  "levels": [
+    {
+      "level": {
+        "min": 0,
+        "max": 19
+      },
+      "rolls": {
+        "min": 12,
+        "max": 15
+      },
+      "common": {
+        "weight": 70,
+        "items": [
+          {
+            "id": "the_vault:wooden_chunk",
+            "weight": 14,
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          },
+          {
+            "id": "the_vault:sandy_rocks",
+            "weight": 12,
+            "count": {
+              "min": 1,
+              "max": 2
+            }
+          },
+          {
+            "id": "the_vault:vault_sweets",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:driftwood",
+            "weight": 4,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:vault_plating",
+            "weight": 4,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "rare": {
+        "weight": 20,
+        "items": [
+          {
+            "id": "the_vault:magic_silk",
+            "weight": 6,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:carbon_nugget",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          },
+          {
+            "id": "the_vault:driftwood",
+            "weight": 14,
+            "count": {
+              "min": 1,
+              "max": 2
+            }
+          },
+          {
+            "id": "the_vault:vault_plating",
+            "weight": 6,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "epic": {
+        "weight": 8,
+        "items": [
+          {
+            "id": "minecraft:shulker_shell",
+            "weight": 2,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:vault_essence",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:silver_scrap",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "omega": {
+        "weight": 2,
+        "items": [
+          {
+            "id": "the_vault:wooden_chest_scroll",
+            "weight": 1,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:bounty_pearl",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "level": {
+        "min": 20,
+        "max": 29
+      },
+      "rolls": {
+        "min": 12,
+        "max": 15
+      },
+      "common": {
+        "weight": 70,
+        "items": [
+          {
+            "id": "the_vault:wooden_chunk",
+            "weight": 14,
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          },
+          {
+            "id": "the_vault:sandy_rocks",
+            "weight": 12,
+            "count": {
+              "min": 1,
+              "max": 2
+            }
+          },
+          {
+            "id": "the_vault:vault_sweets",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:driftwood",
+            "weight": 4,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:vault_plating",
+            "weight": 4,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "rare": {
+        "weight": 20,
+        "items": [
+          {
+            "id": "the_vault:magic_silk",
+            "weight": 6,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:carbon_nugget",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          },
+          {
+            "id": "the_vault:driftwood",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 2
+            }
+          },
+          {
+            "id": "the_vault:vault_plating",
+            "weight": 6,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "epic": {
+        "weight": 8,
+        "items": [
+          {
+            "id": "minecraft:shulker_shell",
+            "weight": 2,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:vault_essence",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:silver_scrap",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "omega": {
+        "weight": 2,
+        "items": [
+          {
+            "id": "the_vault:wooden_chest_scroll",
+            "weight": 1,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:mod_box",
+            "weight": 1,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:bounty_pearl",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "level": {
+        "min": 30,
+        "max": 100
+      },
+      "rolls": {
+        "min": 12,
+        "max": 15
+      },
+      "common": {
+        "weight": 70,
+        "items": [
+          {
+            "id": "the_vault:wooden_chunk",
+            "weight": 14,
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          },
+          {
+            "id": "the_vault:sandy_rocks",
+            "weight": 12,
+            "count": {
+              "min": 1,
+              "max": 2
+            }
+          },
+          {
+            "id": "the_vault:vault_sweets",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:driftwood",
+            "weight": 4,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:vault_plating",
+            "weight": 4,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "rare": {
+        "weight": 20,
+        "items": [
+          {
+            "id": "the_vault:magic_silk",
+            "weight": 6,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:carbon_nugget",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          },
+          {
+            "id": "the_vault:driftwood",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 2
+            }
+          },
+          {
+            "id": "the_vault:vault_plating",
+            "weight": 6,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "epic": {
+        "weight": 8,
+        "items": [
+          {
+            "id": "minecraft:shulker_shell",
+            "weight": 2,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:vault_essence",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:silver_scrap",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "omega": {
+        "weight": 2,
+        "items": [
+          {
+            "id": "the_vault:wooden_chest_scroll",
+            "weight": 1,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:mod_box",
+            "weight": 1,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:bounty_pearl",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

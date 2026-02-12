@@ -1,0 +1,131 @@
+{
+  "name": "enigma_chest",
+  "levels": [
+    {
+      "level": {
+        "min": 0,
+        "max": 100
+      },
+      "rolls": {
+        "min": 6,
+        "max": 9
+      },
+      "common": {
+        "weight": 70,
+        "items": [
+          {
+            "id": "minecraft:netherite_ingot",
+            "weight": 7,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:emerald",
+            "weight": 10,
+            "count": {
+              "min": 16,
+              "max": 64
+            }
+          },
+          {
+            "id": "easy_villagers:villager",
+            "weight": 7,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "rare": {
+        "weight": 20,
+        "items": [
+          {
+            "id": "minecraft:sculk_sensor",
+            "weight": 7,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "epic": {
+        "weight": 8,
+        "items": [
+          {
+            "id": "minecraft:nether_star",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:trident",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:budding_amethyst",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "sophisticatedbackpacks:backpack",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      },
+      "omega": {
+        "weight": 2,
+        "items": [
+          {
+            "id": "minecraft:elytra",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:crystal_budding",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "quark:pickarang",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:enigma_chest_scroll",
+            "weight": 1,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

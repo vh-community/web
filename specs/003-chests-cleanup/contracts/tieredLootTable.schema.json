@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tiered Loot Table (Chest)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "levels"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "levels": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/tieredLootTableLevel" }
+    }
+  },
+  "$defs": {
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "integer" },
+        "max": { "type": "integer" }
+      }
+    },
+    "itemPool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "weight", "count"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "weight": { "type": "number", "minimum": 0 },
+        "count": { "$ref": "#/$defs/range" }
+      }
+    },
+    "levelPool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["weight", "items"],
+      "properties": {
+        "weight": { "type": "number", "minimum": 0 },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/itemPool" }
+        }
+      }
+    },
+    "tieredLootTableLevel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "rolls", "common", "rare", "epic", "omega"],
+      "properties": {
+        "level": { "$ref": "#/$defs/range" },
+        "rolls": { "$ref": "#/$defs/range" },
+        "common": { "$ref": "#/$defs/levelPool" },
+        "rare": { "$ref": "#/$defs/levelPool" },
+        "epic": { "$ref": "#/$defs/levelPool" },
+        "omega": { "$ref": "#/$defs/levelPool" }
+      }
+    }
+  }
+}

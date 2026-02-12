@@ -10,7 +10,8 @@
     "format": "biome format",
     "fix": "biome check --fix",
     "preview": "vite preview",
-    "generate:loot-tables": "tsc -p transformer/tsconfig.json && node transformer/dist/bin/generate-loot-tables.js"
+    "generate:loot-tables": "tsx --tsconfig tsconfig.transformer.json transformer/bin/generate-loot-tables.ts",
+    "typecheck:transformer": "tsc -p tsconfig.transformer.json --noEmit"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -29,6 +30,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.21.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.3.1"

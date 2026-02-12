@@ -1,4 +1,4 @@
-import { generateChestLootTables } from "../loot_tables/chests.js"
+import { generateChestLootTables } from "../loot_tables/chests"
 
 const SOURCE_DIR = "the_vault/gen/1.0/loot_tables"
 const OUTPUT_DIR = "public/data/loot_tables"
