@@ -91,6 +91,12 @@ history.
 	build output directory) and treated as derived data. The original configuration
 	files will be stored in `the_vault/` which is part of `.gitignore`.
 
+### Coding standards
+
+- Always prefer `const` over `let` and `let` over `var`.
+- Use arrow functions for anonymous functions and callbacks.
+- ALWAYS use function declarations for named functions to ensure proper hoisting and readability.
+
 ## Development Workflow
 
 - Branches: feature branches follow `feature/<short-description>` or
