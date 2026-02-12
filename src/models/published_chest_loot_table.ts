@@ -1,4 +1,4 @@
-/** Published loot table index entry (matches openapi.yaml LootTableIndexEntry). */
+/** Published loot table index entry. */
 export interface LootTableIndexEntry {
 	id: string
 	type: string
@@ -40,7 +40,7 @@ export interface LevelSegment {
 	omega: TierPool
 }
 
-/** Published chest loot table (matches openapi.yaml ChestLootTable). */
+/** Published chest loot table. */
 export interface ChestLootTable {
 	id: string
 	levels: LevelSegment[]

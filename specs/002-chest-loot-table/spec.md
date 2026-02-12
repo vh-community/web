@@ -192,7 +192,7 @@ Each level entry MUST include:
 
 ### Tiered Loot Model (informative)
 
-This feature uses the project’s tiered loot table domain model (see `src/models/tiered_loot_table.ts`) as the baseline shape.
+This feature uses the project’s tiered loot table domain model (see `src/models/tieredLootTable.ts`) as the baseline shape.
 
 - A chest file contains `levels` a list of level entries.
 - Each level contains 4 tiers: `common`, `rare`, `epic`, `omega`.

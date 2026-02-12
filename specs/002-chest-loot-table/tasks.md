@@ -6,7 +6,7 @@ description: "Tasks for implementing Loot Table → Chests"
 # Tasks: Loot Table - Chests
 
 **Input**: Design documents from `specs/002-chest-loot-table/`
-**Prerequisites**: `spec.md` (required), `plan.md` (required), `research.md`, `data-model.md`, `contracts/openapi.yaml`, `quickstart.md`
+**Prerequisites**: `spec.md` (required), `plan.md` (required), `research.md`, `data-model.md`, `quickstart.md`
 
 **Tests**: No automated test tasks are included because the feature spec does not explicitly request them.
 

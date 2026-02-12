@@ -43,7 +43,7 @@ specs/002-chest-loot-table/
 ├── data-model.md
 ├── quickstart.md
 ├── contracts/
-│   └── openapi.yaml
+│   (removed) openapi.yaml
 └── tasks.md
 ```
 
@@ -54,7 +54,7 @@ src/
 ├── App.tsx
 ├── main.tsx
 ├── models/
-│   ├── tiered_loot_table.ts              # existing baseline model
+│   ├── tieredLootTable.ts                # baseline model
 │   └── published_chest_loot_table.ts     # new: published chest + index shapes
 ├── features/
 │   └── loot-tables/
@@ -106,13 +106,13 @@ Goal: Define stable published JSON contracts and internal TypeScript types.
      - `common|rare|epic|omega: { weight, items: { id, weight, count: { min, max } }[] }`
    - Document `*_raw.json` exclusion.
 
-2) OpenAPI contract (maps to FR-002/FR-008)
-   - Add `contracts/openapi.yaml` with `GET /data/loot_tables/index.json` and `GET /data/loot_tables/{file}`.
+2) Static JSON contract
+  - Contract is defined by the published JSON output + TypeScript types used by the UI.
 
 3) TypeScript models (maps to FR-013..FR-017a)
    - Add `src/models/published_chest_loot_table.ts` for published types used by UI and tests.
 
-Deliverables: specs/002-chest-loot-table/data-model.md, specs/002-chest-loot-table/contracts/openapi.yaml
+Deliverables: specs/002-chest-loot-table/data-model.md
 
 ### Phase 2 — Implementation Plan (what to build)
 

@@ -1,9 +1,11 @@
 export interface TieredLootTable {
+	name: string
 	levels: TieredLootTableLevel[]
 }
 
 export interface TieredLootTableLevel {
-	levelRange: [number, number]
+	minLevel: number
+	maxLevel: number
 	common: LevelPool
 	rare: LevelPool
 	epic: LevelPool
@@ -18,5 +20,6 @@ export interface LevelPool {
 export interface ItemPool {
 	id: string
 	weight: number
-	count: number
+	min: number
+	max: number
 }
