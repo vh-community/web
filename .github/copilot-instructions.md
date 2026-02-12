@@ -6,17 +6,13 @@
 
 ## Key structure (follow these patterns)
 - UI entry + routing: `src/App.tsx` uses simple **hash routing** (no react-router). Add new pages by extending the `Route` union + `getRoute()`.
-- Feature code lives under `src/features/*` (e.g. `src/features/loot-tables/chests/*`). Shared feature UI helpers in `src/features/loot-tables/shared/*`.
 - JSON/domain types for published data live in `src/models/*` (notably `src/models/published_chest_loot_table.ts`).
-- Specs drive behavior and are referenced in code comments via `FR-###`/`SC-###`: see `specs/002-chest-loot-table/spec.md`.
+- Pages are under `src/pages/` with components under each page folder.
 
 ## Data flow (loot tables)
 - Generator: `yarn generate:loot-tables` compiles/runs `transformer/bin/generate-loot-tables.ts`.
 - Source → output: reads `the_vault/gen/1.0/loot_tables/` and writes `public/data/loot_tables/index.json` + `public/data/loot_tables/chest_*.json`.
 - UI loads data in `src/features/loot-tables/chests/ChestsPage.tsx` via `fetchJson<T>()` from `src/features/loot-tables/shared/fetchJson.ts`.
-- If you change the published schema, update **both**:
-  - `src/models/published_chest_loot_table.ts`
-  - `transformer/loot_tables/chests.ts` (types are duplicated on purpose to avoid cross-package imports)
 
 ## Commands (use Yarn; `yarn.lock` is present)
 - Dev server: `yarn dev`

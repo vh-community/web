@@ -1,5 +1,5 @@
-import type { LootSettings } from "./ChestsControls"
-import { DEFAULT_SETTINGS } from "./ChestsControls"
+import type { LootSettings } from "./lootSettings"
+import { DEFAULT_SETTINGS } from "./lootSettings"
 
 /**
  * Storage key and schema for persisted loot settings (FR-005, FR-005a).
