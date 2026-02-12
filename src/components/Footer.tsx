@@ -1,7 +1,7 @@
 /**
  * Reusable site footer component (FR-007).
  */
-export function Footer() {
+export default function Footer() {
 	return (
 		<footer className="mx-auto w-full max-w-4xl px-4 pb-10">
 			<div className="flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-white/80 sm:flex-row sm:items-center sm:justify-between">

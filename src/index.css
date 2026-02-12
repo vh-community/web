@@ -8,10 +8,6 @@ body {
 	font-family: "Rajdhani", sans-serif;
 	min-height: 100dvh;
 	background-color: #1a1a1a;
-	background-image: url("/background.webp");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
 }
 
 /* Custom range slider styling */

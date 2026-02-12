@@ -6,7 +6,7 @@ interface NavigationProps {
  * Reusable navigation component (FR-007).
  * Highlights the active route.
  */
-export function Navigation({ currentRoute }: NavigationProps) {
+export default function Navigation({ currentRoute }: NavigationProps) {
 	return (
 		<nav
 			className="mx-auto w-full max-w-4xl px-4 pb-4"
