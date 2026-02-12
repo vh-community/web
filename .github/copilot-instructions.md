@@ -6,13 +6,13 @@
 
 ## Key structure (follow these patterns)
 - UI entry + routing: `src/App.tsx` uses simple **hash routing** (no react-router). Add new pages by extending the `Route` union + `getRoute()`.
-- JSON/domain types for published data live in `src/models/*` (notably `src/models/published_chest_loot_table.ts`).
+- JSON/domain types for published data live in `src/models/*`
 - Pages are under `src/pages/` with components under each page folder.
 
 ## Data flow (loot tables)
 - Generator: `yarn generate:loot-tables` compiles/runs `transformer/bin/generate-loot-tables.ts`.
 - Source → output: reads `the_vault/gen/1.0/loot_tables/` and writes `public/data/loot_tables/index.json` + `public/data/loot_tables/chest_*.json`.
-- UI loads data in `src/loot-tables/chests/ChestsPage.tsx` via `fetchJson<T>()` from `src/loot-tables/shared/fetchJson.ts`.
+- UI loads data in `src/pages/loot-tables/chests/ChestsPage.tsx` via `fetchJson<T>()` from `src/loot-tables/shared/fetchJson.ts`.
 
 ## Commands (use Yarn; `yarn.lock` is present)
 - Dev server: `yarn dev`
