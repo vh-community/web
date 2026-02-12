@@ -1,13 +1,8 @@
 import { formatExpected } from "../shared/formatExpected"
 import type { GroupedItem } from "./aggregateByItemId"
+import type { ChestSection } from "./chestSection"
 import { formatItemName } from "./formatItemName"
 import { TIER_BG_CLASSES, TIER_LABELS } from "./tierStyles"
-
-export interface ChestSection {
-	chestId: string
-	chestLabel: string
-	items: GroupedItem[]
-}
 
 interface ChestsTableProps {
 	sections: ChestSection[]

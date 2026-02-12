@@ -6,6 +6,7 @@
 
 - Improve UI and UX for controls
 - Add search bar to quickly filter out specific items
+- Search bar now supports searching by item name in addition to chest.
 
 ### Fixes
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import type { LootSettings } from "./ChestsControls"
+import type { LootSettings } from "./lootSettings"
 import { loadSettings, saveSettings } from "./settingsStorage"
 
 /**
