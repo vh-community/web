@@ -46,12 +46,12 @@ export function ChestsPage() {
 			{/* Search input */}
 			<div className="mb-4">
 				<label htmlFor="chest-search" className="sr-only">
-					Search chests
+					Search chests or items
 				</label>
 				<input
 					type="search"
 					id="chest-search"
-					placeholder="Search chests…"
+					placeholder="Search chests or items…"
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 					className="w-full rounded-md border border-white/15 bg-black/40 px-3 py-2 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 sm:max-w-xs"
@@ -79,7 +79,7 @@ export function ChestsPage() {
 				!indexError &&
 				sections.length > 0 &&
 				filteredSections.length === 0 && (
-					<EmptyState message="No chests match your search." />
+					<EmptyState message="No chests or items match your search." />
 				)}
 
 			{/* Results table */}
