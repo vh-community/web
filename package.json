@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "biome check",
-    "format": "biome format",
+    "format": "biome format --write",
     "fix": "biome check --fix",
     "preview": "vite preview",
     "generate:loot-tables": "tsx --tsconfig tsconfig.transformer.json transformer/bin/generate-loot-tables.ts",
