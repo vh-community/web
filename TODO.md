@@ -2,7 +2,6 @@
 
 ## Next up
 
-- Fix background image should be stretched to fit the entire page.
 - Update packages
 - Search bar, should search for either chest type, or item name.
   Space should be treated as "or" operator.
