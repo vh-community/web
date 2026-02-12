@@ -13,7 +13,7 @@ export interface TieredLootTableLevel {
 }
 
 export interface LevelPool {
-	weigth: number
+	weight: number
 	items: ItemPool[]
 }
 

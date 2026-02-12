@@ -1,0 +1,59 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "Tiered Loot Table (Chest)",
+	"type": "object",
+	"additionalProperties": false,
+	"required": ["name", "levels"],
+	"properties": {
+		"name": { "type": "string", "minLength": 1 },
+		"levels": {
+			"type": "array",
+			"items": { "$ref": "#/$defs/tieredLootTableLevel" }
+		}
+	},
+	"$defs": {
+		"itemPool": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["id", "weight", "min", "max"],
+			"properties": {
+				"id": { "type": "string", "minLength": 1 },
+				"weight": { "type": "number", "minimum": 0 },
+				"min": { "type": "integer" },
+				"max": { "type": "integer" }
+			}
+		},
+		"levelPool": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["weigth", "items"],
+			"properties": {
+				"weigth": { "type": "number", "minimum": 0 },
+				"items": {
+					"type": "array",
+					"items": { "$ref": "#/$defs/itemPool" }
+				}
+			}
+		},
+		"tieredLootTableLevel": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": [
+				"minLevel",
+				"maxLevel",
+				"common",
+				"rare",
+				"epic",
+				"omega"
+			],
+			"properties": {
+				"minLevel": { "type": "integer", "minimum": 0 },
+				"maxLevel": { "type": "integer", "minimum": 0 },
+				"common": { "$ref": "#/$defs/levelPool" },
+				"rare": { "$ref": "#/$defs/levelPool" },
+				"epic": { "$ref": "#/$defs/levelPool" },
+				"omega": { "$ref": "#/$defs/levelPool" }
+			}
+		}
+	}
+}

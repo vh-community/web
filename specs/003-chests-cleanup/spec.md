@@ -16,6 +16,7 @@ This spec is based on the amendment list captured in `specs/003-chests-cleanup/a
 - Q: What is the exact rule for concise generated chest filenames? → A: Remove `_chest` only when it is a trailing suffix of the chest id.
 - Q: Where should the canonical loot table model live, and how should the transformer consume it? → A: Canonical model lives in `src/models/tieredLootTable.ts` and the transformer imports it directly (no type duplication).
 - Q: What model should define the published JSON index format? → A: Use `src/models/jsonIndex.ts` as the canonical model; the transformer imports and emits `public/data/loot_tables/index.json` using this type.
+- Q: Can we change the `TieredLootTable` interface shape while unifying models? → A: No. `src/models/tieredLootTable.ts` is the canonical contract and MUST remain unchanged; generator output and UI consumption MUST adapt to its existing field names and structure.
 
 ## User Scenarios & Testing *(mandatory)*
 
