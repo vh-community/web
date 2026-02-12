@@ -6,8 +6,7 @@
 
 - Improve UI and UX for controls
 - Add search bar to quickly filter out specific items
-- Search bar, should search for either chest type, or item name.
-  Space should be treated as "or" operator.
+- Search bar now supports searching by item name in addition to chest.
 
 ### Fixes
 
