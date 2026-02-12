@@ -9,7 +9,7 @@
 
 ### Fixes
 
-- Fix background image should be stretched to fit the entire page.
+- Fix: background image stretches to fit the entire page.
 
 ## 2026-02-11 Loot Tables for Chests
 
