@@ -1,86 +1,128 @@
 {
-  "id": "flesh_chest",
+  "name": "hardened_chest",
   "levels": [
     {
-      "minLevel": 0,
-      "maxLevel": 100,
-      "roll": {
-        "min": 7,
-        "max": 8
+      "level": {
+        "min": 0,
+        "max": 100
+      },
+      "rolls": {
+        "min": 8,
+        "max": 11
       },
       "common": {
         "weight": 70,
         "items": [
           {
-            "id": "minecraft:rotten_flesh",
-            "weight": 20,
+            "id": "minecraft:torch",
+            "weight": 32,
             "count": {
               "min": 1,
               "max": 3
             }
           },
           {
-            "id": "minecraft:bone",
-            "weight": 20,
+            "id": "minecraft:scaffolding",
+            "weight": 16,
             "count": {
               "min": 1,
               "max": 2
             }
           },
           {
-            "id": "the_vault:rotten_meat",
-            "weight": 20,
+            "id": "minecraft:bread",
+            "weight": 6,
             "count": {
               "min": 1,
-              "max": 2
+              "max": 1
             }
           },
           {
-            "id": "minecraft:string",
-            "weight": 20,
+            "id": "minecraft:book",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:coal",
+            "weight": 10,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:acacia_sapling",
+            "weight": 4,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:jungle_sapling",
+            "weight": 2,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:dark_oak_sapling",
+            "weight": 2,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:spruce_sapling",
+            "weight": 2,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:birch_sapling",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "minecraft:oak_sapling",
+            "weight": 8,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:soot",
+            "weight": 4,
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          {
+            "id": "the_vault:sandy_rocks",
+            "weight": 16,
             "count": {
               "min": 1,
               "max": 3
             }
           },
           {
-            "id": "minecraft:porkchop",
-            "weight": 10,
+            "id": "the_vault:living_rock",
+            "weight": 16,
             "count": {
               "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:beef",
-            "weight": 10,
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:mutton",
-            "weight": 10,
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:chicken",
-            "weight": 10,
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:rabbit",
-            "weight": 10,
-            "count": {
-              "min": 1,
-              "max": 1
+              "max": 4
             }
           }
         ]
@@ -89,40 +131,24 @@
         "weight": 20,
         "items": [
           {
-            "id": "minecraft:slime_ball",
-            "weight": 10,
+            "id": "the_vault:wooden_chunk",
+            "weight": 7,
             "count": {
               "min": 1,
-              "max": 2
+              "max": 3
             }
           },
           {
-            "id": "minecraft:spider_eye",
-            "weight": 10,
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:leather",
-            "weight": 10,
+            "id": "minecraft:coal",
+            "weight": 6,
             "count": {
               "min": 1,
               "max": 1
             }
           },
           {
-            "id": "minecraft:rabbit_hide",
-            "weight": 10,
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:gunpowder",
-            "weight": 10,
+            "id": "the_vault:chromatic_iron_nugget",
+            "weight": 8,
             "count": {
               "min": 1,
               "max": 1
@@ -134,40 +160,16 @@
         "weight": 8,
         "items": [
           {
-            "id": "minecraft:honey_bottle",
+            "id": "minecraft:experience_bottle",
             "weight": 8,
             "count": {
               "min": 1,
-              "max": 1
+              "max": 2
             }
           },
           {
-            "id": "minecraft:shulker_shell",
-            "weight": 6,
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:blaze_rod",
-            "weight": 10,
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:ender_pearl",
-            "weight": 10,
-            "count": {
-              "min": 1,
-              "max": 1
-            }
-          },
-          {
-            "id": "minecraft:ghast_tear",
-            "weight": 4,
+            "id": "the_vault:diamond_nugget",
+            "weight": 8,
             "count": {
               "min": 1,
               "max": 1
@@ -179,15 +181,15 @@
         "weight": 2,
         "items": [
           {
-            "id": "the_vault:mystery_egg",
-            "weight": 25,
+            "id": "the_vault:raw_chromatic_iron",
+            "weight": 24,
             "count": {
               "min": 1,
               "max": 1
             }
           },
           {
-            "id": "the_vault:flesh_chest_scroll",
+            "id": "the_vault:hardened_chest_scroll",
             "weight": 1,
             "count": {
               "min": 1,

@@ -27,3 +27,8 @@ export interface ItemPool {
 	weight: number
 	count: Range
 }
+
+/** Tier name constants in canonical order (Common < Rare < Epic < Omega). */
+export const TIER_NAMES = ["common", "rare", "epic", "omega"] as const
+
+export type TierName = (typeof TIER_NAMES)[number]

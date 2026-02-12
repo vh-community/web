@@ -1,9 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
-import type {
-	ChestLootTable,
-	LootTableIndex,
-	LootTableIndexEntry,
-} from "../../../models/published_chest_loot_table"
+import type { JsonIndex, JsonIndexEntry } from "../../../models/jsonIndex"
+import type { TieredLootTable } from "../../../models/tieredLootTable"
 import { EmptyState } from "../shared/EmptyState"
 import { ErrorState } from "../shared/ErrorState"
 import { LoadingState } from "../shared/LoadingState"
@@ -13,6 +10,7 @@ import type { ChestSection } from "./ChestsTable"
 import { ChestsTable } from "./ChestsTable"
 import { aggregateByItemId } from "./aggregateByItemId"
 import { computeItemExpectations } from "./expectedValue"
+import { formatChestLabel } from "./formatItemName"
 import { selectLevelSegment } from "./selectLevelSegment"
 import { useLootSettings } from "./useLootSettings"
 
@@ -20,22 +18,25 @@ const INDEX_URL = "/data/loot_tables/index.json"
 const BASE_URL = "/data/loot_tables/"
 
 interface ChestLoadResult {
-	entry: LootTableIndexEntry
-	data: ChestLootTable | null
+	entry: JsonIndexEntry
+	data: TieredLootTable | null
 	error: string | null
 }
 
 /**
- * Chests loot table page (FR-001, FR-002, FR-003).
+ * Chests loot table page.
+ * Renders per-chest sections in the order defined by the JsonIndex.
+ * Includes search, settings controls, and defensive Treasure exclusion.
  */
 export function ChestsPage() {
 	const [settings, setSettings] = useLootSettings()
-	const [indexEntries, setIndexEntries] = useState<LootTableIndexEntry[]>([])
+	const [indexEntries, setIndexEntries] = useState<JsonIndexEntry[]>([])
 	const [chestResults, setChestResults] = useState<ChestLoadResult[]>([])
 	const [loading, setLoading] = useState(true)
 	const [indexError, setIndexError] = useState<string | null>(null)
+	const [searchQuery, setSearchQuery] = useState("")
 
-	// Load index and chest data (FR-002)
+	// Load index and chest data
 	useEffect(() => {
 		let cancelled = false
 
@@ -44,25 +45,25 @@ export function ChestsPage() {
 			setIndexError(null)
 
 			try {
-				const index = await fetchJson<LootTableIndex>(INDEX_URL)
+				const index = await fetchJson<JsonIndex>(INDEX_URL)
 				if (cancelled) return
 
-				// Filter for show: true and type: "chest" (FR-002d)
+				// Filter for type: "chest" and defensively exclude treasure
 				const visible = index.filter(
-					(entry) => entry.show && entry.type === "chest",
+					(entry) => entry.type === "chest" && entry.id !== "treasure_chest",
 				)
 				setIndexEntries(visible)
 
-				// Load each chest file (FR-008)
+				// Load each chest file
 				const results = await Promise.all(
 					visible.map(async (entry): Promise<ChestLoadResult> => {
 						try {
-							const data = await fetchJson<ChestLootTable>(
+							const data = await fetchJson<TieredLootTable>(
 								`${BASE_URL}${entry.file}`,
 							)
 							return { entry, data, error: null }
 						} catch (err) {
-							// FR-002c: partial failure — show remaining results
+							// Partial failure — show remaining results
 							return {
 								entry,
 								data: null,
@@ -99,19 +100,21 @@ export function ChestsPage() {
 
 	const handleSettingsChange = setSettings
 
-	// Compute table sections (memoized for performance - SC-003/003a/003b, T026)
+	// Compute table sections (memoized for performance)
 	const sections: ChestSection[] = useMemo(() => {
 		return chestResults
 			.filter((r) => r.data !== null)
 			.map((result) => {
 				const { entry, data } = result
-				const table = data as ChestLootTable
+				const table = data as TieredLootTable
 				const segment = selectLevelSegment(table.levels, settings.level)
+
+				const label = formatChestLabel(entry.id)
 
 				if (!segment) {
 					return {
 						chestId: entry.id,
-						chestLabel: entry.name || entry.id,
+						chestLabel: label,
 						items: [],
 					}
 				}
@@ -125,20 +128,48 @@ export function ChestsPage() {
 
 				return {
 					chestId: entry.id,
-					chestLabel: entry.name || entry.id,
+					chestLabel: label,
 					items: grouped,
 				}
 			})
 	}, [chestResults, settings])
 
-	// Collect errors for inline display (FR-002c)
+	// Apply search filter
+	const filteredSections = useMemo(() => {
+		if (!searchQuery.trim()) return sections
+		const q = searchQuery.trim().toLowerCase()
+		return sections.filter(
+			(s) =>
+				s.chestLabel.toLowerCase().includes(q) ||
+				s.chestId.toLowerCase().includes(q),
+		)
+	}, [sections, searchQuery])
+
+	// Collect errors for inline display
 	const failedChests = chestResults.filter((r) => r.error !== null)
 
 	return (
 		<div>
-			<h2 className="mb-4 text-lg font-semibold">Loot Table — Chests</h2>
+			<h2 id="chests-heading" className="mb-4 text-lg font-semibold">
+				Loot Table — Chests
+			</h2>
 
 			<ChestsControls settings={settings} onChange={handleSettingsChange} />
+
+			{/* Search */}
+			<div className="mb-4">
+				<label htmlFor="chest-search" className="sr-only">
+					Search chests
+				</label>
+				<input
+					type="search"
+					id="chest-search"
+					placeholder="Search chests…"
+					value={searchQuery}
+					onChange={(e) => setSearchQuery(e.target.value)}
+					className="w-full rounded-md border border-white/15 bg-black/40 px-3 py-2 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 sm:max-w-xs"
+				/>
+			</div>
 
 			{loading && <LoadingState />}
 
@@ -155,13 +186,20 @@ export function ChestsPage() {
 				>
 					<p>
 						Some chest data failed to load:{" "}
-						{failedChests.map((r) => r.entry.name || r.entry.id).join(", ")}
+						{failedChests.map((r) => formatChestLabel(r.entry.id)).join(", ")}
 					</p>
 				</div>
 			)}
 
-			{!loading && !indexError && sections.length > 0 && (
-				<ChestsTable sections={sections} />
+			{!loading &&
+				!indexError &&
+				sections.length > 0 &&
+				filteredSections.length === 0 && (
+					<EmptyState message="No chests match your search." />
+				)}
+
+			{!loading && !indexError && filteredSections.length > 0 && (
+				<ChestsTable sections={filteredSections} />
 			)}
 		</div>
 	)

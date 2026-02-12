@@ -1,10 +1,12 @@
 {
-  "id": "living_chest",
+  "name": "living_chest",
   "levels": [
     {
-      "minLevel": 0,
-      "maxLevel": 9,
-      "roll": {
+      "level": {
+        "min": 0,
+        "max": 9
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },
@@ -142,9 +144,11 @@
       }
     },
     {
-      "minLevel": 10,
-      "maxLevel": 19,
-      "roll": {
+      "level": {
+        "min": 10,
+        "max": 19
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },
@@ -282,9 +286,11 @@
       }
     },
     {
-      "minLevel": 20,
-      "maxLevel": 29,
-      "roll": {
+      "level": {
+        "min": 20,
+        "max": 29
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },
@@ -438,9 +444,11 @@
       }
     },
     {
-      "minLevel": 30,
-      "maxLevel": 39,
-      "roll": {
+      "level": {
+        "min": 30,
+        "max": 39
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },
@@ -602,9 +610,11 @@
       }
     },
     {
-      "minLevel": 40,
-      "maxLevel": 100,
-      "roll": {
+      "level": {
+        "min": 40,
+        "max": 100
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },

@@ -1,7 +1,7 @@
-import type { UniformIntRange } from "../../../models/published_chest_loot_table"
+import type { Range } from "../../../models/tieredLootTable"
 
 /**
- * Apply Item Quantity scaling to roll and count ranges (FR-008c).
+ * Apply Item Quantity scaling to roll and count ranges.
  *
  * For Item Quantity percentage q% (0–300%), multiplier m_q = 1 + q/100:
  * - minRoll = min(floor(minRoll * m_q), 54)
@@ -10,10 +10,7 @@ import type { UniformIntRange } from "../../../models/published_chest_loot_table
  * - maxStack = floor(maxStack * m_q)
  */
 
-export function scaleRollRange(
-	roll: UniformIntRange,
-	itemQuantityPct: number,
-): UniformIntRange {
+export function scaleRollRange(roll: Range, itemQuantityPct: number): Range {
 	const mq = 1 + itemQuantityPct / 100
 	return {
 		min: Math.min(Math.floor(roll.min * mq), 54),
@@ -21,10 +18,7 @@ export function scaleRollRange(
 	}
 }
 
-export function scaleCountRange(
-	count: UniformIntRange,
-	itemQuantityPct: number,
-): UniformIntRange {
+export function scaleCountRange(count: Range, itemQuantityPct: number): Range {
 	const mq = 1 + itemQuantityPct / 100
 	return {
 		min: Math.floor(count.min * mq),

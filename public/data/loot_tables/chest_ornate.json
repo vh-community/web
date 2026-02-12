@@ -1,10 +1,12 @@
 {
-  "id": "ornate_chest",
+  "name": "ornate_chest",
   "levels": [
     {
-      "minLevel": 0,
-      "maxLevel": 19,
-      "roll": {
+      "level": {
+        "min": 0,
+        "max": 19
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },
@@ -190,9 +192,11 @@
       }
     },
     {
-      "minLevel": 20,
-      "maxLevel": 29,
-      "roll": {
+      "level": {
+        "min": 20,
+        "max": 29
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },
@@ -378,9 +382,11 @@
       }
     },
     {
-      "minLevel": 30,
-      "maxLevel": 49,
-      "roll": {
+      "level": {
+        "min": 30,
+        "max": 49
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },
@@ -574,9 +580,11 @@
       }
     },
     {
-      "minLevel": 50,
-      "maxLevel": 64,
-      "roll": {
+      "level": {
+        "min": 50,
+        "max": 64
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },
@@ -778,9 +786,11 @@
       }
     },
     {
-      "minLevel": 65,
-      "maxLevel": 100,
-      "roll": {
+      "level": {
+        "min": 65,
+        "max": 100
+      },
+      "rolls": {
         "min": 12,
         "max": 15
       },

@@ -1,5 +1,5 @@
-import type { TierName } from "../../../models/published_chest_loot_table"
-import { TIER_NAMES } from "../../../models/published_chest_loot_table"
+import type { TierName } from "../../../models/tieredLootTable"
+import { TIER_NAMES } from "../../../models/tieredLootTable"
 import type { ItemExpectation } from "./expectedValue"
 
 /** A tier-level breakdown for a grouped item row. */

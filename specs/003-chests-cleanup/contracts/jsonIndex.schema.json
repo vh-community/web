@@ -1,15 +1,15 @@
 {
-	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"title": "Loot Table JSON Index",
-	"type": "array",
-	"items": {
-		"type": "object",
-		"additionalProperties": false,
-		"required": ["id", "type", "file"],
-		"properties": {
-			"id": { "type": "string", "minLength": 1 },
-			"type": { "type": "string", "enum": ["chest"] },
-			"file": { "type": "string", "minLength": 1 }
-		}
-	}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Loot Table JSON Index",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "type", "file"],
+    "properties": {
+      "id": { "type": "string", "minLength": 1 },
+      "type": { "type": "string", "enum": ["chest"] },
+      "file": { "type": "string", "minLength": 1 }
+    }
+  }
 }

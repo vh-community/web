@@ -1,11 +1,11 @@
 import type {
-	LevelSegment,
 	TierName,
-} from "../../../models/published_chest_loot_table"
-import { TIER_NAMES } from "../../../models/published_chest_loot_table"
+	TieredLootTableLevel,
+} from "../../../models/tieredLootTable"
+import { TIER_NAMES } from "../../../models/tieredLootTable"
 
 /**
- * Compute effective pool weights after applying Item Rarity modifier (FR-008b).
+ * Compute effective pool weights after applying Item Rarity modifier.
  *
  * For Item Rarity percentage r% (0–300%), multiplier m_r = 1 + r/100:
  * - Common pool weight is unchanged
@@ -14,7 +14,7 @@ import { TIER_NAMES } from "../../../models/published_chest_loot_table"
  * Returns a record of tier -> effective weight.
  */
 export function computeEffectiveWeights(
-	segment: LevelSegment,
+	segment: TieredLootTableLevel,
 	itemRarityPct: number,
 ): Record<TierName, number> {
 	const mr = 1 + itemRarityPct / 100

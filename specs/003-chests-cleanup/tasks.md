@@ -22,10 +22,10 @@ description: "Task list for implementing 003-chests-cleanup"
 
 **Purpose**: Establish the required page/component structure without changing behavior.
 
-- [ ] T001 [P] Create reusable header component in src/components/Header.tsx
-- [ ] T002 [P] Create reusable footer component in src/components/Footer.tsx
-- [ ] T003 [P] Create reusable navigation component in src/components/Navigation.tsx
-- [ ] T004 Wire extracted layout components into routing shell in src/App.tsx
+- [X] T001 [P] Create reusable header component in src/components/Header.tsx
+- [X] T002 [P] Create reusable footer component in src/components/Footer.tsx
+- [X] T003 [P] Create reusable navigation component in src/components/Navigation.tsx
+- [X] T004 Wire extracted layout components into routing shell in src/App.tsx
 
 ---
 
@@ -35,21 +35,21 @@ description: "Task list for implementing 003-chests-cleanup"
 
 **⚠️ CRITICAL**: No user story work should start until this phase is complete.
 
-- [ ] T005 Move loot-table shared UI helpers from src/features/loot-tables/shared/* to src/pages/loot-tables/shared/* and update imports
-- [ ] T006 Move Chests page module files from src/features/loot-tables/chests/* to src/pages/loot-tables/chests/* and fix relative imports
-- [ ] T007 Update route imports to new page-based path in src/App.tsx
+- [X] T005 Move loot-table shared UI helpers from src/features/loot-tables/shared/* to src/pages/loot-tables/shared/* and update imports
+- [X] T006 Move Chests page module files from src/features/loot-tables/chests/* to src/pages/loot-tables/chests/* and fix relative imports
+- [X] T007 Update route imports to new page-based path in src/App.tsx
 
-- [ ] T008 Update the canonical index contract to represent the index file as an array of entries in src/models/jsonIndex.ts
-- [ ] T009 Refactor chest generator to use canonical models and new rules in transformer/loot_tables/chests.ts (TieredLootTable + JsonIndex, concise filenames using suffix-only `_chest` removal, skip treasure, emit index entries in display order)
-- [ ] T010 Align generator entrypoint with the refactor in transformer/bin/generate-loot-tables.ts
+- [X] T008 Update the canonical index contract to represent the index file as an array of entries in src/models/jsonIndex.ts
+- [X] T009 Refactor chest generator to use canonical models and new rules in transformer/loot_tables/chests.ts (TieredLootTable + JsonIndex, concise filenames using suffix-only `_chest` removal, skip treasure, emit index entries in display order)
+- [X] T010 Align generator entrypoint with the refactor in transformer/bin/generate-loot-tables.ts
 
-- [ ] T011 Update Chests page data loading to use canonical models in src/pages/loot-tables/chests/ChestsPage.tsx (load JsonIndex entries and fetch TieredLootTable)
-- [ ] T012 Update computation pipeline to consume TieredLootTable in src/pages/loot-tables/chests/expectedValue.ts, src/pages/loot-tables/chests/quantity.ts, src/pages/loot-tables/chests/rarity.ts, src/pages/loot-tables/chests/aggregateByItemId.ts
-- [ ] T013 Remove deprecated published model types in src/models/published_chest_loot_table.ts and update remaining imports to src/models/tieredLootTable.ts
+- [X] T011 Update Chests page data loading to use canonical models in src/pages/loot-tables/chests/ChestsPage.tsx (load JsonIndex entries and fetch TieredLootTable)
+- [X] T012 Update computation pipeline to consume TieredLootTable in src/pages/loot-tables/chests/expectedValue.ts, src/pages/loot-tables/chests/quantity.ts, src/pages/loot-tables/chests/rarity.ts, src/pages/loot-tables/chests/aggregateByItemId.ts
+- [X] T013 Remove deprecated published model types in src/models/published_chest_loot_table.ts and update remaining imports to src/models/tieredLootTable.ts
 
-- [ ] T014 Regenerate and commit published loot table outputs under public/data/loot_tables/ (rename chest files using suffix-only `_chest` removal, remove treasure, update index.json ordering)
-- [ ] T015 Keep JSON schema docs aligned with the final published output in specs/003-chests-cleanup/contracts/jsonIndex.schema.json and specs/003-chests-cleanup/contracts/tieredLootTable.schema.json
-- [ ] T016 Verify no OpenAPI contract exists and remove it if found; document the confirmation in specs/003-chests-cleanup/contracts/README.md
+- [X] T014 Regenerate and commit published loot table outputs under public/data/loot_tables/ (rename chest files using suffix-only `_chest` removal, remove treasure, update index.json ordering)
+- [X] T015 Keep JSON schema docs aligned with the final published output in specs/003-chests-cleanup/contracts/jsonIndex.schema.json and specs/003-chests-cleanup/contracts/tieredLootTable.schema.json
+- [X] T016 Verify no OpenAPI contract exists and remove it if found; document the confirmation in specs/003-chests-cleanup/contracts/README.md
 
 **Checkpoint**: Foundation ready — user story work can proceed.
 
@@ -61,12 +61,12 @@ description: "Task list for implementing 003-chests-cleanup"
 
 **Independent Test**: Open `#/loot-table/chests` and verify: per-chest sections render, ordering is Wooden→Living→Gilded→Ornate→Hardened→Flesh→Enigma, search filters sections, Treasure is not visible.
 
-- [ ] T017 [US1] Render chest sections in JsonIndex entry order (no additional UI-side sorting) in src/pages/loot-tables/chests/ChestsPage.tsx
-- [ ] T018 [US1] Ensure JsonIndex entry order matches the required category order (Wooden → Living → Gilded → Ornate → Hardened → Flesh → Enigma) in transformer/loot_tables/chests.ts
-- [ ] T019 [US1] Render each chest as its own section with a visible header in src/pages/loot-tables/chests/ChestsTable.tsx
-- [ ] T020 [US1] Add chest search input and filter logic (including “no matches” state); query matches both derived display label and raw chest id in src/pages/loot-tables/chests/ChestsPage.tsx
-- [ ] T021 [US1] Defensively exclude Treasure from rendering even if present in data in src/pages/loot-tables/chests/ChestsPage.tsx
-- [ ] T022 [US1] Make settings controls consistent and accessible (labels/spacing/keyboard) in src/pages/loot-tables/chests/ChestsControls.tsx
+- [X] T017 [US1] Render chest sections in JsonIndex entry order (no additional UI-side sorting) in src/pages/loot-tables/chests/ChestsPage.tsx
+- [X] T018 [US1] Ensure JsonIndex entry order matches the required category order (Wooden → Living → Gilded → Ornate → Hardened → Flesh → Enigma) in transformer/loot_tables/chests.ts
+- [X] T019 [US1] Render each chest as its own section with a visible header in src/pages/loot-tables/chests/ChestsTable.tsx
+- [X] T020 [US1] Add chest search input and filter logic (including "no matches" state); query matches both derived display label and raw chest id in src/pages/loot-tables/chests/ChestsPage.tsx
+- [X] T021 [US1] Defensively exclude Treasure from rendering even if present in data in src/pages/loot-tables/chests/ChestsPage.tsx
+- [X] T022 [US1] Make settings controls consistent and accessible (labels/spacing/keyboard) in src/pages/loot-tables/chests/ChestsControls.tsx
 
 **Checkpoint**: US1 is fully functional and demoable on its own.
 
@@ -78,9 +78,9 @@ description: "Task list for implementing 003-chests-cleanup"
 
 **Independent Test**: Open `#/loot-table/chests` and verify: item ids render as friendly names (e.g. `minecraft:diamond_sword` → “Diamond Sword”) and the table remains legible with tier background styling preserved.
 
-- [ ] T023 [P] [US2] Implement item id → friendly label formatter in src/pages/loot-tables/chests/formatItemName.ts
-- [ ] T024 [US2] Display friendly item names in src/pages/loot-tables/chests/ChestsTable.tsx (keep raw id accessible via title/aria-label)
-- [ ] T025 [US2] Improve table borders/spacing/typography while preserving tier backgrounds in src/pages/loot-tables/chests/ChestsTable.tsx and src/pages/loot-tables/chests/tierStyles.ts
+- [X] T023 [P] [US2] Implement item id → friendly label formatter in src/pages/loot-tables/chests/formatItemName.ts
+- [X] T024 [US2] Display friendly item names in src/pages/loot-tables/chests/ChestsTable.tsx (keep raw id accessible via title/aria-label)
+- [X] T025 [US2] Improve table borders/spacing/typography while preserving tier backgrounds in src/pages/loot-tables/chests/ChestsTable.tsx and src/pages/loot-tables/chests/tierStyles.ts
 
 **Checkpoint**: US2 improvements are visible without changing US1 behavior.
 
@@ -92,10 +92,10 @@ description: "Task list for implementing 003-chests-cleanup"
 
 **Independent Test**: Run `yarn generate:loot-tables` and confirm it runs from TypeScript source, produces the expected outputs, and `transformer/dist/` is not reintroduced.
 
-- [ ] T026 [US3] Switch generation workflow to run transformer from TS source (add tsx, update scripts) in package.json
-- [ ] T027 [US3] Add transformer typecheck script (no emit) in package.json and ensure config works in tsconfig.transformer.json
-- [ ] T028 [US3] Delete committed transformer build artifacts under transformer/dist/** and ensure ignore rule remains in .gitignore
-- [ ] T029 [US3] Update developer documentation to match the new workflow and output naming in specs/003-chests-cleanup/quickstart.md
+- [X] T026 [US3] Switch generation workflow to run transformer from TS source (add tsx, update scripts) in package.json
+- [X] T027 [US3] Add transformer typecheck script (no emit) in package.json and ensure config works in tsconfig.transformer.json
+- [X] T028 [US3] Delete committed transformer build artifacts under transformer/dist/** and ensure ignore rule remains in .gitignore
+- [X] T029 [US3] Update developer documentation to match the new workflow and output naming in specs/003-chests-cleanup/quickstart.md
 
 **Checkpoint**: Maintainers can regenerate data without build artifacts.
 
@@ -105,8 +105,8 @@ description: "Task list for implementing 003-chests-cleanup"
 
 **Purpose**: Final cleanup and quality gates across the entire feature.
 
-- [ ] T030 [P] Update any remaining internal docs referencing old paths/contracts in specs/003-chests-cleanup/plan.md and specs/003-chests-cleanup/data-model.md
-- [ ] T031 Run lint/build gates and fix any issues in touched files under src/** and transformer/** (via scripts in package.json)
+- [X] T030 [P] Update any remaining internal docs referencing old paths/contracts in specs/003-chests-cleanup/plan.md and specs/003-chests-cleanup/data-model.md
+- [X] T031 Run lint/build gates and fix any issues in touched files under src/** and transformer/** (via scripts in package.json)
 
 ---
 

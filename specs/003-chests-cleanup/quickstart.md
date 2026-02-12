@@ -18,8 +18,10 @@ Note: `the_vault/` is local input and must not be committed.
 
 ## Generate loot tables
 
-- Generate published JSON:
+- Generate published JSON (runs from TypeScript source via `tsx`, no build step):
 	- `yarn generate:loot-tables`
+- Type-check transformer code only (no emit):
+	- `yarn typecheck:transformer`
 
 Expected outputs:
 - Index: `/home/senth/git/vh-community-web/public/data/loot_tables/index.json`
@@ -29,6 +31,9 @@ Expected outputs:
 Generation rules:
 - Treasure chest is excluded entirely (no index entry and no file).
 - Chest filenames are concise: remove a trailing `_chest` suffix from the chest id before writing the file name.
+- Index entries are ordered: Wooden → Living → Gilded → Ornate → Hardened → Flesh → Enigma (then unknown types alphabetically).
+
+Note: `transformer/dist/` is not used. The generator runs directly from TypeScript source. Ensure `transformer/dist/` is not committed (it is in `.gitignore`).
 
 ## Quality gates
 

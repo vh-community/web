@@ -1,4 +1,4 @@
-import type { TierName } from "../../../models/published_chest_loot_table"
+import type { TierName } from "../../../models/tieredLootTable"
 
 /**
  * Tier rarity visual treatment (FR-003a).

@@ -1,17 +1,18 @@
 import type {
-	LevelSegment,
+	LevelPool,
+	Range,
 	TierName,
-	UniformIntRange,
-} from "../../../models/published_chest_loot_table"
-import { TIER_NAMES } from "../../../models/published_chest_loot_table"
+	TieredLootTableLevel,
+} from "../../../models/tieredLootTable"
+import { TIER_NAMES } from "../../../models/tieredLootTable"
 import { scaleCountRange, scaleRollRange } from "./quantity"
 import { computeEffectiveWeights, computePoolProbabilities } from "./rarity"
 
 /**
- * Expected value of a uniform integer range [min, max] (FR-021).
+ * Expected value of a uniform integer range [min, max].
  * E = (min + max) / 2
  */
-export function expectedUniform(range: UniformIntRange): number {
+export function expectedUniform(range: Range): number {
 	return (range.min + range.max) / 2
 }
 
@@ -26,7 +27,7 @@ export interface ItemExpectation {
 }
 
 /**
- * Compute per-item expected values for a level segment (FR-022).
+ * Compute per-item expected values for a level segment.
  *
  * For each item in each tier:
  *   E[rolls] × P(pool) × P(item | pool) × E[count]
@@ -40,19 +41,19 @@ export interface ItemExpectation {
  * If total weight of items in a pool is 0, all items get 0 expected (Edge Case).
  */
 export function computeItemExpectations(
-	segment: LevelSegment,
+	segment: TieredLootTableLevel,
 	itemRarityPct: number,
 	itemQuantityPct: number,
 ): ItemExpectation[] {
 	const effectiveWeights = computeEffectiveWeights(segment, itemRarityPct)
 	const poolProbs = computePoolProbabilities(effectiveWeights)
-	const scaledRoll = scaleRollRange(segment.roll, itemQuantityPct)
+	const scaledRoll = scaleRollRange(segment.rolls, itemQuantityPct)
 	const eRolls = expectedUniform(scaledRoll)
 
 	const results: ItemExpectation[] = []
 
 	for (const tier of TIER_NAMES) {
-		const pool = segment[tier]
+		const pool = getPool(segment, tier)
 		const pPool = poolProbs[tier]
 
 		// Sum of item weights in this pool
@@ -79,4 +80,9 @@ export function computeItemExpectations(
 	}
 
 	return results
+}
+
+/** Get the pool for a given tier from a level segment. */
+function getPool(segment: TieredLootTableLevel, tier: TierName): LevelPool {
+	return segment[tier]
 }

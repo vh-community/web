@@ -1,10 +1,12 @@
 {
-  "id": "enigma_chest",
+  "name": "enigma_chest",
   "levels": [
     {
-      "minLevel": 0,
-      "maxLevel": 100,
-      "roll": {
+      "level": {
+        "min": 0,
+        "max": 100
+      },
+      "rolls": {
         "min": 6,
         "max": 9
       },
