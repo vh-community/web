@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.transformer.tsbuildinfo",
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"outDir": "transformer/dist",
+		"rootDir": "transformer",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"declaration": false,
+		"isolatedModules": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"types": ["node"]
+	},
+	"include": ["transformer/bin", "transformer/loot_tables"]
+}

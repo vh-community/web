@@ -63,6 +63,7 @@ As a maintainer, I can run a single repository command that extracts the source 
 
 1. **Given** source loot table files exist for multiple level thresholds (e.g., `gilded_chest_0`, `gilded_chest_20`, `gilded_chest_50`), **When** the transform is run, **Then** the output contains a single consolidated `gilded_chest` chest file whose `levels[..]` entries have levelRange: `[minLevel,maxLevel]` ranges derived from those thresholds (e.g., `[0,19]`, `[20,49]`, `[50,100]`).
 2. **Given** a source loot table file ends with `_raw`, **When** the transform is run, **Then** that file is excluded from outputs and does not affect consolidation.
+3. **Given** the repository is checked out and dependencies are installed, **When** a maintainer runs the single “generate loot tables” command, **Then** the transform runs successfully without requiring a separate TypeScript configuration file under `transformer/` (i.e., no `transformer/tsconfig.json`).
 
 ---
 
@@ -161,6 +162,11 @@ As a maintainer, I can run a single repository command that extracts the source 
   - All settings controls MUST be keyboard operable.
   - Loading/error/no-data status messaging MUST be perceivable and screen-reader friendly.
 
+- **FR-024 (Repository TypeScript configuration)**:
+  - The transform code under `transformer/` MUST be treated as repository source (typechecked and compiled using the repository’s top-level TypeScript configuration for Node/scripts).
+  - The transform step MUST NOT require a dedicated `transformer/tsconfig.json` file.
+  - The transform code MUST NOT be included in the website’s published/bundled application output.
+
 - **FR-021 (Expected value definition)**: For any uniform integer range with inclusive bounds `[min,max]`, the expected value MUST be computed as $(min + max) / 2$ after applying any required floor-based scaling to the bounds.
 - **FR-022 (Per-item expectation)**: For a given level entry, the expected amount per chest for an item MUST be computed as:
   - $E[rolls] \times P(pool) \times P(item \mid pool) \times E[count]$
@@ -227,6 +233,7 @@ Note: The published chest data MUST also include the roll range and item count/s
 - “How many you get” is displayed as an expected (average) value per X chests; the UI may present rounding suitable for readability.
 - The published loot table format is allowed to change as long as it remains stable for the site and contains the required entities/fields.
 - Item Quantity and Item Rarity calculations follow the definitions in `docs/ItemQuantity.md` and `docs/ItemRarity.md`.
+- The loot-table transform is a maintainer-only, Node/script execution path; it does not ship as part of the user-facing website bundle.
 
 ## Out of Scope
 

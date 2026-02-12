@@ -15,6 +15,7 @@ This spec is based on the amendment list captured in `specs/003-chests-cleanup/a
 - Q: How should the Treasure chest be hidden? → A: Do not generate it at all (no index entry and no published chest file).
 - Q: What is the exact rule for concise generated chest filenames? → A: Remove `_chest` only when it is a trailing suffix of the chest id.
 - Q: Where should the canonical loot table model live, and how should the transformer consume it? → A: Canonical model lives in `src/models/tieredLootTable.ts` and the transformer imports it directly (no type duplication).
+- Q: What model should define the published JSON index format? → A: Use `src/models/jsonIndex.ts` as the canonical model; the transformer imports and emits `public/data/loot_tables/index.json` using this type.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -96,6 +97,7 @@ As a maintainer, I can regenerate published chest loot tables and evolve the cod
 
 - **FR-001 (A001)**: The repository MUST provide a loot-table generation command that runs from source in a debugging-friendly way and MUST NOT produce committed build output files for the transformer.
 - **FR-002 (A002, A006)**: The generator and UI MUST use a single canonical tiered loot table model definition located at `src/models/tieredLootTable.ts` (no duplicated “published” model types).
+- **FR-002a**: The generator MUST use `src/models/jsonIndex.ts` as the canonical model for the published index file.
 - **FR-003 (A008)**: Generated chest loot table JSON files MUST use a concise naming convention where redundant chest words are removed (e.g., `chest_gilded.json` instead of `chest_gilded_chest.json`).
 - **FR-003b**: The concise naming rule MUST remove `_chest` only when it is a trailing suffix of the chest id.
 - **FR-003a**: The repository MUST NOT maintain an OpenAPI contract for these static JSON files (remove `specs/**/contracts/openapi.yaml`).

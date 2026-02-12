@@ -21,10 +21,10 @@ description: "Tasks for implementing Loot Table → Chests"
 
 - [X] T001 Create feature folders `src/features/loot-tables/chests/` and `src/features/loot-tables/shared/`
 - [X] T002 Create transformer folders `transformer/loot_tables/` and `transformer/bin/`
-- [X] T003 Add transformer TypeScript config in `transformer/tsconfig.json`
+- [X] T003 Add transformer TypeScript config in `tsconfig.transformer.json`
 - [X] T004 Add transformer entrypoint runner in `transformer/bin/generate-loot-tables.ts`
 - [X] T005 Add build output ignore for `transformer/dist/` in `.gitignore`
-- [X] T006 Add `generate:loot-tables` script in `package.json` that runs `tsc -p transformer/tsconfig.json` then `node transformer/dist/bin/generate-loot-tables.js`
+- [X] T006 Add `generate:loot-tables` script in `package.json` that runs `tsc -p tsconfig.transformer.json` then `node transformer/dist/bin/generate-loot-tables.js`
 
 ---
 

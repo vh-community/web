@@ -10,7 +10,7 @@
     "format": "biome format",
     "fix": "biome check --fix",
     "preview": "vite preview",
-    "generate:loot-tables": "tsc -p transformer/tsconfig.json && node transformer/dist/bin/generate-loot-tables.js"
+    "generate:loot-tables": "tsc -p tsconfig.transformer.json && node transformer/dist/bin/generate-loot-tables.js"
   },
   "dependencies": {
     "react": "^19.0.0",
