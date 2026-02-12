@@ -50,9 +50,6 @@ minimal: by default, tests are NOT required.
 - Only unit tests are allowed.
 - Unit tests MUST be colocated with the file under test, using `*.test.ts` next
 	to the implementation (e.g., `mapper.ts` + `mapper.test.ts`).
-- Unit tests MUST be added when a change maps one data model into another (for
-	example, transforming extracted game configuration into the site's JSON page
-	structure).
 - If a new spec requires tests beyond the mapping rule above, the spec author
 	MUST declare that explicitly in the spec.
 
@@ -93,6 +90,12 @@ history.
 	intended for the website MUST be written into `public/` (or another documented
 	build output directory) and treated as derived data. The original configuration
 	files will be stored in `the_vault/` which is part of `.gitignore`.
+
+### Coding standards
+
+- Always prefer `const` over `let` and `let` over `var`.
+- Use arrow functions for anonymous functions and callbacks.
+- ALWAYS use function declarations for named functions to ensure proper hoisting and readability.
 
 ## Development Workflow
 

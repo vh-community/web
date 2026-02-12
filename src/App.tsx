@@ -1,17 +1,40 @@
+import { useEffect, useState } from "react"
+import { ChestsPage } from "./features/loot-tables/chests/ChestsPage"
+
+type Route = "home" | "loot-table-chests"
+
+function getRoute(): Route {
+	const hash = window.location.hash
+	if (hash === "#/loot-table/chests") return "loot-table-chests"
+	return "home"
+}
+
 function App() {
+	const [route, setRoute] = useState<Route>(getRoute)
+
+	useEffect(() => {
+		const onHashChange = () => setRoute(getRoute())
+		window.addEventListener("hashchange", onHashChange)
+		return () => window.removeEventListener("hashchange", onHashChange)
+	}, [])
+
 	return (
 		<div className="min-h-dvh text-white">
 			<header className="mx-auto flex w-full max-w-4xl items-center gap-3 px-4 py-6">
-				<img
-					src="/vh-logo.png"
-					width={44}
-					height={44}
-					alt="Vault Hunters Community logo"
-					className="h-11 w-11 shrink-0"
-				/>
+				<a href="#/" className="shrink-0">
+					<img
+						src="/vh-logo.png"
+						width={44}
+						height={44}
+						alt="Vault Hunters Community logo"
+						className="h-11 w-11 shrink-0"
+					/>
+				</a>
 				<div className="min-w-0">
 					<h1 className="text-balance text-xl font-semibold leading-tight sm:text-2xl">
-						Vault Hunters Community
+						<a href="#/" className="hover:underline">
+							Vault Hunters Community
+						</a>
 					</h1>
 					<p className="mt-1 text-sm text-white/80">
 						Community resources, guides, tools, and links.
@@ -19,25 +42,36 @@ function App() {
 				</div>
 			</header>
 
-			<main className="mx-auto w-full max-w-4xl px-4 pb-12">
-				<section
-					aria-labelledby="purpose"
-					className="rounded-xl bg-black/45 p-5 backdrop-blur-sm sm:p-6"
-				>
-					<h2 id="purpose" className="text-base font-semibold">
-						What this site is
-					</h2>
-					<p className="mt-3 text-pretty text-sm leading-relaxed text-white/90 sm:text-base">
-						This site collects community-made resources for the Vault Hunters
-						modpack in a simple, searchable format.
-					</p>
+			{/* Navigation (FR-001) */}
+			<nav
+				className="mx-auto w-full max-w-4xl px-4 pb-4"
+				aria-label="Main navigation"
+			>
+				<div className="flex items-center gap-4 text-sm">
+					<span className="font-medium text-white/60">Loot Table</span>
+					<a
+						href="#/loot-table/chests"
+						className={`rounded-md px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+							route === "loot-table-chests"
+								? "bg-white/15 font-medium text-white"
+								: "text-white/70 hover:bg-white/10 hover:text-white"
+						}`}
+					>
+						Chests
+					</a>
+				</div>
+			</nav>
 
-					<p className="mt-4 rounded-lg border border-white/15 bg-black/30 p-3 text-sm leading-relaxed">
-						<strong className="font-semibold">Unofficial:</strong> This website
-						is community-driven and is not affiliated with or endorsed by the
-						Vault Hunters team.
-					</p>
-				</section>
+			<main className="mx-auto w-full max-w-4xl px-4 pb-12">
+				{route === "home" && <HomePage />}
+				{route === "loot-table-chests" && (
+					<section
+						aria-labelledby="chests-heading"
+						className="rounded-xl bg-black/45 p-5 backdrop-blur-sm sm:p-6"
+					>
+						<ChestsPage />
+					</section>
+				)}
 			</main>
 
 			<footer className="mx-auto w-full max-w-4xl px-4 pb-10">
@@ -58,3 +92,26 @@ function App() {
 }
 
 export default App
+
+function HomePage() {
+	return (
+		<section
+			aria-labelledby="purpose"
+			className="rounded-xl bg-black/45 p-5 backdrop-blur-sm sm:p-6"
+		>
+			<h2 id="purpose" className="text-base font-semibold">
+				What this site is
+			</h2>
+			<p className="mt-3 text-pretty text-sm leading-relaxed text-white/90 sm:text-base">
+				This site collects community-made resources for the Vault Hunters
+				modpack in a simple, searchable format.
+			</p>
+
+			<p className="mt-4 rounded-lg border border-white/15 bg-black/30 p-3 text-sm leading-relaxed">
+				<strong className="font-semibold">Unofficial:</strong> This website is
+				community-driven and is not affiliated with or endorsed by the Vault
+				Hunters team.
+			</p>
+		</section>
+	)
+}
