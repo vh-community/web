@@ -35,6 +35,18 @@
   },
   "overrides": [
     {
+      "includes": ["**/*.css"],
+      "css": {
+        "parser": {
+          "cssModules": false,
+          "tailwindDirectives": true
+        },
+        "linter": {
+          "enabled": false
+        }
+      }
+    },
+    {
       "includes": ["**/tsconfig.app.json", "**/tsconfig.node.json"],
       "json": {
         "parser": {

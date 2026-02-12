@@ -12,5 +12,5 @@ export function formatExpected(value: number): string {
 	// Round to nearest 0.01
 	const rounded = Math.round(value * 100) / 100
 	// Format with up to 2 decimals, trim trailing zeros
-	return rounded.toFixed(2).replace(/\.?0+$/, "")
+	return rounded.toFixed(2)
 }

@@ -34,10 +34,7 @@ export function ChestsTable({ sections }: ChestsTableProps) {
 function ChestSectionBlock({ section }: { section: ChestSection }) {
 	return (
 		<section aria-labelledby={`chest-${section.chestId}`}>
-			<h3
-				id={`chest-${section.chestId}`}
-				className="mb-2 text-base font-semibold text-white/90"
-			>
+			<h3 id={`chest-${section.chestId}`} className="mb-2">
 				{section.chestLabel}
 			</h3>
 
@@ -45,9 +42,9 @@ function ChestSectionBlock({ section }: { section: ChestSection }) {
 				<p className="text-sm text-white/50">No items at this level.</p>
 			) : (
 				<div className="overflow-x-auto">
-					<table className="w-full border-collapse text-sm">
+					<table className="w-full border-collapse text-lg">
 						<thead>
-							<tr className="border-b border-white/15 text-left text-xs uppercase tracking-wider text-white/60">
+							<tr className="border-b border-white/15 text-left uppercase tracking-wider text-white/60">
 								<th scope="col" className="px-3 py-2">
 									Item
 								</th>
@@ -90,7 +87,7 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 					>
 						{/* Item column — background based on lowest tier */}
 						<td
-							className={`px-3 py-1.5 text-white/90 ${showItemLabel ? TIER_BG_CLASSES[item.lowestTier] : ""}`}
+							className={`px-3 py-1.5 text-white ${showItemLabel ? TIER_BG_CLASSES[item.lowestTier] : ""}`}
 							title={showItemLabel ? item.itemId : undefined}
 							aria-label={showItemLabel ? item.itemId : undefined}
 						>
@@ -106,13 +103,27 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 
 						{/* Amount per X — also with tier background */}
 						<td
-							className={`px-3 py-1.5 text-right tabular-nums text-white/90 ${TIER_BG_CLASSES[tierBreakdown.tier]}`}
+							className={`px-3 py-1.5 text-right tabular-nums text-white ${TIER_BG_CLASSES[tierBreakdown.tier]}`}
 						>
-							{formatExpected(tierBreakdown.expectedPerX)}
+							<ExpectedAmount value={tierBreakdown.expectedPerX} />
 						</td>
 					</tr>
 				)
 			})}
 		</>
+	)
+}
+
+function ExpectedAmount({ value }: { value: number }) {
+	const str = formatExpected(value)
+	// Split into integer and decimal parts to style them differently
+	const [integerPart, decimalPart] = str.split(".")
+	return (
+		<span>
+			<span>{integerPart}</span>
+			{decimalPart !== undefined && (
+				<span className="text-sm text-white/60">.{decimalPart}</span>
+			)}
+		</span>
 	)
 }

@@ -37,7 +37,7 @@ export function ChestsPage() {
 
 	return (
 		<div>
-			<h2 id="chests-heading" className="mb-4 text-lg font-semibold">
+			<h2 id="chests-heading" className="mb-4">
 				Loot Table — Chests
 			</h2>
 

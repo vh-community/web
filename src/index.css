@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
 :root {
-	--slider-gold: #ffa800;
+	--color-gold: #ffa800;
+}
+
+@theme {
+	--color-gold: #ffa800;
 }
 
 body {
@@ -11,19 +15,15 @@ body {
 	z-index: -10;
 }
 
-/* Custom range slider styling */
-.slider-gold {
-	/* WebKit (Chrome, Safari, Edge) */
-}
-
 .slider-gold:focus-visible {
-	outline: 2px solid var(--slider-gold);
+	outline: 2px solid var(--color-gold);
 	outline-offset: 2px;
 }
 
 .slider-gold::-webkit-slider-runnable-track {
 	height: 6px;
 	border-radius: 3px;
+	background-color: var(--color-gold);
 }
 
 .slider-gold::-webkit-slider-thumb {
@@ -31,7 +31,7 @@ body {
 	width: 16px;
 	height: 16px;
 	border-radius: 50%;
-	background-color: var(--slider-gold);
+	background-color: var(--color-gold);
 	border: 2px solid white;
 	cursor: pointer;
 	margin-top: -5px; /* Center thumb on track (16px thumb - 6px track) / 2 */
@@ -42,7 +42,7 @@ body {
 
 .slider-gold::-webkit-slider-thumb:hover {
 	transform: scale(1.15);
-	box-shadow: 0 0 8px var(--slider-gold);
+	box-shadow: 0 0 8px var(--color-gold);
 }
 
 /* Firefox */
@@ -54,7 +54,7 @@ body {
 .slider-gold::-moz-range-progress {
 	height: 6px;
 	border-radius: 3px;
-	background-color: var(--slider-gold);
+	background-color: var(--color-gold);
 }
 
 .slider-gold::-moz-range-thumb {
@@ -62,7 +62,7 @@ body {
 	width: 16px;
 	height: 16px;
 	border-radius: 50%;
-	background-color: var(--slider-gold);
+	background-color: var(--color-gold);
 	border: 2px solid white;
 	cursor: pointer;
 	transition:
@@ -72,7 +72,7 @@ body {
 
 .slider-gold::-moz-range-thumb:hover {
 	transform: scale(1.15);
-	box-shadow: 0 0 8px var(--slider-gold);
+	box-shadow: 0 0 8px var(--color-gold);
 }
 
 /* Hide number input spin buttons */
@@ -84,4 +84,16 @@ input[type="number"].no-spin::-webkit-inner-spin-button {
 
 input[type="number"].no-spin {
 	-moz-appearance: textfield;
+}
+
+@layer base {
+	h1 {
+		@apply text-3xl font-bold text-blue-500 uppercase;
+	}
+	h2 {
+		@apply text-2xl font-bold text-gold uppercase;
+	}
+	h3 {
+		@apply text-xl font-bold text-gold uppercase;
+	}
 }

@@ -53,7 +53,7 @@ function HomePage() {
 			aria-labelledby="purpose"
 			className="rounded-xl bg-black/45 p-5 backdrop-blur-sm sm:p-6"
 		>
-			<h2 id="purpose" className="text-base font-semibold">
+			<h2 id="purpose" className="">
 				What this site is
 			</h2>
 			<p className="mt-3 text-pretty text-sm leading-relaxed text-white/90 sm:text-base">
