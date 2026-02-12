@@ -3,9 +3,14 @@ export interface TieredLootTable {
 	levels: TieredLootTableLevel[]
 }
 
+export interface Range {
+	min: number
+	max: number
+}
+
 export interface TieredLootTableLevel {
-	minLevel: number
-	maxLevel: number
+	level: Range
+	rolls: Range
 	common: LevelPool
 	rare: LevelPool
 	epic: LevelPool
@@ -20,6 +25,5 @@ export interface LevelPool {
 export interface ItemPool {
 	id: string
 	weight: number
-	min: number
-	max: number
+	stackSize: Range
 }

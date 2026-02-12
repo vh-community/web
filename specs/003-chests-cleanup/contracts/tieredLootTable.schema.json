@@ -26,9 +26,9 @@
 		"levelPool": {
 			"type": "object",
 			"additionalProperties": false,
-			"required": ["weigth", "items"],
+			"required": ["weight", "items"],
 			"properties": {
-				"weigth": { "type": "number", "minimum": 0 },
+				"weight": { "type": "number", "minimum": 0 },
 				"items": {
 					"type": "array",
 					"items": { "$ref": "#/$defs/itemPool" }
