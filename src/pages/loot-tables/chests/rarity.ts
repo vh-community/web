@@ -1,6 +1,6 @@
 import type {
-	TierName,
 	TieredLootTableLevel,
+	TierName,
 } from "../../../models/tieredLootTable"
 import { TIER_NAMES } from "../../../models/tieredLootTable"
 

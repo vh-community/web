@@ -35,7 +35,9 @@ body {
 	border: 2px solid white;
 	cursor: pointer;
 	margin-top: -5px; /* Center thumb on track (16px thumb - 6px track) / 2 */
-	transition: transform 0.15s ease, box-shadow 0.15s ease;
+	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease;
 }
 
 .slider-gold::-webkit-slider-thumb:hover {
@@ -63,7 +65,9 @@ body {
 	background-color: var(--slider-gold);
 	border: 2px solid white;
 	cursor: pointer;
-	transition: transform 0.15s ease, box-shadow 0.15s ease;
+	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease;
 }
 
 .slider-gold::-moz-range-thumb:hover {
