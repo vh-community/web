@@ -25,5 +25,5 @@ export interface LevelPool {
 export interface ItemPool {
 	id: string
 	weight: number
-	stackSize: Range
+	count: Range
 }
