@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import Background from "./components/Background"
-import Footer from "./components/Footer"
-import Header from "./components/Header"
-import Navigation from "./components/Navigation"
+import { Background } from "./components/Background"
+import { Footer } from "./components/Footer"
+import { Header } from "./components/Header"
+import { Navigation } from "./components/Navigation"
 import { ChestsPage } from "./pages/loot-tables/chests/ChestsPage"
 
 type Route = "home" | "loot-table-chests"
