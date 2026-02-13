@@ -106,11 +106,11 @@ input[type="number"].no-spin {
 		@apply outline-none border-gold ring-2 ring-gold;
 	}
 	input[type="range"]::-webkit-slider-thumb {
-		@apply h-5 w-5 appearance-none rounded-full bg-black border border-2 border-white/90 cursor-pointer -mt-1.5;
+		@apply h-5 w-5 appearance-none rounded-full bg-black border-2 border-solid border-white/90 cursor-pointer -mt-1.5;
 	}
 
 	input[type="range"]::-moz-range-thumb {
-		@apply h-5 w-5 appearance-none rounded-full bg-black border border-2 cursor-pointer -mt-1.5;
+		@apply h-5 w-5 appearance-none rounded-full bg-black border-2 border-solid cursor-pointer -mt-1.5;
 	}
 
 	input[type="range"]::-webkit-slider-runnable-track {
