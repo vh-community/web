@@ -63,7 +63,7 @@ function ChestSectionBlock({
 									Tier
 								</th>
 								<th scope="col" className="px-3 py-2 text-right">
-									Drops per {perXChests} chests
+									Drops per {perXChests} chest{perXChests === 1 ? "" : "s"}
 								</th>
 							</tr>
 						</thead>
