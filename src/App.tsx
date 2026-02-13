@@ -28,12 +28,12 @@ function App() {
 			<Header />
 			<Navigation currentRoute={route} />
 
-			<main className="mx-auto w-full max-w-4xl px-4 pb-12">
+			<main className="mx-auto w-full max-w-7xl px-4 pb-12">
 				{route === "home" && <HomePage />}
 				{route === "loot-table-chests" && (
 					<section
 						aria-labelledby="chests-heading"
-						className="rounded-xl bg-black/45 p-5 backdrop-blur-sm sm:p-6"
+						className="bg-black/45 p-5 backdrop-blur-sm sm:p-6"
 					>
 						<ChestsPage />
 					</section>

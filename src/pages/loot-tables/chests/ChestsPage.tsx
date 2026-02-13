@@ -54,7 +54,7 @@ export function ChestsPage() {
 					placeholder="Search chests or items…"
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
-					className="w-full rounded-md border border-white/15 bg-black/40 px-3 py-2 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 sm:max-w-xs"
+					className="w-full sm:max-w-xs"
 				/>
 			</div>
 
@@ -84,7 +84,10 @@ export function ChestsPage() {
 
 			{/* Results table */}
 			{!loading && !indexError && filteredSections.length > 0 && (
-				<ChestsTable sections={filteredSections} />
+				<ChestsTable
+					sections={filteredSections}
+					perXChests={settings.perXChests}
+				/>
 			)}
 		</div>
 	)

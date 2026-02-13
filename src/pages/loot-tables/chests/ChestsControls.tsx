@@ -34,12 +34,12 @@ function SliderNumberField({
 	const fillPct = ((value - min) / (max - min)) * 100
 
 	return (
-		<div className="rounded-lg border border-white/10 bg-black/20 p-3">
-			<div className="flex items-center justify-between gap-3">
+		<div className="flex flex-col bg-black/20 p-3">
+			<div className="flex items-center justify-end gap-3">
 				<label
 					id={labelId}
 					htmlFor={id}
-					className="text-sm font-medium text-white/90"
+					className="text-xl font-medium text-white/90"
 				>
 					{label}
 				</label>
@@ -54,11 +54,8 @@ function SliderNumberField({
 						value={value}
 						onChange={(e) => onValueChange(e.target.value)}
 						onBlur={(e) => onValueBlur(e.target.value)}
-						className="no-spin w-24 rounded-md border border-white/15 bg-black/40 px-2 py-1.5 text-right text-sm tabular-nums text-white focus:border-[#ffa800]/50 focus:outline-none focus:ring-2 focus:ring-[#ffa800]/40"
+						className="no-spin w-24 px-2 py-1.5 text-right tabular-nums"
 					/>
-					{unit ? (
-						<span className="text-xs tabular-nums text-white/60">{unit}</span>
-					) : null}
 				</div>
 			</div>
 
@@ -70,14 +67,14 @@ function SliderNumberField({
 				step={step}
 				value={value}
 				onChange={(e) => onValueChange(e.target.value)}
-				className="slider-gold mt-2 h-4 w-full cursor-pointer appearance-none rounded-full bg-white/10"
+				className="w-full"
 				style={{
-					background: `linear-gradient(to right, var(--slider-gold) ${fillPct}%, rgba(255,255,255,0.1) ${fillPct}%)`,
+					background: `linear-gradient(to right, var(--color-gold) ${fillPct}%, rgba(255,255,255,0.1) ${fillPct}%)`,
 				}}
 				aria-labelledby={labelId}
 			/>
 
-			<div className="mt-1 flex justify-between text-xs tabular-nums text-white/40">
+			<div className="mt-1.5 flex justify-between text-sm tabular-nums text-white/40">
 				<span>
 					{min}
 					{unit ?? ""}
@@ -125,22 +122,9 @@ export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 	)
 
 	return (
-		<fieldset className="mb-6 rounded-xl border border-white/10 bg-black/15 p-4">
+		<fieldset className="mb-6">
 			<legend className="sr-only">Loot table settings</legend>
 			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-				<SliderNumberField
-					id="perXChests"
-					label="Per X chests"
-					value={settings.perXChests}
-					min={1}
-					max={10000}
-					step={1}
-					onValueChange={(raw) =>
-						handleNumericChange("perXChests", 1, 10000, raw)
-					}
-					onValueBlur={(raw) => handleBlur("perXChests", 1, 10000, raw)}
-				/>
-
 				<SliderNumberField
 					id="level"
 					label="Level"
@@ -153,8 +137,22 @@ export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 				/>
 
 				<SliderNumberField
+					id="itemQuantity"
+					label="Item Quantity %"
+					value={settings.itemQuantityPct}
+					min={0}
+					max={300}
+					step={1}
+					unit="%"
+					onValueChange={(raw) =>
+						handleNumericChange("itemQuantityPct", 0, 300, raw)
+					}
+					onValueBlur={(raw) => handleBlur("itemQuantityPct", 0, 300, raw)}
+				/>
+
+				<SliderNumberField
 					id="itemRarity"
-					label="Item Rarity"
+					label="Item Rarity %"
 					value={settings.itemRarityPct}
 					min={0}
 					max={300}
@@ -167,17 +165,16 @@ export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 				/>
 
 				<SliderNumberField
-					id="itemQuantity"
-					label="Item Quantity"
-					value={settings.itemQuantityPct}
-					min={0}
-					max={300}
+					id="perXChests"
+					label="Per X chests"
+					value={settings.perXChests}
+					min={1}
+					max={10000}
 					step={1}
-					unit="%"
 					onValueChange={(raw) =>
-						handleNumericChange("itemQuantityPct", 0, 300, raw)
+						handleNumericChange("perXChests", 1, 10000, raw)
 					}
-					onValueBlur={(raw) => handleBlur("itemQuantityPct", 0, 300, raw)}
+					onValueBlur={(raw) => handleBlur("perXChests", 1, 10000, raw)}
 				/>
 			</div>
 		</fieldset>

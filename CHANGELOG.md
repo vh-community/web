@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-02-13 Chest UI/UX Improvements
+
+### Changes
+
+- Controls are now bigger and have better, consistent styling.
+
 ## 2026-02-12 Improvements to Loot Tables for Chests
 
 ### Changes

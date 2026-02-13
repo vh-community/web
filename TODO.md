@@ -2,12 +2,12 @@
 
 ## Next up
 
-- Improve UI for controls
-- Increase font size
+- Sort loot tables by item name, tier, or amount per X.
+- Add icons for items and chests.
 
 ## Future improvements
 
 ### Loot Tables
 
-- Sort loot tables by item name, tier, or amount per X.
-- Add icons for items and chests.
+- Faster calculations when changing values.
+- Combine tiers for total amount per X.
