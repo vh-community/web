@@ -4,7 +4,7 @@
 
 ### Changes
 
-- Controls are now bigger and has better and consistent styling.
+- Controls are now bigger and have better, consistent styling.
 
 ## 2026-02-12 Improvements to Loot Tables for Chests
 
