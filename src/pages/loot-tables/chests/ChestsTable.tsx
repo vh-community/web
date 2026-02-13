@@ -2,9 +2,7 @@ import { formatExpected } from "../shared/formatExpected"
 import type { GroupedItem } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
 import { formatItemName } from "./formatItemName"
-import { LootSettings } from "./lootSettings"
 import { TIER_BG_CLASSES, TIER_LABELS } from "./tierStyles"
-import { useLootSettings } from "./useLootSettings"
 
 interface ChestsTableProps {
 	sections: ChestSection[]
