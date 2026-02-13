@@ -2,7 +2,7 @@ import { formatExpected } from "../shared/formatExpected"
 import type { GroupedItem } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
 import { formatItemName } from "./formatItemName"
-import { TIER_BG_CLASSES, TIER_LABELS } from "./tierStyles"
+import { TIER_COLOR_CLASSES, TIER_LABELS } from "./tierStyles"
 
 interface ChestsTableProps {
 	sections: ChestSection[]
@@ -46,6 +46,11 @@ function ChestSectionBlock({
 	return (
 		<section aria-labelledby={`chest-${section.chestId}`}>
 			<h3 id={`chest-${section.chestId}`} className="mb-2">
+				<img
+					src={`icons/the_vault_${section.chestId}.png`}
+					alt=""
+					className="inline h-12 w-12 object-contain mr-6"
+				/>
 				{section.chestLabel}
 			</h3>
 
@@ -56,7 +61,7 @@ function ChestSectionBlock({
 					<table className="w-full border-collapse text-lg">
 						<thead>
 							<tr className="border-b border-white/15 text-left uppercase tracking-wider text-white/60">
-								<th scope="col" className="px-3 py-2">
+								<th scope="col" colSpan={2} className="px-3 py-2">
 									Item
 								</th>
 								<th scope="col" className="px-3 py-2">
@@ -96,9 +101,30 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 						key={`${chestId}-${item.itemId}-${tierBreakdown.tier}`}
 						className="border-b border-white/5"
 					>
-						{/* Item column — background based on lowest tier */}
+						{/* Item Icon - only on the first row for this item */}
+						{showItemLabel ? (
+							<td
+								rowSpan={item.tiers.length}
+								className={`w-12 px-3 py-1.5 text-white`}
+								title={item.itemId}
+								aria-label={item.itemId}
+							>
+								<img
+									src={`icons/${item.itemId.replace(":", "_")}.png`}
+									alt=""
+									className="mx-auto h-12 w-12 object-contain"
+									onError={(e) => {
+										;(e.target as HTMLImageElement).src =
+											"https://raw.githubusercontent.com/vh-community/data/main/assets/placeholder.png"
+									}}
+								/>
+							</td>
+						) : (
+							""
+						)}
+						{/* Item Name — background based on lowest tier */}
 						<td
-							className={`px-3 py-1.5 text-white ${showItemLabel ? TIER_BG_CLASSES[item.lowestTier] : ""}`}
+							className={`px-3 py-1.5 text-white`}
 							title={showItemLabel ? item.itemId : undefined}
 							aria-label={showItemLabel ? item.itemId : undefined}
 						>
@@ -107,15 +133,13 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 
 						{/* Tier column — background for this specific tier */}
 						<td
-							className={`px-3 py-1.5 text-white/70 ${TIER_BG_CLASSES[tierBreakdown.tier]}`}
+							className={`px-3 py-1.5 ${TIER_COLOR_CLASSES[tierBreakdown.tier]}`}
 						>
 							{TIER_LABELS[tierBreakdown.tier]}
 						</td>
 
 						{/* Amount per X — also with tier background */}
-						<td
-							className={`px-3 py-1.5 text-right tabular-nums text-white ${TIER_BG_CLASSES[tierBreakdown.tier]}`}
-						>
+						<td className={`px-3 py-1.5 text-right tabular-nums text-white`}>
 							<ExpectedAmount value={tierBreakdown.expectedPerX} />
 						</td>
 					</tr>
