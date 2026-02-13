@@ -1,8 +1,8 @@
 import { formatExpected } from "../shared/formatExpected"
 import type { GroupedItem } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
-import { formatItemName } from "./formatItemName"
 import { TIER_COLOR_CLASSES, TIER_LABELS } from "./tierStyles"
+import { useItem } from "./useItem"
 
 interface ChestsTableProps {
 	sections: ChestSection[]
@@ -89,7 +89,7 @@ function ChestSectionBlock({
 }
 
 function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
-	const friendlyName = formatItemName(item.itemId)
+	const itemInfo = useItem(item.itemId)
 
 	return (
 		<>
@@ -110,12 +110,12 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 								aria-label={item.itemId}
 							>
 								<img
-									src={`icons/${item.itemId.replace(":", "_")}.png`}
+									src={itemInfo.iconUrl}
 									alt=""
 									className="mx-auto h-10 w-10"
 									onError={(e) => {
 										;(e.target as HTMLImageElement).src =
-											"https://raw.githubusercontent.com/vh-community/data/main/assets/placeholder.png"
+											"icons/placeholder.gif"
 									}}
 								/>
 							</td>
@@ -130,7 +130,7 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 								title={showItemLabel ? item.itemId : undefined}
 								aria-label={showItemLabel ? item.itemId : undefined}
 							>
-								{friendlyName}
+								{itemInfo.name}
 							</td>
 						) : (
 							""

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 import type { ChestSection } from "./chestSection"
-import { formatItemName } from "./formatItemName"
+import { formatItemName } from "./useItem"
 
 /**
  * Manages search state and filters sections by chest label/ID or item name/ID.
