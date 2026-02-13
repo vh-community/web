@@ -2,10 +2,13 @@ import { formatExpected } from "../shared/formatExpected"
 import type { GroupedItem } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
 import { formatItemName } from "./formatItemName"
+import { LootSettings } from "./lootSettings"
 import { TIER_BG_CLASSES, TIER_LABELS } from "./tierStyles"
+import { useLootSettings } from "./useLootSettings"
 
 interface ChestsTableProps {
 	sections: ChestSection[]
+	perXChests: number
 }
 
 /**
@@ -17,7 +20,7 @@ interface ChestsTableProps {
  * Items display friendly names with raw id accessible via title attribute.
  * Tier background styling is preserved.
  */
-export function ChestsTable({ sections }: ChestsTableProps) {
+export function ChestsTable({ sections, perXChests }: ChestsTableProps) {
 	if (sections.length === 0) {
 		return null
 	}
@@ -25,13 +28,23 @@ export function ChestsTable({ sections }: ChestsTableProps) {
 	return (
 		<div className="space-y-6">
 			{sections.map((section) => (
-				<ChestSectionBlock key={section.chestId} section={section} />
+				<ChestSectionBlock
+					key={section.chestId}
+					section={section}
+					perXChests={perXChests}
+				/>
 			))}
 		</div>
 	)
 }
 
-function ChestSectionBlock({ section }: { section: ChestSection }) {
+function ChestSectionBlock({
+	section,
+	perXChests,
+}: {
+	section: ChestSection
+	perXChests: number
+}) {
 	return (
 		<section aria-labelledby={`chest-${section.chestId}`}>
 			<h3 id={`chest-${section.chestId}`} className="mb-2">
@@ -52,7 +65,7 @@ function ChestSectionBlock({ section }: { section: ChestSection }) {
 									Tier
 								</th>
 								<th scope="col" className="px-3 py-2 text-right">
-									Amount per X
+									Drops per {perXChests} chests
 								</th>
 							</tr>
 						</thead>

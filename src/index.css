@@ -97,7 +97,7 @@ input[type="number"].no-spin {
 		@apply text-xl font-bold text-gold uppercase;
 	}
 	input {
-		@apply focus:border-gold focus:ring-2 focus:ring-gold/50;
+		@apply focus:border-gold focus:ring-2 focus:ring-gold/50 transition;
 	}
 	input[type="range"] {
 		@apply mt-4 cursor-pointer bg-white/10 rounded-full h-2 appearance-none;
@@ -121,7 +121,10 @@ input[type="number"].no-spin {
 		@apply h-2 rounded-full;
 	}
 	input[type="text"],
-	input[type="number"] {
-		@apply bg-black/40 border border-white/20 text-white text-xl;
+	input[type="number"],
+	input[type="email"],
+	input[type="password"],
+	input[type="search"] {
+		@apply bg-black/40 border border-white/20 text-white text-xl placeholder-white/40 px-3 py-2 focus:border-gold focus:outline-none;
 	}
 }

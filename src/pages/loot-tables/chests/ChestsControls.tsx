@@ -34,7 +34,7 @@ function SliderNumberField({
 	const fillPct = ((value - min) / (max - min)) * 100
 
 	return (
-		<div className="bg-black/25 p-3">
+		<div className="flex flex-col bg-black/20 p-3">
 			<div className="flex items-center justify-end gap-3">
 				<label
 					id={labelId}
@@ -54,7 +54,7 @@ function SliderNumberField({
 						value={value}
 						onChange={(e) => onValueChange(e.target.value)}
 						onBlur={(e) => onValueBlur(e.target.value)}
-						className="no-spin w-24 px-2 py-1.5 text-right tabular-nums focus:border-gold focus:outline-none"
+						className="no-spin w-24 px-2 py-1.5 text-right tabular-nums"
 					/>
 				</div>
 			</div>
@@ -74,7 +74,7 @@ function SliderNumberField({
 				aria-labelledby={labelId}
 			/>
 
-			<div className="mt-1 flex justify-between text-sm tabular-nums text-white/40">
+			<div className="mt-1.5 flex justify-between text-sm tabular-nums text-white/40">
 				<span>
 					{min}
 					{unit ?? ""}
@@ -122,22 +122,9 @@ export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 	)
 
 	return (
-		<fieldset className="mb-6 rounded-xl border border-white/10 bg-black/15 p-4">
+		<fieldset className="mb-6">
 			<legend className="sr-only">Loot table settings</legend>
 			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-				<SliderNumberField
-					id="perXChests"
-					label="Per X chests"
-					value={settings.perXChests}
-					min={1}
-					max={10000}
-					step={1}
-					onValueChange={(raw) =>
-						handleNumericChange("perXChests", 1, 10000, raw)
-					}
-					onValueBlur={(raw) => handleBlur("perXChests", 1, 10000, raw)}
-				/>
-
 				<SliderNumberField
 					id="level"
 					label="Level"
@@ -147,6 +134,20 @@ export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 					step={1}
 					onValueChange={(raw) => handleNumericChange("level", 0, 100, raw)}
 					onValueBlur={(raw) => handleBlur("level", 0, 100, raw)}
+				/>
+
+				<SliderNumberField
+					id="itemQuantity"
+					label="Item Quantity %"
+					value={settings.itemQuantityPct}
+					min={0}
+					max={300}
+					step={1}
+					unit="%"
+					onValueChange={(raw) =>
+						handleNumericChange("itemQuantityPct", 0, 300, raw)
+					}
+					onValueBlur={(raw) => handleBlur("itemQuantityPct", 0, 300, raw)}
 				/>
 
 				<SliderNumberField
@@ -164,17 +165,16 @@ export function ChestsControls({ settings, onChange }: ChestsControlsProps) {
 				/>
 
 				<SliderNumberField
-					id="itemQuantity"
-					label="Item Quantity %"
-					value={settings.itemQuantityPct}
-					min={0}
-					max={300}
+					id="perXChests"
+					label="Per X chests"
+					value={settings.perXChests}
+					min={1}
+					max={10000}
 					step={1}
-					unit="%"
 					onValueChange={(raw) =>
-						handleNumericChange("itemQuantityPct", 0, 300, raw)
+						handleNumericChange("perXChests", 1, 10000, raw)
 					}
-					onValueBlur={(raw) => handleBlur("itemQuantityPct", 0, 300, raw)}
+					onValueBlur={(raw) => handleBlur("perXChests", 1, 10000, raw)}
 				/>
 			</div>
 		</fieldset>
