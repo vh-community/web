@@ -105,14 +105,14 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 						{showItemLabel ? (
 							<td
 								rowSpan={item.tiers.length}
-								className={`w-12 px-3 py-1.5 text-white`}
+								className={`p-1 text-white`}
 								title={item.itemId}
 								aria-label={item.itemId}
 							>
 								<img
 									src={`icons/${item.itemId.replace(":", "_")}.png`}
 									alt=""
-									className="mx-auto h-12 w-12 object-contain"
+									className="mx-auto h-10 w-10"
 									onError={(e) => {
 										;(e.target as HTMLImageElement).src =
 											"https://raw.githubusercontent.com/vh-community/data/main/assets/placeholder.png"
@@ -123,13 +123,18 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 							""
 						)}
 						{/* Item Name — background based on lowest tier */}
-						<td
-							className={`px-3 py-1.5 text-white`}
-							title={showItemLabel ? item.itemId : undefined}
-							aria-label={showItemLabel ? item.itemId : undefined}
-						>
-							{showItemLabel ? friendlyName : ""}
-						</td>
+						{showItemLabel ? (
+							<td
+								rowSpan={item.tiers.length}
+								className={`px-3 py-1.5 text-white`}
+								title={showItemLabel ? item.itemId : undefined}
+								aria-label={showItemLabel ? item.itemId : undefined}
+							>
+								{friendlyName}
+							</td>
+						) : (
+							""
+						)}
 
 						{/* Tier column — background for this specific tier */}
 						<td
