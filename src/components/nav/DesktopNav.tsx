@@ -43,11 +43,11 @@ function DropdownMenu({
 	// Focus first link when dropdown opens via keyboard
 	useEffect(() => {
 		if (isOpen && dropdownRef.current) {
-			// Small delay to ensure the dropdown is rendered
-			setTimeout(() => {
+			// Use requestAnimationFrame to ensure the dropdown is rendered before focusing
+			requestAnimationFrame(() => {
 				const firstLink = dropdownRef.current?.querySelector("a")
 				firstLink?.focus()
-			}, 50)
+			})
 		}
 	}, [isOpen])
 
@@ -132,7 +132,7 @@ function DropdownMenu({
 			{isOpen && (
 				<div
 					id={dropdownId}
-					className="absolute left-0 top-full pt-1 animate-in fade-in duration-200"
+					className="absolute left-0 top-full pt-1 motion-safe:animate-in motion-safe:fade-in motion-safe:duration-200"
 				>
 					<div className="min-w-44 bg-gray-900/95 backdrop-blur-md py-1 shadow-lg ring-1 ring-gold/10">
 						{item.children.map((child) => (
