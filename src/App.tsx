@@ -24,34 +24,28 @@ function App() {
 }
 
 function Router() {
-	const hash = window.location.hash
-	const strippedHash = hash.startsWith("#/") ? hash.slice(2) : hash
-	const [route, setRoute] = useState<string>(strippedHash)
+	const pathname = window.location.pathname
+	const [route, setRoute] = useState<string>(pathname === "" ? "/" : pathname)
 
 	useEffect(() => {
-		const onHashChange = () => setRoute(strippedHash)
-		window.addEventListener("hashchange", onHashChange)
-		return () => window.removeEventListener("hashchange", onHashChange)
-	}, [strippedHash])
+		const onPathChange = () => {
+			const path = window.location.pathname
+			setRoute(path === "" ? "/" : path)
+		}
+
+		window.addEventListener("popstate", onPathChange)
+		return () => window.removeEventListener("popstate", onPathChange)
+	}, [])
 
 	switch (route) {
-		case "":
+		case "/":
 			return <HomePage />
-		case "privacy":
+		case "/privacy":
 			return <PrivacyPolicyPage />
-		case "loot-table/chests":
+		case "/loot-table/chests":
 			return <ChestsPage />
 		default:
-			window.location.hash = ""
 	}
-
-	return (
-		<>
-			{route === "home" && <HomePage />}
-			{route === "privacy-policy" && <PrivacyPolicyPage />}
-			{route === "loot-table-chests" && <ChestsPage />}
-		</>
-	)
 }
 
 export default App

@@ -47,7 +47,7 @@ input[type="number"].no-spin {
 		@apply text-base text-white;
 	}
 	h1 {
-		@apply text-3xl font-bold text-blue-500 uppercase;
+		@apply text-3xl font-bold text-gold uppercase;
 	}
 	h2 {
 		@apply text-2xl font-bold text-gold uppercase;

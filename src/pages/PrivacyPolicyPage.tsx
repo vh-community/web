@@ -1,8 +1,10 @@
+import { FramedContent } from "@components/FramedContent"
+
 export function PrivacyPolicyPage() {
 	return (
-		<div className="container mx-auto px-4 py-8 max-w-4xl">
+		<FramedContent>
 			<h1 className="text-4xl font-bold mb-6">Privacy Policy</h1>
-			<p className="text-sm text-gray-600 mb-8">Effective Date: January 2025</p>
+			<p className="text-sm text-gray-400 mb-8">Effective Date: January 2025</p>
 
 			<section className="mb-8">
 				<h2 className="text-2xl font-semibold mb-3">Introduction</h2>
@@ -19,13 +21,13 @@ export function PrivacyPolicyPage() {
 				<h3 className="text-xl font-medium mb-2">Local Storage Data</h3>
 				<p className="mb-2">
 					We store the following preferences locally in your browser using
-					localStorage:
+					localStorage.
 				</p>
 				<ul className="list-disc list-inside mb-4 space-y-1">
 					<li>
 						<strong>Loot Table Settings:</strong>
 						<ul className="list-disc list-inside ml-6 mt-1 space-y-1">
-							<li>Your current level</li>
+							<li>Level</li>
 							<li>Item quantity preferences</li>
 							<li>Item rarity filters</li>
 							<li>Number of chests to display</li>
@@ -82,10 +84,10 @@ export function PrivacyPolicyPage() {
 				</ul>
 			</section>
 
-			<p className="text-sm text-gray-600">
+			<p className="text-sm text-gray-400">
 				This is a community project. If you have questions about this Privacy
 				Policy, please open an issue on our GitHub repository.
 			</p>
-		</div>
+		</FramedContent>
 	)
 }

@@ -46,20 +46,20 @@ function ChestSectionBlock({
 }) {
 	return (
 		<section aria-labelledby={`chest-${section.chestId}`}>
-			<h3 id={`chest-${section.chestId}`} className="mb-2 mt-10">
+			<h2 id={`chest-${section.chestId}`} className="mb-2 mt-10">
 				<img
-					src={`icons/the_vault_${section.chestId}.png`}
+					src={`/icons/the_vault_${section.chestId}.png`}
 					alt=""
 					className="inline h-12 w-12 object-contain mr-6"
 					onError={(e) => {
-						;(e.target as HTMLImageElement).src = "icons/placeholder.gif"
+						;(e.target as HTMLImageElement).src = "/icons/placeholder.gif"
 					}}
 				/>
 				{section.chestLabel}
-			</h3>
+			</h2>
 
 			{section.items.length === 0 ? (
-				<p className="text-sm text-white/50">No items at this level.</p>
+				<p className="text-white/50">No items at this level.</p>
 			) : (
 				<div className="overflow-x-auto">
 					<table className="w-full border-collapse text-lg bg-black/20">
@@ -123,7 +123,7 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 									className="mx-auto h-10 w-10"
 									onError={(e) => {
 										;(e.target as HTMLImageElement).src =
-											"icons/placeholder.gif"
+											"/icons/placeholder.gif"
 									}}
 								/>
 							</td>
@@ -165,7 +165,7 @@ function ExpectedAmount({ value }: { value: number }) {
 		<span>
 			<span>{integerPart}</span>
 			{decimalPart !== undefined && (
-				<span className="text-sm text-white/60">.{decimalPart}</span>
+				<span className="text-base text-white/60">.{decimalPart}</span>
 			)}
 		</span>
 	)

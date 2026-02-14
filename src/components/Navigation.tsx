@@ -1,5 +1,7 @@
+import { Link } from "@components/Link"
+
 export function Navigation() {
-	const hash = window.location.hash
+	const path = window.location.pathname
 
 	return (
 		<nav
@@ -7,16 +9,16 @@ export function Navigation() {
 			aria-label="Main navigation"
 		>
 			<div className="flex items-center gap-4 text-xl">
-				<a
-					href="#/loot-table/chests"
+				<Link
+					href="/loot-table/chests"
 					className={`rounded-md px-3 py-1.5 text-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
-						hash === "#/loot-table/chests"
+						path === "/loot-table/chests"
 							? "bg-white/15 font-medium text-white"
 							: "text-white/70 hover:bg-white/10 hover:text-white"
 					}`}
 				>
 					Loot Table — Chests
-				</a>
+				</Link>
 			</div>
 		</nav>
 	)

@@ -4,107 +4,107 @@ const itemMap: Record<string, Item> = {
 	"minecraft:sculk_sensor": {
 		id: "minecraft:sculk_sensor",
 		name: "Sculk Sensor",
-		iconUrl: "icons/minecraft_sculk_sensor.gif",
+		iconUrl: "/icons/minecraft_sculk_sensor.gif",
 	},
 	"the_vault:carbon_nugget": {
 		id: "the_vault:carbon_nugget",
 		name: "Raw Carbon",
-		iconUrl: "icons/the_vault_raw_carbon.png",
+		iconUrl: "/icons/the_vault_raw_carbon.png",
 	},
 	"the_vault:mod_box": {
 		id: "the_vault:mod_box",
 		name: "Mod Box",
-		iconUrl: "icons/the_vault_mod_box.gif",
+		iconUrl: "/icons/the_vault_mod_box.gif",
 	},
 	"the_vault:vault_essence": {
 		id: "the_vault:vault_essence",
 		name: "Vault Essence",
-		iconUrl: "icons/the_vault_vault_essence.gif",
+		iconUrl: "/icons/the_vault_vault_essence.gif",
 	},
 	"the_vault:knowledge_star_essence": {
 		id: "the_vault:knowledge_star_essence",
 		name: "Knowledge Essence",
-		iconUrl: "icons/the_vault_knowledge_essence.png",
+		iconUrl: "/icons/the_vault_knowledge_essence.png",
 	},
 	"the_vault:vault_god_charm": {
 		id: "the_vault:vault_god_charm",
 		name: "God Charm",
-		iconUrl: "icons/the_vault_god_charm.gif",
+		iconUrl: "/icons/the_vault_god_charm.gif",
 	},
 	"the_vault:vault_moss": {
 		id: "the_vault:vault_moss",
 		name: "Vault Moss",
-		iconUrl: "icons/the_vault_vault_moss.gif",
+		iconUrl: "/icons/the_vault_vault_moss.gif",
 	},
 	"the_vault:dreamstone": {
 		id: "the_vault:dreamstone",
 		name: "Dreamstone",
-		iconUrl: "icons/the_vault_dreamstone.gif",
+		iconUrl: "/icons/the_vault_dreamstone.gif",
 	},
 	"the_vault:vault_diamond": {
 		id: "the_vault:vault_diamond",
 		name: "Vault Diamond",
-		iconUrl: "icons/the_vault_vault_diamond.gif",
+		iconUrl: "/icons/the_vault_vault_diamond.gif",
 	},
 	"the_vault:vault_necklace": {
 		id: "the_vault:vault_necklace",
 		name: "Vault Pendant",
-		iconUrl: "icons/the_vault_vault_pendant.png",
+		iconUrl: "/icons/the_vault_vault_pendant.png",
 	},
 	"the_vault:helmet": {
 		id: "the_vault:helmet",
 		name: "Unidentified Helmet",
-		iconUrl: "icons/the_vault_unidentified_helmet.gif",
+		iconUrl: "/icons/the_vault_unidentified_helmet.gif",
 	},
 	"the_vault:chestplate": {
 		id: "the_vault:chestplate",
 		name: "Unidentified Chestplate",
-		iconUrl: "icons/the_vault_unidentified_chestplate.gif",
+		iconUrl: "/icons/the_vault_unidentified_chestplate.gif",
 	},
 	"the_vault:leggings": {
 		id: "the_vault:leggings",
 		name: "Unidentified Leggings",
-		iconUrl: "icons/the_vault_unidentified_leggings.gif",
+		iconUrl: "/icons/the_vault_unidentified_leggings.gif",
 	},
 	"the_vault:boots": {
 		id: "the_vault:boots",
 		name: "Unidentified Boots",
-		iconUrl: "icons/the_vault_unidentified_boots.gif",
+		iconUrl: "/icons/the_vault_unidentified_boots.gif",
 	},
 	"the_vault:sword": {
 		id: "the_vault:sword",
 		name: "Unidentified Sword",
-		iconUrl: "icons/the_vault_unidentified_sword.gif",
+		iconUrl: "/icons/the_vault_unidentified_sword.gif",
 	},
 	"the_vault:axe": {
 		id: "the_vault:axe",
 		name: "Unidentified Axe",
-		iconUrl: "icons/the_vault_unidentified_axe.gif",
+		iconUrl: "/icons/the_vault_unidentified_axe.gif",
 	},
 	"the_vault:shield": {
 		id: "the_vault:shield",
 		name: "Unidentified Shield",
-		iconUrl: "icons/the_vault_unidentified_shield.gif",
+		iconUrl: "/icons/the_vault_unidentified_shield.gif",
 	},
 	"the_vault:wand": {
 		id: "the_vault:wand",
 		name: "Unidentified Wand",
-		iconUrl: "icons/the_vault_unidentified_wand.gif",
+		iconUrl: "/icons/the_vault_unidentified_wand.gif",
 	},
 	"the_vault:focus": {
 		id: "the_vault:focus",
 		name: "Unidentified Focus",
-		iconUrl: "icons/the_vault_unidentified_focus.gif",
+		iconUrl: "/icons/the_vault_unidentified_focus.gif",
 	},
 	"the_vault:magnet": {
 		id: "the_vault:magnet",
 		name: "Unidentified Magnet",
-		iconUrl: "icons/the_vault_unidentified_magnet.gif",
+		iconUrl: "/icons/the_vault_unidentified_magnet.gif",
 	},
 	"sophisticatedbackpacks:backpack": {
 		id: "sophisticatedbackpacks:backpack",
 		name: "Pouch",
-		iconUrl: "icons/sophisticatedbackpacks_pouch.png",
+		iconUrl: "/icons/sophisticatedbackpacks_pouch.png",
 	},
 }
 
@@ -120,7 +120,7 @@ export function getItem(itemId: string) {
 		itemMap[itemId] || {
 			id: itemId,
 			name: formatItemName(itemId), // Fallback to the ID as the name if we don't have a mapping
-			iconUrl: `icons/${itemId.replace(":", "_")}.png`, // Fallback icon
+			iconUrl: `/icons/${itemId.replace(":", "_")}.png`, // Fallback icon
 		}
 	)
 }
