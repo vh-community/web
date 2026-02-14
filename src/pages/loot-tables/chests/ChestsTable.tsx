@@ -1,8 +1,9 @@
+import { useState } from "react"
 import { formatExpected } from "../shared/formatExpected"
 import type { GroupedItem } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
-import { formatItemName } from "./formatItemName"
-import { TIER_BG_CLASSES, TIER_LABELS } from "./tierStyles"
+import { getItem } from "./getItem"
+import { TIER_COLOR_CLASSES, TIER_LABELS } from "./tierStyles"
 
 interface ChestsTableProps {
 	sections: ChestSection[]
@@ -45,7 +46,15 @@ function ChestSectionBlock({
 }) {
 	return (
 		<section aria-labelledby={`chest-${section.chestId}`}>
-			<h3 id={`chest-${section.chestId}`} className="mb-2">
+			<h3 id={`chest-${section.chestId}`} className="mb-2 mt-10">
+				<img
+					src={`icons/the_vault_${section.chestId}.png`}
+					alt=""
+					className="inline h-12 w-12 object-contain mr-6"
+					onError={(e) => {
+						;(e.target as HTMLImageElement).src = "icons/placeholder.gif"
+					}}
+				/>
 				{section.chestLabel}
 			</h3>
 
@@ -53,14 +62,14 @@ function ChestSectionBlock({
 				<p className="text-sm text-white/50">No items at this level.</p>
 			) : (
 				<div className="overflow-x-auto">
-					<table className="w-full border-collapse text-lg">
+					<table className="w-full border-collapse text-lg bg-black/20">
 						<thead>
 							<tr className="border-b border-white/15 text-left uppercase tracking-wider text-white/60">
-								<th scope="col" className="px-3 py-2">
+								<th scope="col" colSpan={2} className="px-3 py-2">
 									Item
 								</th>
 								<th scope="col" className="px-3 py-2">
-									Tier
+									Roll Tier
 								</th>
 								<th scope="col" className="px-3 py-2 text-right">
 									Drops per {perXChests} chest{perXChests === 1 ? "" : "s"}
@@ -84,7 +93,9 @@ function ChestSectionBlock({
 }
 
 function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
-	const friendlyName = formatItemName(item.itemId)
+	const itemInfo = getItem(item.itemId)
+	const itemKey = `${chestId}-${item.itemId}`
+	const [isHovered, setIsHovered] = useState(false)
 
 	return (
 		<>
@@ -93,29 +104,50 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 
 				return (
 					<tr
-						key={`${chestId}-${item.itemId}-${tierBreakdown.tier}`}
-						className="border-b border-white/5"
+						key={`${itemKey}-${tierBreakdown.tier}`}
+						data-item-group={itemKey}
+						className={`border-b border-white/5 ${isHovered ? "bg-white/5" : ""}`}
+						onMouseEnter={() => setIsHovered(true)}
+						onMouseLeave={() => setIsHovered(false)}
 					>
-						{/* Item column — background based on lowest tier */}
-						<td
-							className={`px-3 py-1.5 text-white ${showItemLabel ? TIER_BG_CLASSES[item.lowestTier] : ""}`}
-							title={showItemLabel ? item.itemId : undefined}
-							aria-label={showItemLabel ? item.itemId : undefined}
-						>
-							{showItemLabel ? friendlyName : ""}
-						</td>
+						{/* Item Icon - only on the first row for this item */}
+						{showItemLabel ? (
+							<td
+								rowSpan={item.tiers.length}
+								className={`w-12 text-white`}
+								title={item.itemId}
+							>
+								<img
+									src={itemInfo.iconUrl}
+									alt=""
+									className="mx-auto h-10 w-10"
+									onError={(e) => {
+										;(e.target as HTMLImageElement).src =
+											"icons/placeholder.gif"
+									}}
+								/>
+							</td>
+						) : null}
+						{/* Item Name — background based on lowest tier */}
+						{showItemLabel ? (
+							<td
+								rowSpan={item.tiers.length}
+								className={`px-3 text-white`}
+								title={item.itemId}
+							>
+								{itemInfo.name}
+							</td>
+						) : null}
 
 						{/* Tier column — background for this specific tier */}
 						<td
-							className={`px-3 py-1.5 text-white/70 ${TIER_BG_CLASSES[tierBreakdown.tier]}`}
+							className={`px-3 h-14 ${TIER_COLOR_CLASSES[tierBreakdown.tier]}`}
 						>
 							{TIER_LABELS[tierBreakdown.tier]}
 						</td>
 
 						{/* Amount per X — also with tier background */}
-						<td
-							className={`px-3 py-1.5 text-right tabular-nums text-white ${TIER_BG_CLASSES[tierBreakdown.tier]}`}
-						>
+						<td className={`px-3 text-right tabular-nums text-white`}>
 							<ExpectedAmount value={tierBreakdown.expectedPerX} />
 						</td>
 					</tr>

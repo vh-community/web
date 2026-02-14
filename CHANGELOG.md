@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-02-14 Icons
+
+### Improvements
+
+- Visual improvements to the loot tables page
+  - Add icons for each item in the loot tables
+  - Add chest icons in the header per chest type
+  - Hovering over an item highlights the item and all roll tiers that drop that item.
+
 ## 2026-02-13 Chest UI/UX Improvements
 
 ### Changes

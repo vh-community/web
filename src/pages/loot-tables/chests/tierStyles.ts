@@ -10,11 +10,11 @@ import type { TierName } from "../../../models/tieredLootTable"
  * - Epic → Purple
  * - Omega → Green
  */
-export const TIER_BG_CLASSES: Record<TierName, string> = {
-	common: "bg-gray-500/15",
-	rare: "bg-blue-500/15",
-	epic: "bg-purple-500/15",
-	omega: "bg-green-500/15",
+export const TIER_COLOR_CLASSES: Record<TierName, string> = {
+	common: "text-white/80",
+	rare: "text-blue-500/80",
+	epic: "text-purple-500/80",
+	omega: "text-green-500/80",
 }
 
 /** Human-readable tier labels for display (FR-003a: not color alone). */
