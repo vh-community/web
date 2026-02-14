@@ -24,7 +24,7 @@ export function DesktopNav() {
 						<Link
 							key={item.label}
 							href={item.href}
-							className={`px-3 py-1.5 text-lg font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/80 ${
+							className={`px-3 py-1.5 text-xl font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/80 ${
 								active
 									? "text-gold shadow-[inset_0_-2px_0_0_currentColor]"
 									: "text-gold/90 hover:text-gold hover:shadow-[inset_0_-2px_0_0_currentColor]"
@@ -40,7 +40,7 @@ export function DesktopNav() {
 					<div key={item.label} className="relative group">
 						<button
 							type="button"
-							className={`flex items-center gap-1 px-3 py-1.5 text-lg font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+							className={`flex items-center gap-1 px-3 py-1.5 text-xl font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
 								active
 									? "text-gold shadow-[inset_0_-2px_0_0_currentColor]"
 									: "text-gold/90 hover:text-gold"
@@ -69,7 +69,7 @@ export function DesktopNav() {
 									<Link
 										key={child.href}
 										href={child.href}
-										className={`block px-4 py-2 text-base font-medium transition-colors ${
+										className={`block px-4 py-2 text-lg font-medium transition-colors ${
 											path === child.href
 												? "text-gold shadow-[inset_0_-2px_0_0_currentColor]"
 												: "text-gold/90 hover:text-gold hover:shadow-[inset_0_-2px_0_0_currentColor]"
