@@ -7,9 +7,9 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@models/*": ["src/models/*"],
-      "@pages/*": ["src/pages/*"]
+      "@components/*": ["./src/components/*"],
+      "@models/*": ["./src/models/*"],
+      "@pages/*": ["./src/pages/*"]
     },
     "baseUrl": ".",
 

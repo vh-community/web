@@ -1,6 +1,3 @@
-/**
- * Internal navigation link component for hash routing.
- */
 interface LinkProps {
 	href: string
 	children: React.ReactNode
