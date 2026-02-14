@@ -89,4 +89,9 @@ input[type="number"].no-spin {
 	a {
 		@apply text-blue-300 transition hover:text-blue-100;
 	}
+	/* Prevent base link styles from bleeding into header/nav */
+	header a,
+	nav a {
+		@apply text-inherit hover:text-inherit;
+	}
 }
