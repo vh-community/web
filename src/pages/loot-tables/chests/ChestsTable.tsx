@@ -2,8 +2,8 @@ import { useState } from "react"
 import { formatExpected } from "../shared/formatExpected"
 import type { GroupedItem } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
+import { getItem } from "./getItem"
 import { TIER_COLOR_CLASSES, TIER_LABELS } from "./tierStyles"
-import { useItem } from "./useItem"
 
 interface ChestsTableProps {
 	sections: ChestSection[]
@@ -51,6 +51,9 @@ function ChestSectionBlock({
 					src={`icons/the_vault_${section.chestId}.png`}
 					alt=""
 					className="inline h-12 w-12 object-contain mr-6"
+					onError={(e) => {
+						;(e.target as HTMLImageElement).src = "icons/placeholder.gif"
+					}}
 				/>
 				{section.chestLabel}
 			</h3>
@@ -90,7 +93,7 @@ function ChestSectionBlock({
 }
 
 function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
-	const itemInfo = useItem(item.itemId)
+	const itemInfo = getItem(item.itemId)
 	const itemKey = `${chestId}-${item.itemId}`
 	const [isHovered, setIsHovered] = useState(false)
 
@@ -113,7 +116,6 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 								rowSpan={item.tiers.length}
 								className={`w-12 text-white`}
 								title={item.itemId}
-								aria-label={item.itemId}
 							>
 								<img
 									src={itemInfo.iconUrl}
@@ -132,7 +134,6 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 								rowSpan={item.tiers.length}
 								className={`px-3 text-white`}
 								title={item.itemId}
-								aria-label={item.itemId}
 							>
 								{itemInfo.name}
 							</td>

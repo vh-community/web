@@ -114,7 +114,7 @@ export interface Item {
 	iconUrl: string
 }
 
-export function useItem(itemId: string) {
+export function getItem(itemId: string) {
 	// For now, we only have special handling for a few items. In the future, we may want to fetch item data from an API or a local JSON file.
 	return (
 		itemMap[itemId] || {
