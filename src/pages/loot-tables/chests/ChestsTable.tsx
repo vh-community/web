@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { formatExpected } from "../shared/formatExpected"
 import type { GroupedItem } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
@@ -58,14 +59,14 @@ function ChestSectionBlock({
 				<p className="text-sm text-white/50">No items at this level.</p>
 			) : (
 				<div className="overflow-x-auto">
-					<table className="w-full border-collapse text-lg">
+					<table className="w-full border-collapse text-lg bg-black/20">
 						<thead>
 							<tr className="border-b border-white/15 text-left uppercase tracking-wider text-white/60">
-								<th scope="col" colSpan={2} className="px-1 py-2">
+								<th scope="col" colSpan={2} className="px-3 py-2">
 									Item
 								</th>
 								<th scope="col" className="px-3 py-2">
-									Tier
+									Roll Tier
 								</th>
 								<th scope="col" className="px-3 py-2 text-right">
 									Drops per {perXChests} chest{perXChests === 1 ? "" : "s"}
@@ -90,6 +91,8 @@ function ChestSectionBlock({
 
 function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 	const itemInfo = useItem(item.itemId)
+	const itemKey = `${chestId}-${item.itemId}`
+	const [isHovered, setIsHovered] = useState(false)
 
 	return (
 		<>
@@ -98,14 +101,17 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 
 				return (
 					<tr
-						key={`${chestId}-${item.itemId}-${tierBreakdown.tier}`}
-						className="border-b border-white/5"
+						key={`${itemKey}-${tierBreakdown.tier}`}
+						data-item-group={itemKey}
+						className={`border-b border-white/5 ${isHovered ? "bg-white/5" : ""}`}
+						onMouseEnter={() => setIsHovered(true)}
+						onMouseLeave={() => setIsHovered(false)}
 					>
 						{/* Item Icon - only on the first row for this item */}
 						{showItemLabel ? (
 							<td
 								rowSpan={item.tiers.length}
-								className={`py-1 w-12 text-white`}
+								className={`w-12 text-white`}
 								title={item.itemId}
 								aria-label={item.itemId}
 							>
@@ -119,32 +125,28 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 									}}
 								/>
 							</td>
-						) : (
-							""
-						)}
+						) : null}
 						{/* Item Name — background based on lowest tier */}
 						{showItemLabel ? (
 							<td
 								rowSpan={item.tiers.length}
-								className={`px-3 py-1.5 text-white`}
-								title={showItemLabel ? item.itemId : undefined}
-								aria-label={showItemLabel ? item.itemId : undefined}
+								className={`px-3 text-white`}
+								title={item.itemId}
+								aria-label={item.itemId}
 							>
 								{itemInfo.name}
 							</td>
-						) : (
-							""
-						)}
+						) : null}
 
 						{/* Tier column — background for this specific tier */}
 						<td
-							className={`px-3 py-1.5 ${TIER_COLOR_CLASSES[tierBreakdown.tier]}`}
+							className={`px-3 h-14 ${TIER_COLOR_CLASSES[tierBreakdown.tier]}`}
 						>
 							{TIER_LABELS[tierBreakdown.tier]}
 						</td>
 
 						{/* Amount per X — also with tier background */}
-						<td className={`px-3 py-1.5 text-right tabular-nums text-white`}>
+						<td className={`px-3 text-right tabular-nums text-white`}>
 							<ExpectedAmount value={tierBreakdown.expectedPerX} />
 						</td>
 					</tr>
