@@ -40,18 +40,56 @@ function DropdownMenu({
 		return () => document.removeEventListener("mousedown", handleClickOutside)
 	}, [isOpen])
 
+	// Focus first link when dropdown opens via keyboard
+	useEffect(() => {
+		if (isOpen && dropdownRef.current) {
+			// Small delay to ensure the dropdown is rendered
+			setTimeout(() => {
+				const firstLink = dropdownRef.current?.querySelector("a")
+				firstLink?.focus()
+			}, 50)
+		}
+	}, [isOpen])
+
 	// Handle keyboard navigation
 	function handleKeyDown(event: React.KeyboardEvent) {
 		if (event.key === "Escape") {
-			setIsOpen(false)
-			buttonRef.current?.focus()
-		} else if (event.key === "ArrowDown" && !isOpen) {
-			event.preventDefault()
-			setIsOpen(true)
-		} else if (event.key === "ArrowUp" && isOpen) {
 			event.preventDefault()
 			setIsOpen(false)
 			buttonRef.current?.focus()
+		} else if (event.key === "ArrowDown") {
+			event.preventDefault()
+			if (!isOpen) {
+				setIsOpen(true)
+			} else {
+				// Move focus to next link
+				const links = dropdownRef.current?.querySelectorAll("a")
+				const currentIndex = links
+					? Array.from(links).indexOf(
+							document.activeElement as HTMLAnchorElement,
+						)
+					: -1
+				if (links && currentIndex < links.length - 1) {
+					links[currentIndex + 1]?.focus()
+				}
+			}
+		} else if (event.key === "ArrowUp") {
+			event.preventDefault()
+			if (isOpen) {
+				const links = dropdownRef.current?.querySelectorAll("a")
+				const currentIndex = links
+					? Array.from(links).indexOf(
+							document.activeElement as HTMLAnchorElement,
+						)
+					: -1
+				if (currentIndex > 0) {
+					links?.[currentIndex - 1]?.focus()
+				} else {
+					// Close and return to button
+					setIsOpen(false)
+					buttonRef.current?.focus()
+				}
+			}
 		}
 	}
 
@@ -95,7 +133,6 @@ function DropdownMenu({
 				<div
 					id={dropdownId}
 					className="absolute left-0 top-full pt-1 animate-in fade-in duration-200"
-					role="menu"
 				>
 					<div className="min-w-44 bg-gray-900/95 backdrop-blur-md py-1 shadow-lg ring-1 ring-gold/10">
 						{item.children.map((child) => (
