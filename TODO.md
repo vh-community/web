@@ -2,6 +2,8 @@
 
 ## Next up
 
+- Information: First page information, footer, header.
+- Navigation UI/UX improvements, including url routing path.
 - Sort loot tables by item name, tier, or amount per X.
 
 ## Future improvements
