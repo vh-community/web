@@ -50,7 +50,7 @@ function ChestSectionBlock({
 				<img
 					src={`/icons/the_vault_${section.chestId}.png`}
 					alt=""
-					className="inline h-12 w-12 object-contain mr-6"
+					className="inline h-10 w-10 sm:h-12 sm:w-12 object-contain ml-1 sm:ml-0 mr-4 sm:mr-6"
 					onError={(e) => {
 						;(e.target as HTMLImageElement).src = "/icons/placeholder.gif"
 					}}
@@ -62,16 +62,23 @@ function ChestSectionBlock({
 				<p className="text-white/50">No items at this level.</p>
 			) : (
 				<div className="overflow-x-auto">
-					<table className="w-full border-collapse text-lg bg-black/20">
+					<table className="w-full border-collapse sm:text-lg bg-black/20">
 						<thead>
 							<tr className="border-b border-white/15 text-left uppercase tracking-wider text-white/60">
-								<th scope="col" colSpan={2} className="px-3 py-2">
+								<th
+									scope="col"
+									colSpan={2}
+									className="pl-2 pr-1 sm:px-3 py-1 sm:py-2"
+								>
 									Item
 								</th>
-								<th scope="col" className="px-3 py-2">
+								<th scope="col" className="px-1 sm:px-3 py-1 sm:py-2">
 									Roll Tier
 								</th>
-								<th scope="col" className="px-3 py-2 text-right">
+								<th
+									scope="col"
+									className="pl-1 pr-2 sm:px-3 py-1 sm:py-2 text-right w-18 sm:w-auto"
+								>
 									Drops per {perXChests} chest{perXChests === 1 ? "" : "s"}
 								</th>
 							</tr>
@@ -114,13 +121,13 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 						{showItemLabel ? (
 							<td
 								rowSpan={item.tiers.length}
-								className={`w-12 text-white`}
+								className={`w-10 sm:w-12 text-white`}
 								title={item.itemId}
 							>
 								<img
 									src={itemInfo.iconUrl}
 									alt=""
-									className="mx-auto h-10 w-10"
+									className="mx-auto h-8 w-8 sm:h-10 sm:w-10"
 									onError={(e) => {
 										;(e.target as HTMLImageElement).src =
 											"/icons/placeholder.gif"
@@ -132,7 +139,7 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 						{showItemLabel ? (
 							<td
 								rowSpan={item.tiers.length}
-								className={`px-3 text-white`}
+								className={`px-1 sm:px-3 text-white`}
 								title={item.itemId}
 							>
 								{itemInfo.name}
@@ -141,13 +148,15 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 
 						{/* Tier column — background for this specific tier */}
 						<td
-							className={`px-3 h-14 ${TIER_COLOR_CLASSES[tierBreakdown.tier]}`}
+							className={`px-1 sm:px-3 h-12 sm:h-14 ${TIER_COLOR_CLASSES[tierBreakdown.tier]}`}
 						>
 							{TIER_LABELS[tierBreakdown.tier]}
 						</td>
 
 						{/* Amount per X — also with tier background */}
-						<td className={`px-3 text-right tabular-nums text-white`}>
+						<td
+							className={`pl-1 pr-2 sm:px-3 text-right tabular-nums text-white`}
+						>
 							<ExpectedAmount value={tierBreakdown.expectedPerX} />
 						</td>
 					</tr>

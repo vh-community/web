@@ -11,7 +11,7 @@ function App() {
 			<Header />
 			<Navigation />
 
-			<main className="mx-auto w-full max-w-7xl px-4 pb-12">
+			<main className="mx-auto w-full max-w-7xl pb-12">
 				<Router />
 			</main>
 

@@ -27,27 +27,27 @@ input[type="number"].no-spin {
 }
 
 @theme {
-	--text-xs: 0.875rem; /* was 0.75rem */
-	--text-sm: 1rem; /* was 0.875rem */
-	--text-base: 1.125rem; /* was 1rem */
-	--text-lg: 1.25rem; /* was 1.125rem */
-	--text-xl: 1.5rem; /* was 1.25rem */
-	--text-2xl: 1.875rem; /* was 1.5rem */
-	--text-3xl: 2.25rem; /* was 1.875rem */
-	--text-4xl: 3rem; /* was 2.25rem */
-	--text-5xl: 3.75rem; /* was 3rem */
-	--text-6xl: 4.5rem; /* was 3.75rem */
-	--text-7xl: 6rem; /* was 4.5rem */
-	--text-8xl: 8rem; /* was 6rem */
-	--text-9xl: 10rem; /* was 8rem */
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-base: 1rem;
+	--text-lg: 1.125rem;
+	--text-xl: 1.25rem;
+	--text-2xl: 1.5rem;
+	--text-3xl: 1.875rem;
+	--text-4xl: 2.25rem;
+	--text-5xl: 3rem;
+	--text-6xl: 3.75rem;
+	--text-7xl: 4.5rem;
+	--text-8xl: 6rem;
+	--text-9xl: 8rem;
 }
 
 @layer base {
 	body {
-		@apply text-base text-white;
+		@apply text-base text-white sm:text-lg;
 	}
 	h1 {
-		@apply text-3xl font-bold text-gold uppercase;
+		@apply mt-2 ml-2 sm:mt-1 sm:ml-1 text-3xl font-bold text-gold uppercase;
 	}
 	h2 {
 		@apply text-2xl font-bold text-gold uppercase;
@@ -84,7 +84,7 @@ input[type="number"].no-spin {
 	input[type="email"],
 	input[type="password"],
 	input[type="search"] {
-		@apply bg-black/40 border border-white/20 text-white text-lg placeholder-white/40 px-3 py-2 focus:border-gold focus:outline-none;
+		@apply bg-black/40 border border-white/20 text-white text-lg sm:text-xl placeholder-white/40 px-3 py-2 focus:border-gold focus:outline-none;
 	}
 	a {
 		@apply text-blue-300 transition hover:text-blue-100;
