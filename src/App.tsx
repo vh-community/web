@@ -10,7 +10,7 @@ function App() {
 			<Header />
 
 			{/* Spacer for fixed header */}
-			<div className="h-20 md:h-24" />
+			<div className="h-26 md:h-30" />
 
 			<main className="mx-auto w-full max-w-7xl pb-12">
 				<Router />

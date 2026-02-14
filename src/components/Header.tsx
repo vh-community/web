@@ -27,34 +27,48 @@ export function Header() {
 
 					{/* Logo */}
 					<Link href="/" className="shrink-0">
-						<img
-							src="/vh-logo.png"
-							width={44}
-							height={44}
-							alt="Vault Hunters Community logo"
-							className={`shrink-0 transition-all duration-300 ${
-								scrolled ? "h-8 w-8" : "h-11 w-11"
-							}`}
-						/>
+						{scrolled ? (
+							<img
+								src="/vh-logo.png"
+								width={44}
+								height={44}
+								alt="Vault Hunters Community logo"
+								className={`shrink-0 transition-all duration-300 h-8 w-8`}
+							/>
+						) : (
+							<img
+								src="/vh-logo-lg.png"
+								width={88}
+								height={88}
+								alt="Vault Hunters Community logo"
+								className={`shrink-0 transition-all duration-300 h-16 w-16`}
+							/>
+						)}
 					</Link>
 
 					{/* Title — desktop full, mobile shows "Community" */}
 					<div className="min-w-0">
 						{/* Mobile: always show "Community" */}
-						<p className="md:hidden text-lg text-gold font-bold uppercase leading-tight whitespace-nowrap">
-							Community
-						</p>
+						<img
+							src="/community.webp"
+							alt="community"
+							className={`md:hidden mt-1 ${scrolled ? "h-6" : "h-10"}`}
+						/>
 
 						{/* Desktop: full title + subtitle, collapses on scroll */}
 						<div
-							className={`hidden md:block transition-all duration-300 overflow-hidden ${
-								scrolled ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
-							}`}
+							className={`hidden md:block transition-all duration-300 overflow-hidden`}
 						>
-							<p className="text-2xl text-gold font-bold uppercase leading-tight whitespace-nowrap">
-								Vault Hunters Community
-							</p>
-							<p className="mt-0.5 text-sm text-white/80">
+							<img
+								src="/community.webp"
+								alt="community"
+								className={`mt-1 ${scrolled ? "h-6" : "h-10"}`}
+							/>
+							<p
+								className={`mt-0.5 text-sm text-white/80 ${
+									scrolled ? "opacity-0 max-h-0" : "opacity-100 max-h-20"
+								}`}
+							>
 								Community resources and tools.
 							</p>
 						</div>
