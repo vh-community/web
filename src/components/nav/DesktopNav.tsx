@@ -24,10 +24,10 @@ export function DesktopNav() {
 						<Link
 							key={item.label}
 							href={item.href}
-							className={`rounded-md px-3 py-1.5 text-lg font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+							className={`px-3 py-1.5 text-lg font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/80 ${
 								active
-									? "bg-white/15 text-white"
-									: "text-white/70 hover:bg-white/10 hover:text-white"
+									? "text-gold shadow-[inset_0_-2px_0_0_currentColor]"
+									: "text-gold/90 hover:text-gold hover:shadow-[inset_0_-2px_0_0_currentColor]"
 							}`}
 						>
 							{item.label}
@@ -40,10 +40,10 @@ export function DesktopNav() {
 					<div key={item.label} className="relative group">
 						<button
 							type="button"
-							className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-lg font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+							className={`flex items-center gap-1 px-3 py-1.5 text-lg font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
 								active
-									? "bg-white/15 text-white"
-									: "text-white/70 hover:bg-white/10 hover:text-white"
+									? "text-gold shadow-[inset_0_-2px_0_0_currentColor]"
+									: "text-gold/90 hover:text-gold"
 							}`}
 							aria-haspopup="true"
 						>
@@ -64,15 +64,15 @@ export function DesktopNav() {
 
 						{/* Dropdown panel */}
 						<div className="absolute left-0 top-full pt-1 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
-							<div className="min-w-44 rounded-md bg-gray-900/95 backdrop-blur-md py-1 shadow-lg ring-1 ring-white/10">
+							<div className="min-w-44 bg-gray-900/95 backdrop-blur-md py-1 shadow-lg ring-1 ring-gold/10">
 								{item.children.map((child) => (
 									<Link
 										key={child.href}
 										href={child.href}
 										className={`block px-4 py-2 text-base font-medium transition-colors ${
 											path === child.href
-												? "bg-white/10 text-white"
-												: "text-white/70 hover:bg-white/10 hover:text-white"
+												? "text-gold shadow-[inset_0_-2px_0_0_currentColor]"
+												: "text-gold/90 hover:text-gold hover:shadow-[inset_0_-2px_0_0_currentColor]"
 										}`}
 									>
 										{child.label}

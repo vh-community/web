@@ -60,7 +60,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 				aria-label="Mobile navigation"
 			>
 				{/* Top spacer matching header height */}
-				<div className="h-16" />
+				<div className="h-22" />
 
 				<div className="flex flex-col gap-1 px-4 py-4">
 					{navItems.map((item) => (
@@ -91,10 +91,10 @@ function MobileNavItem({ item, currentPath, onNavigate }: MobileNavItemProps) {
 		return (
 			<Link
 				href={item.href}
-				className={`block rounded-md px-4 py-3 text-lg font-semibold uppercase tracking-wide transition-colors ${
+				className={`block px-4 py-3 text-lg font-semibold uppercase tracking-wide transition-colors ${
 					active
-						? "bg-white/15 text-white"
-						: "text-white/70 hover:bg-white/10 hover:text-white"
+						? "text-gold shadow-[inset_2px_0_0_0_currentColor] transition"
+						: "text-gold/90 hover:text-gold hover:shadow-[inset_2px_0_0_0_currentColor] transition"
 				}`}
 				onClick={onNavigate}
 			>
@@ -110,10 +110,10 @@ function MobileNavItem({ item, currentPath, onNavigate }: MobileNavItemProps) {
 		<div>
 			<button
 				type="button"
-				className={`flex w-full items-center justify-between rounded-md px-4 py-3 text-lg font-semibold uppercase tracking-wide transition-colors ${
+				className={`flex w-full items-center justify-between px-4 py-3 text-lg cursor-pointer font-semibold uppercase tracking-wide transition-colors ${
 					childActive
-						? "bg-white/15 text-white"
-						: "text-white/70 hover:bg-white/10 hover:text-white"
+						? "text-gold"
+						: "text-gold/90 hover:text-gold hover:shadow-[inset_2px_0_0_0_currentColor]"
 				}`}
 				onClick={() => setExpanded((v) => !v)}
 				aria-expanded={expanded}
@@ -141,15 +141,15 @@ function MobileNavItem({ item, currentPath, onNavigate }: MobileNavItemProps) {
 					expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
 				}`}
 			>
-				<div className="ml-4 flex flex-col gap-1 border-l border-white/10 pl-3 pt-1 pb-1">
+				<div className={`ml-4 flex flex-col py-1`}>
 					{item.children.map((child) => (
 						<Link
 							key={child.href}
 							href={child.href}
-							className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
+							className={`block pl-5 pr-3 py-3 text-base font-medium transition-colors ${
 								currentPath === child.href
-									? "bg-white/10 text-white"
-									: "text-white/70 hover:bg-white/10 hover:text-white"
+									? "text-gold border-l-2 pl-2"
+									: "text-gold/90 border-l-2 border-white/10 hover:text-gold hover:border-gold"
 							}`}
 							onClick={onNavigate}
 						>
