@@ -35,11 +35,11 @@ function SliderNumberField({
 
 	return (
 		<div className="flex flex-col bg-black/20 p-3">
-			<div className="flex items-center justify-end gap-3">
+			<div className="flex items-center justify-between gap-3">
 				<label
 					id={labelId}
 					htmlFor={id}
-					className="text-xl font-medium text-white/90"
+					className="text-lg font-medium text-white/90"
 				>
 					{label}
 				</label>
@@ -74,7 +74,7 @@ function SliderNumberField({
 				aria-labelledby={labelId}
 			/>
 
-			<div className="mt-1.5 flex justify-between text-sm tabular-nums text-white/40">
+			<div className="mt-1.5 flex justify-between text-xs tabular-nums text-white/40">
 				<span>
 					{min}
 					{unit ?? ""}

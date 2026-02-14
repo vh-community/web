@@ -1,3 +1,4 @@
+import { FramedContent } from "@components/FramedContent"
 import { EmptyState } from "../shared/EmptyState"
 import { ErrorState } from "../shared/ErrorState"
 import { LoadingState } from "../shared/LoadingState"
@@ -36,10 +37,10 @@ export function ChestsPage() {
 	const failedChests = chestResults.filter((r) => r.error !== null)
 
 	return (
-		<div>
-			<h2 id="chests-heading" className="mb-4">
+		<FramedContent>
+			<h1 id="chests-heading" className="mb-4">
 				Loot Table — Chests
-			</h2>
+			</h1>
 
 			<ChestsControls settings={settings} onChange={setSettings} />
 
@@ -89,6 +90,6 @@ export function ChestsPage() {
 					perXChests={settings.perXChests}
 				/>
 			)}
-		</div>
+		</FramedContent>
 	)
 }

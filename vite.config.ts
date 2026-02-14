@@ -5,4 +5,12 @@ import { defineConfig } from "vite"
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [react(), tailwindcss()],
+	resolve: {
+		alias: {
+			"@components": "/src/components",
+			"@models": "/src/models",
+			"@pages": "/src/pages",
+		},
+	},
+	base: "/",
 })

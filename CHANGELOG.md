@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026-02-14 Icons
+## 2026-02-14 Icons & URLs
 
 ### Improvements
 
@@ -8,6 +8,13 @@
   - Add icons for each item in the loot tables
   - Add chest icons in the header per chest type
   - Hovering over an item highlights the item and all roll tiers that drop that item.
+- Pages now uses URL routing on their path instead of hashes
+- All text on the page has been updated to be more concise and correct.
+  - This includes the Home Page
+
+### Added
+
+- Private policy page
 
 ## 2026-02-13 Chest UI/UX Improvements
 
