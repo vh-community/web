@@ -1,10 +1,22 @@
 # Unofficial Vault Hunters Community Website
 
-This is an unofficial website for the Vault Hunters modpack. This website is not affiliated with the Vault Hunters team or any of its members. It is a community-driven project that aims to provide information, resources, and support for players of the Vault Hunters modpack.
+This is an unofficial community website for the Vault Hunters modpack for Minecraft.
 
-## Loot Tables
+The aim of this website is to provide tools and resources for players of the Vault Hunters modpack.
 
-The main purpose of this website is to provide interactive pages for different loot tables
-in the Vault Hunters modpack.
-These pages will allow users to explore the different items that can be found in the game,
-and how often they appear in the loot tables for different levels, item quantity and item rarity modifiers.
+## Contributing
+
+Contributions are welcome! If you have any ideas for features or improvements, please feel free to open an issue or submit a pull request.
+
+### Coding Standards
+
+- Code should be written in TypeScript and React.
+- Tailwind CSS should be used for styling wherever possible.
+
+### Resources
+
+- Images and icons used on the website should be credited appropriately. Please refer to the [public/icons/LICENCE.md](public/icons/LICENCE.md) file for more information on the sources of icons used on the website.
+
+## Credits
+
+- Big thanks to the [Vault Hunters](https://vaulthunters.gg) team for creating such an amazing modpack!

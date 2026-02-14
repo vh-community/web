@@ -1,12 +1,6 @@
-interface NavigationProps {
-	currentRoute: string
-}
+export function Navigation() {
+	const hash = window.location.hash
 
-/**
- * Reusable navigation component (FR-007).
- * Highlights the active route.
- */
-export function Navigation({ currentRoute }: NavigationProps) {
 	return (
 		<nav
 			className="mx-auto w-full max-w-4xl px-4 pb-4"
@@ -16,7 +10,7 @@ export function Navigation({ currentRoute }: NavigationProps) {
 				<a
 					href="#/loot-table/chests"
 					className={`rounded-md px-3 py-1.5 text-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
-						currentRoute === "loot-table-chests"
+						hash === "#/loot-table/chests"
 							? "bg-white/15 font-medium text-white"
 							: "text-white/70 hover:bg-white/10 hover:text-white"
 					}`}

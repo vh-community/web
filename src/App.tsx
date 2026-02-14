@@ -3,41 +3,19 @@ import { Background } from "./components/Background"
 import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
 import { Navigation } from "./components/Navigation"
+import { HomePage } from "./pages/HomePage"
 import { ChestsPage } from "./pages/loot-tables/chests/ChestsPage"
-
-type Route = "home" | "loot-table-chests"
-
-function getRoute(): Route {
-	const hash = window.location.hash
-	if (hash === "#/loot-table/chests") return "loot-table-chests"
-	return "home"
-}
+import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage"
 
 function App() {
-	const [route, setRoute] = useState<Route>(getRoute)
-
-	useEffect(() => {
-		const onHashChange = () => setRoute(getRoute())
-		window.addEventListener("hashchange", onHashChange)
-		return () => window.removeEventListener("hashchange", onHashChange)
-	}, [])
-
 	return (
 		<div className="relative min-h-dvh text-white">
 			<Background />
 			<Header />
-			<Navigation currentRoute={route} />
+			<Navigation />
 
 			<main className="mx-auto w-full max-w-7xl px-4 pb-12">
-				{route === "home" && <HomePage />}
-				{route === "loot-table-chests" && (
-					<section
-						aria-labelledby="chests-heading"
-						className="bg-black/45 p-5 backdrop-blur-sm sm:p-6"
-					>
-						<ChestsPage />
-					</section>
-				)}
+				<Router />
 			</main>
 
 			<Footer />
@@ -45,25 +23,35 @@ function App() {
 	)
 }
 
-export default App
+function Router() {
+	const hash = window.location.hash
+	const strippedHash = hash.startsWith("#/") ? hash.slice(2) : hash
+	const [route, setRoute] = useState<string>(strippedHash)
 
-function HomePage() {
+	useEffect(() => {
+		const onHashChange = () => setRoute(strippedHash)
+		window.addEventListener("hashchange", onHashChange)
+		return () => window.removeEventListener("hashchange", onHashChange)
+	}, [strippedHash])
+
+	switch (route) {
+		case "":
+			return <HomePage />
+		case "privacy":
+			return <PrivacyPolicyPage />
+		case "loot-table/chests":
+			return <ChestsPage />
+		default:
+			window.location.hash = ""
+	}
+
 	return (
-		<section
-			aria-labelledby="purpose"
-			className="rounded-xl bg-black/45 p-5 backdrop-blur-sm sm:p-6"
-		>
-			<h2 id="purpose">What this site is</h2>
-			<p className="mt-3 text-pretty text-sm leading-relaxed text-white/90 sm:text-base">
-				This site collects community-made resources for the Vault Hunters
-				modpack in a simple, searchable format.
-			</p>
-
-			<p className="mt-4 rounded-lg border border-white/15 bg-black/30 p-3 text-sm leading-relaxed">
-				<strong className="font-semibold">Unofficial:</strong> This website is
-				community-driven and is not affiliated with or endorsed by the Vault
-				Hunters team.
-			</p>
-		</section>
+		<>
+			{route === "home" && <HomePage />}
+			{route === "privacy-policy" && <PrivacyPolicyPage />}
+			{route === "loot-table-chests" && <ChestsPage />}
+		</>
 	)
 }
+
+export default App

@@ -36,7 +36,7 @@ export function ChestsPage() {
 	const failedChests = chestResults.filter((r) => r.error !== null)
 
 	return (
-		<div>
+		<div className="bg-black/45 p-5 bg-blur backdrop-blur-sm">
 			<h2 id="chests-heading" className="mb-4">
 				Loot Table — Chests
 			</h2>
