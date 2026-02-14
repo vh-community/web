@@ -45,7 +45,7 @@ function ChestSectionBlock({
 }) {
 	return (
 		<section aria-labelledby={`chest-${section.chestId}`}>
-			<h3 id={`chest-${section.chestId}`} className="mb-2">
+			<h3 id={`chest-${section.chestId}`} className="mb-2 mt-10">
 				<img
 					src={`icons/the_vault_${section.chestId}.png`}
 					alt=""
@@ -61,7 +61,7 @@ function ChestSectionBlock({
 					<table className="w-full border-collapse text-lg">
 						<thead>
 							<tr className="border-b border-white/15 text-left uppercase tracking-wider text-white/60">
-								<th scope="col" colSpan={2} className="px-3 py-2">
+								<th scope="col" colSpan={2} className="px-1 py-2">
 									Item
 								</th>
 								<th scope="col" className="px-3 py-2">
@@ -105,7 +105,7 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 						{showItemLabel ? (
 							<td
 								rowSpan={item.tiers.length}
-								className={`p-1 text-white`}
+								className={`py-1 w-12 text-white`}
 								title={item.itemId}
 								aria-label={item.itemId}
 							>

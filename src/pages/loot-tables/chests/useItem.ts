@@ -1,6 +1,11 @@
 // itemMap contains special items that need special mapping,
 // such as gif items, or items that have changed names, but keep the same id.
 const itemMap: Record<string, Item> = {
+	"minecraft:sculk_sensor": {
+		id: "minecraft:sculk_sensor",
+		name: "Sculk Sensor",
+		iconUrl: "icons/minecraft_sculk_sensor.gif",
+	},
 	"the_vault:carbon_nugget": {
 		id: "the_vault:carbon_nugget",
 		name: "Raw Carbon",
@@ -23,8 +28,8 @@ const itemMap: Record<string, Item> = {
 	},
 	"the_vault:vault_god_charm": {
 		id: "the_vault:vault_god_charm",
-		name: "Vault God Charm",
-		iconUrl: "icons/the_vault_vault_god_charm.gif",
+		name: "God Charm",
+		iconUrl: "icons/the_vault_god_charm.gif",
 	},
 	"the_vault:vault_moss": {
 		id: "the_vault:vault_moss",
@@ -41,45 +46,65 @@ const itemMap: Record<string, Item> = {
 		name: "Vault Diamond",
 		iconUrl: "icons/the_vault_vault_diamond.gif",
 	},
-	"the_vault:axe": {
-		id: "the_vault:axe",
-		name: "Axe",
-		iconUrl: "icons/the_vault_vault_axe.gif",
-	},
-	"the_vault:boots": {
-		id: "the_vault:boots",
-		name: "Boots",
-		iconUrl: "icons/the_vault_vault_boots.gif",
-	},
-	"the_vault:chestplate": {
-		id: "the_vault:chestplate",
-		name: "Chestplate",
-		iconUrl: "icons/the_vault_vault_chestplate.gif",
-	},
-	"the_vault:helmet": {
-		id: "the_vault:helmet",
-		name: "Helmet",
-		iconUrl: "icons/the_vault_vault_helmet.gif",
-	},
-	"the_vault:leggings": {
-		id: "the_vault:leggings",
-		name: "Leggings",
-		iconUrl: "icons/the_vault_vault_leggings.gif",
-	},
-	"the_vault:shield": {
-		id: "the_vault:shield",
-		name: "Shield",
-		iconUrl: "icons/the_vault_vault_shield.gif",
-	},
 	"the_vault:vault_necklace": {
 		id: "the_vault:vault_necklace",
 		name: "Vault Pendant",
 		iconUrl: "icons/the_vault_vault_pendant.png",
 	},
+	"the_vault:helmet": {
+		id: "the_vault:helmet",
+		name: "Unidentified Helmet",
+		iconUrl: "icons/the_vault_unidentified_helmet.gif",
+	},
+	"the_vault:chestplate": {
+		id: "the_vault:chestplate",
+		name: "Unidentified Chestplate",
+		iconUrl: "icons/the_vault_unidentified_chestplate.gif",
+	},
+	"the_vault:leggings": {
+		id: "the_vault:leggings",
+		name: "Unidentified Leggings",
+		iconUrl: "icons/the_vault_unidentified_leggings.gif",
+	},
+	"the_vault:boots": {
+		id: "the_vault:boots",
+		name: "Unidentified Boots",
+		iconUrl: "icons/the_vault_unidentified_boots.gif",
+	},
+	"the_vault:sword": {
+		id: "the_vault:sword",
+		name: "Unidentified Sword",
+		iconUrl: "icons/the_vault_unidentified_sword.gif",
+	},
+	"the_vault:axe": {
+		id: "the_vault:axe",
+		name: "Unidentified Axe",
+		iconUrl: "icons/the_vault_unidentified_axe.gif",
+	},
+	"the_vault:shield": {
+		id: "the_vault:shield",
+		name: "Unidentified Shield",
+		iconUrl: "icons/the_vault_unidentified_shield.gif",
+	},
 	"the_vault:wand": {
 		id: "the_vault:wand",
-		name: "Wand",
-		iconUrl: "icons/the_vault_vault_wand.gif",
+		name: "Unidentified Wand",
+		iconUrl: "icons/the_vault_unidentified_wand.gif",
+	},
+	"the_vault:focus": {
+		id: "the_vault:focus",
+		name: "Unidentified Focus",
+		iconUrl: "icons/the_vault_unidentified_focus.gif",
+	},
+	"the_vault:magnet": {
+		id: "the_vault:magnet",
+		name: "Unidentified Magnet",
+		iconUrl: "icons/the_vault_unidentified_magnet.gif",
+	},
+	"sophisticatedbackpacks:backpack": {
+		id: "sophisticatedbackpacks:backpack",
+		name: "Pouch",
+		iconUrl: "icons/sophisticatedbackpacks_pouch.png",
 	},
 }
 
