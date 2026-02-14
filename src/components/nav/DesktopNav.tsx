@@ -98,7 +98,14 @@ function DropdownMenu({
 	}
 
 	return (
-		<div key={item.label} className="relative" ref={dropdownRef}>
+		<div
+			key={item.label}
+			className="relative"
+			ref={dropdownRef}
+			role="none"
+			onMouseEnter={() => setIsOpen(true)}
+			onMouseLeave={() => setIsOpen(false)}
+		>
 			<button
 				ref={buttonRef}
 				type="button"
