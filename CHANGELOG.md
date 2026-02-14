@@ -11,6 +11,7 @@
 - Pages now uses URL routing on their path instead of hashes
 - All text on the page has been updated to be more concise and correct.
   - This includes the Home Page
+- Navigation and Header now looks better and is now Mobile friendly.
 
 ### Added
 
