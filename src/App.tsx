@@ -8,8 +8,11 @@ function App() {
 	return (
 		<div className="relative min-h-dvh text-white">
 			<Background />
-			<Header />
-			<Navigation />
+			{/* Put the navigation to the right of the header on large screens, but below it on smaller screens */}
+			<div className="flex flex-col justify-start sm:flex-row sm:items-center gap-4 lg:gap-8">
+				<Header />
+				<Navigation />
+			</div>
 
 			<main className="mx-auto w-full max-w-7xl pb-12">
 				<Router />
