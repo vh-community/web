@@ -3,7 +3,6 @@
 ## Next up
 
 - Sort loot tables by item name, tier, or amount per X.
-- Add icons for items and chests.
 
 ## Future improvements
 
