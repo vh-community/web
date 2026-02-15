@@ -11,7 +11,7 @@ import type { Range } from "../../../models/tieredLootTable"
  */
 
 export function scaleRollRange(roll: Range, itemQuantityPct: number): Range {
-	const mq = 1 + itemQuantityPct / 100
+	const mq = 1 + itemQuantityPct * 0.01
 	return {
 		min: Math.min(Math.floor(roll.min * mq), 54),
 		max: Math.min(Math.floor(roll.max * mq), 54),
@@ -19,7 +19,7 @@ export function scaleRollRange(roll: Range, itemQuantityPct: number): Range {
 }
 
 export function scaleCountRange(count: Range, itemQuantityPct: number): Range {
-	const mq = 1 + itemQuantityPct / 100
+	const mq = 1 + itemQuantityPct * 0.01
 	return {
 		min: Math.floor(count.min * mq),
 		max: Math.floor(count.max * mq),
