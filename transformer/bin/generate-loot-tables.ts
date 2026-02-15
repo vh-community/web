@@ -16,7 +16,7 @@ async function main() {
 	console.log("Generating chest loot tables...")
 	await generateChestLootTables(SOURCE_DIR, OUTPUT_DIR, index)
 	console.log("Generating chest addon loot tables...")
-	generateChestLootTableAddons(SOURCE_DIR, index)
+	generateChestLootTableAddons(OUTPUT_DIR, index)
 
 	// Index
 	console.log("Writing index file")
