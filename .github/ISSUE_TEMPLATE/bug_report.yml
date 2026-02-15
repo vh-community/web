@@ -40,6 +40,7 @@ body:
         - Firefox
         - Safari
         - Edge
+        - Other
     validations:
       required: true
 
