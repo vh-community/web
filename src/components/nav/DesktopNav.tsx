@@ -21,6 +21,7 @@ function DropdownMenu({
 	const [isOpen, setIsOpen] = useState(false)
 	const dropdownRef = useRef<HTMLDivElement>(null)
 	const buttonRef = useRef<HTMLButtonElement>(null)
+	const openedViaKeyboard = useRef(false)
 	const dropdownId = `dropdown-${item.label.toLowerCase().replace(/\s+/g, "-")}`
 
 	// Close dropdown when clicking outside
@@ -42,12 +43,15 @@ function DropdownMenu({
 
 	// Focus first link when dropdown opens via keyboard
 	useEffect(() => {
-		if (isOpen && dropdownRef.current) {
+		if (isOpen && openedViaKeyboard.current && dropdownRef.current) {
 			// Use requestAnimationFrame to ensure the dropdown is rendered before focusing
 			requestAnimationFrame(() => {
 				const firstLink = dropdownRef.current?.querySelector("a")
 				firstLink?.focus()
 			})
+		}
+		if (!isOpen) {
+			openedViaKeyboard.current = false
 		}
 	}, [isOpen])
 
@@ -60,6 +64,7 @@ function DropdownMenu({
 		} else if (event.key === "ArrowDown") {
 			event.preventDefault()
 			if (!isOpen) {
+				openedViaKeyboard.current = true
 				setIsOpen(true)
 			} else {
 				// Move focus to next link
