@@ -33,5 +33,11 @@
     "id": "enigma_chest",
     "type": "chest",
     "file": "chest_enigma.json"
+  },
+  {
+    "id": "chest_wooden_catalyst",
+    "parentId": "chest_wooden",
+    "type": "chest_addon",
+    "file": "chest_wooden_catalyst.json"
   }
 ]
