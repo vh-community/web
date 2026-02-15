@@ -1,0 +1,43 @@
+name: Suggestion
+description: Suggest a new feature or improvement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Brief description of your suggestion.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-or-motivation
+    attributes:
+      label: Problem or motivation
+      description: What problem does this solve, or why would it be useful?
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed solution
+      description: How would you like it to work?
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives-considered
+    attributes:
+      label: Alternatives considered
+      description: Any other approaches you've thought of?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Mockups, examples, links, or anything else relevant.
+    validations:
+      required: false
