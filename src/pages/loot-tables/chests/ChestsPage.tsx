@@ -58,7 +58,8 @@ export function ChestsPage() {
 					className="w-full sm:max-w-xs"
 				/>
 				<p className="text-sm sm:text-base text-white/50">
-					Search for multiple items or chests by separating terms with spaces; results match if any term is found.
+					Search for multiple items or chests by separating terms with spaces;
+					results match if any term is found.
 				</p>
 			</div>
 
