@@ -31,6 +31,7 @@ export function PrivacyPolicyPage() {
 							<li>Item quantity preferences</li>
 							<li>Item rarity filters</li>
 							<li>Number of chests to display</li>
+							<li>Roll tier display preferences</li>
 						</ul>
 					</li>
 				</ul>

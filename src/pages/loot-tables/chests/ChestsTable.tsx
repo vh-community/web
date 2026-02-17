@@ -9,6 +9,7 @@ import { addonGroupDescriptions, getTierColorClass } from "./tierStyles"
 interface ChestsTableProps {
 	sections: ChestSection[]
 	perXChests: number
+	combineRollTiers: boolean
 }
 
 /**
@@ -20,7 +21,11 @@ interface ChestsTableProps {
  * Items display friendly names with raw id accessible via title attribute.
  * Tier background styling is preserved.
  */
-export function ChestsTable({ sections, perXChests }: ChestsTableProps) {
+export function ChestsTable({
+	sections,
+	perXChests,
+	combineRollTiers,
+}: ChestsTableProps) {
 	if (sections.length === 0) {
 		return null
 	}
@@ -32,6 +37,7 @@ export function ChestsTable({ sections, perXChests }: ChestsTableProps) {
 					key={section.chestId}
 					section={section}
 					perXChests={perXChests}
+					combineRollTiers={combineRollTiers}
 				/>
 			))}
 		</div>
@@ -41,9 +47,11 @@ export function ChestsTable({ sections, perXChests }: ChestsTableProps) {
 function ChestSectionBlock({
 	section,
 	perXChests,
+	combineRollTiers,
 }: {
 	section: ChestSection
 	perXChests: number
+	combineRollTiers: boolean
 }) {
 	return (
 		<section aria-labelledby={`chest-${section.chestId}`}>
@@ -90,6 +98,7 @@ function ChestSectionBlock({
 									key={item.itemId}
 									item={item}
 									chestId={section.chestId}
+									combineRollTiers={combineRollTiers}
 								/>
 							))}
 						</tbody>
@@ -100,10 +109,49 @@ function ChestSectionBlock({
 	)
 }
 
-function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
+function ItemRows({
+	item,
+	chestId,
+	combineRollTiers,
+}: {
+	item: GroupedItem
+	chestId: string
+	combineRollTiers: boolean
+}) {
 	const itemInfo = getItem(item.itemId)
 	const itemKey = `${chestId}-${item.itemId}`
 	const [isHovered, setIsHovered] = useState(false)
+
+	if (combineRollTiers) {
+		return (
+			<tr
+				key={itemKey}
+				className={`border-b border-white/5 ${isHovered ? "bg-white/5" : ""}`}
+				onMouseEnter={() => setIsHovered(true)}
+				onMouseLeave={() => setIsHovered(false)}
+			>
+				<td className="w-10 sm:w-12 text-white" title={item.itemId}>
+					<img
+						src={itemInfo.iconUrl}
+						alt=""
+						className="mx-auto h-8 w-8 sm:h-10 sm:w-10"
+						onError={(e) => {
+							;(e.target as HTMLImageElement).src = "/icons/placeholder.gif"
+						}}
+					/>
+				</td>
+				<td className="px-1 sm:px-3 text-white" title={item.itemId}>
+					{itemInfo.name}
+				</td>
+				<td className="px-1 sm:px-3 h-12 sm:h-14">
+					<CombinedTierInitials tiers={item.tiers} />
+				</td>
+				<td className="pl-1 pr-2 sm:px-3 text-right tabular-nums text-white">
+					<ExpectedAmount value={item.totalExpectedPerX} />
+				</td>
+			</tr>
+		)
+	}
 
 	return (
 		<>
@@ -164,6 +212,21 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 				)
 			})}
 		</>
+	)
+}
+
+function CombinedTierInitials({ tiers }: { tiers: TierBreakdown[] }) {
+	return (
+		<span>
+			{tiers.map((t, i) => (
+				<span key={t.rollTierLabel}>
+					{i > 0 && <span className="text-white/40">, </span>}
+					<span className={getTierColorClass(t.tier)}>
+						{t.rollTierLabel.charAt(0)}
+					</span>
+				</span>
+			))}
+		</span>
 	)
 }
 

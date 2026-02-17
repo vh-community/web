@@ -44,19 +44,37 @@ export function ChestsPage() {
 
 			<ChestsControls settings={settings} onChange={setSettings} />
 
-			{/* Search input */}
+			{/* Search input & combine toggle */}
 			<div className="mb-4">
-				<label htmlFor="chest-search" className="sr-only">
-					Search chests or items
-				</label>
-				<input
-					type="search"
-					id="chest-search"
-					placeholder="Search chests or items…"
-					value={searchQuery}
-					onChange={(e) => setSearchQuery(e.target.value)}
-					className="w-full sm:max-w-xs"
-				/>
+				<div className="flex flex-col-reverse md:flex-row md:items-center gap-2 md:gap-4">
+					<div>
+						<label htmlFor="chest-search" className="sr-only">
+							Search chests or items
+						</label>
+						<input
+							type="search"
+							id="chest-search"
+							placeholder="Search chests or items…"
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+							className="w-full sm:max-w-xs"
+						/>
+					</div>
+					<label className="flex items-center gap-2 cursor-pointer select-none text-white/80">
+						<input
+							type="checkbox"
+							checked={settings.combineRollTiers}
+							onChange={(e) =>
+								setSettings({
+									...settings,
+									combineRollTiers: e.target.checked,
+								})
+							}
+							className="accent-gold w-4 h-4"
+						/>
+						Combine roll tiers
+					</label>
+				</div>
 				<p className="text-sm sm:text-base text-white/50">
 					Search for multiple items or chests by separating terms with spaces;
 					results match if any term is found.
@@ -92,6 +110,7 @@ export function ChestsPage() {
 				<ChestsTable
 					sections={filteredSections}
 					perXChests={settings.perXChests}
+					combineRollTiers={settings.combineRollTiers}
 				/>
 			)}
 		</FramedContent>
