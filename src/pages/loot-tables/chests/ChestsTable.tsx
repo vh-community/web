@@ -1,9 +1,10 @@
 import { useState } from "react"
+import { Tooltip } from "../../../components/Tooltip"
 import { formatExpected } from "../shared/formatExpected"
-import type { GroupedItem } from "./aggregateByItemId"
+import type { GroupedItem, TierBreakdown } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
 import { getItem } from "./getItem"
-import { getTierColorClass } from "./tierStyles"
+import { addonGroupDescriptions, getTierColorClass } from "./tierStyles"
 
 interface ChestsTableProps {
 	sections: ChestSection[]
@@ -150,7 +151,7 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 						<td
 							className={`px-1 sm:px-3 h-12 sm:h-14 ${getTierColorClass(tierBreakdown.tier)}`}
 						>
-							{tierBreakdown.rollTierLabel}
+							<RollTierLabel breakdown={tierBreakdown} />
 						</td>
 
 						{/* Amount per X — also with tier background */}
@@ -164,6 +165,19 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 			})}
 		</>
 	)
+}
+
+function RollTierLabel({ breakdown }: { breakdown: TierBreakdown }) {
+	if (breakdown.addonGroup) {
+		const description =
+			addonGroupDescriptions[
+				breakdown.addonGroup as keyof typeof addonGroupDescriptions
+			]
+		if (description) {
+			return <Tooltip text={description}>{breakdown.rollTierLabel}</Tooltip>
+		}
+	}
+	return <>{breakdown.rollTierLabel}</>
 }
 
 function ExpectedAmount({ value }: { value: number }) {

@@ -1,4 +1,5 @@
 import type { TierName } from "../../../models/tieredLootTable"
+import { AddonGroups } from "../../../models/tieredLootTableAddon"
 
 /**
  * Tier rarity visual treatment (FR-003a).
@@ -29,4 +30,9 @@ export const TIER_LABELS: Record<TierName, string> = {
 	rare: "Rare",
 	epic: "Epic",
 	omega: "Omega",
+}
+
+/** Tooltip descriptions for addon group names. */
+export const addonGroupDescriptions: Record<AddonGroups, string> = {
+	[AddonGroups.unmodified]: "Drops in unmodified vaults",
 }

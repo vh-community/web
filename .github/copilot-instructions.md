@@ -23,5 +23,6 @@
 
 ## Repo-specific conventions
 - Formatting is enforced by Biome; indentation is **tabs** in TS/TSX (see `biome.json`). Prefer double quotes and trailing commas.
+- Avoid ALL_CAPS constants; use camelCase instead.
 - Tailwind CSS is integrated via `@tailwindcss/vite` and `@import "tailwindcss";` in `src/index.css` (no Tailwind config file).
 - Settings persistence uses versioned localStorage keys; for chests: `vh.community.lootTables.chests.settings.v1` in `src/loot-tables/chests/settingsStorage.ts`.

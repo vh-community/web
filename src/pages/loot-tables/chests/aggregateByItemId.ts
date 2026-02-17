@@ -8,6 +8,8 @@ export interface TierBreakdown {
 	tier: TierName | null
 	/** Display label for the Roll Tier column (e.g., "Common" or "Unmodified") */
 	rollTierLabel: string
+	/** Addon group key, present only for addon rows (used for tooltip lookup) */
+	addonGroup?: string
 	expectedPerX: number
 }
 
@@ -50,7 +52,7 @@ export function aggregateByItemId(
 		string,
 		{
 			tiers: Map<TierName, number>
-			addonTiers: { label: string; expected: number }[]
+			addonTiers: { label: string; group: string; expected: number }[]
 			lowestTier: TierName | null
 		}
 	>()
@@ -83,7 +85,11 @@ export function aggregateByItemId(
 			map.set(addon.itemId, entry)
 		}
 		const label = addon.group.charAt(0).toUpperCase() + addon.group.slice(1)
-		entry.addonTiers.push({ label, expected: addon.expectedPerChest })
+		entry.addonTiers.push({
+			label,
+			group: addon.group,
+			expected: addon.expectedPerChest,
+		})
 	}
 
 	// Convert to sorted array
@@ -116,6 +122,7 @@ export function aggregateByItemId(
 				tiers.push({
 					tier: null,
 					rollTierLabel: addonTier.label,
+					addonGroup: addonTier.group,
 					expectedPerX: addonTier.expected * perXChests,
 				})
 			}
