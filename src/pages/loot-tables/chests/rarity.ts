@@ -17,7 +17,7 @@ export function computeEffectiveWeights(
 	segment: TieredLootTableLevel,
 	itemRarityPct: number,
 ): Record<TierName, number> {
-	const mr = 1 + itemRarityPct / 100
+	const mr = 1 + itemRarityPct * 0.01
 
 	return {
 		common: segment.common.weight,

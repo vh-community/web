@@ -1,9 +1,10 @@
 import { useState } from "react"
+import { Tooltip } from "../../../components/Tooltip"
 import { formatExpected } from "../shared/formatExpected"
-import type { GroupedItem } from "./aggregateByItemId"
+import type { GroupedItem, TierBreakdown } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
 import { getItem } from "./getItem"
-import { TIER_COLOR_CLASSES, TIER_LABELS } from "./tierStyles"
+import { addonGroupDescriptions, getTierColorClass } from "./tierStyles"
 
 interface ChestsTableProps {
 	sections: ChestSection[]
@@ -111,7 +112,7 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 
 				return (
 					<tr
-						key={`${itemKey}-${tierBreakdown.tier}`}
+						key={`${itemKey}-${tierBreakdown.rollTierLabel}`}
 						data-item-group={itemKey}
 						className={`border-b border-white/5 ${isHovered ? "bg-white/5" : ""}`}
 						onMouseEnter={() => setIsHovered(true)}
@@ -148,9 +149,9 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 
 						{/* Tier column — background for this specific tier */}
 						<td
-							className={`px-1 sm:px-3 h-12 sm:h-14 ${TIER_COLOR_CLASSES[tierBreakdown.tier]}`}
+							className={`px-1 sm:px-3 h-12 sm:h-14 ${getTierColorClass(tierBreakdown.tier)}`}
 						>
-							{TIER_LABELS[tierBreakdown.tier]}
+							<RollTierLabel breakdown={tierBreakdown} />
 						</td>
 
 						{/* Amount per X — also with tier background */}
@@ -164,6 +165,19 @@ function ItemRows({ item, chestId }: { item: GroupedItem; chestId: string }) {
 			})}
 		</>
 	)
+}
+
+function RollTierLabel({ breakdown }: { breakdown: TierBreakdown }) {
+	if (breakdown.addonGroup) {
+		const description =
+			addonGroupDescriptions[
+				breakdown.addonGroup as keyof typeof addonGroupDescriptions
+			]
+		if (description) {
+			return <Tooltip text={description}>{breakdown.rollTierLabel}</Tooltip>
+		}
+	}
+	return <>{breakdown.rollTierLabel}</>
 }
 
 function ExpectedAmount({ value }: { value: number }) {

@@ -44,6 +44,7 @@ const CHEST_CATEGORY_ORDER = [
 export async function generateChestLootTables(
 	sourceDir: string,
 	outputDir: string,
+	index: JsonIndex,
 ): Promise<void> {
 	// Ensure output directory exists
 	fs.mkdirSync(outputDir, { recursive: true })
@@ -121,11 +122,11 @@ export async function generateChestLootTables(
 	// Sort entries in display order
 	const sorted = sortByDisplayOrder(entries)
 
+	// Read index if it exists to preserve any existing values
+
 	// Write index
-	const index: JsonIndex = sorted.map((e) => e.entry)
-	const indexPath = path.join(outputDir, "index.json")
-	fs.writeFileSync(indexPath, `${JSON.stringify(index, null, 2)}\n`)
-	console.log(`  Written: index.json (${index.length} entries)`)
+	const addToIndex: JsonIndex = sorted.map((e) => e.entry)
+	index.push(...addToIndex)
 }
 
 /**

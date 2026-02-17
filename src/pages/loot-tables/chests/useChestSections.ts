@@ -2,6 +2,7 @@ import { useMemo } from "react"
 import type { TieredLootTable } from "../../../models/tieredLootTable"
 import { aggregateByItemId } from "./aggregateByItemId"
 import type { ChestSection } from "./chestSection"
+import { computeAddonExpectations } from "./computeAddonExpectations"
 import { computeItemExpectations } from "./expectedValue"
 import { formatChestLabel } from "./formatItemName"
 import type { LootSettings } from "./lootSettings"
@@ -10,6 +11,7 @@ import type { ChestLoadResult } from "./useChestData"
 
 /**
  * Computes per-chest sections with aggregated item expectations.
+ * Includes addon items (e.g., catalyst fragments) when level requirements are met.
  * Memoized to avoid recalculation on every render.
  */
 export function useChestSections(
@@ -18,10 +20,10 @@ export function useChestSections(
 ): ChestSection[] {
 	return useMemo(() => {
 		return chestResults
-			.filter((r) => r.data !== null)
+			.filter((r) => r.chest !== null)
 			.map((result) => {
-				const { entry, data } = result
-				const table = data as TieredLootTable
+				const { entry, chest, addons } = result
+				const table = chest as TieredLootTable
 				const segment = selectLevelSegment(table.levels, settings.level)
 				const label = formatChestLabel(entry.id)
 
@@ -38,7 +40,17 @@ export function useChestSections(
 					settings.itemRarityPct,
 					settings.itemQuantityPct,
 				)
-				const grouped = aggregateByItemId(expectations, settings.perXChests)
+				const addonExpectations = computeAddonExpectations(
+					addons,
+					segment,
+					settings.itemRarityPct,
+					settings.level,
+				)
+				const grouped = aggregateByItemId(
+					expectations,
+					addonExpectations,
+					settings.perXChests,
+				)
 
 				return {
 					chestId: entry.id,

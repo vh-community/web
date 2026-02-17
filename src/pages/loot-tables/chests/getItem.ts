@@ -101,6 +101,11 @@ const itemMap: Record<string, Item> = {
 		name: "Unidentified Magnet",
 		iconUrl: "/icons/the_vault_unidentified_magnet.gif",
 	},
+	"the_vault:vault_catalyst_fragment": {
+		id: "the_vault:vault_catalyst_fragment",
+		name: "Catalyst Fragment",
+		iconUrl: "/icons/the_vault_catalyst_fragment.png",
+	},
 	"sophisticatedbackpacks:backpack": {
 		id: "sophisticatedbackpacks:backpack",
 		name: "Pouch",

@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-02-17 Catalyst Fragments And Fixed Item Quantity
+
+### Added
+
+- Catalyst Fragments were not showing up in the wooden loot table since they not part of the loot table for the wooden chest.
+  Instead they are added as a bonus item after the loot table rolls.
+
+## Fixes
+
+- Item Quantity did not work properly except at 0%, 100%, 200%, and 300%. This is now fixed and it works properly at all values.
+
 ## 2026-02-14 Icons & URLs
 
 ### Improvements

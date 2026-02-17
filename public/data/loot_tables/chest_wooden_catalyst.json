@@ -1,0 +1,17 @@
+{
+  "id": "chest_wooden_catalyst",
+  "group": "unmodified",
+  "levelRequirement": 20,
+  "items": [
+    {
+      "id": "the_vault:vault_catalyst_fragment",
+      "count": 1,
+      "rollChanges": {
+        "common": 0.05,
+        "rare": 0.2,
+        "epic": 0.5,
+        "omega": 1
+      }
+    }
+  ]
+}

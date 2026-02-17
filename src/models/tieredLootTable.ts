@@ -1,3 +1,5 @@
+import type { ItemId } from "@models/item"
+
 export interface TieredLootTable {
 	name: string
 	levels: TieredLootTableLevel[]
@@ -23,7 +25,7 @@ export interface LevelPool {
 }
 
 export interface ItemPool {
-	id: string
+	id: ItemId
 	weight: number
 	count: Range
 }
