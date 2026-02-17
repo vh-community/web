@@ -223,17 +223,20 @@ function CombinedTierInitials({ tiers }: { tiers: TierBreakdown[] }) {
 			</span>
 		)
 	}
+	const fullLabel = tiers.map((t) => t.rollTierLabel).join(", ")
 	return (
-		<span>
-			{tiers.map((t, i) => (
-				<span key={t.rollTierLabel}>
-					{i > 0 && <span className="text-white/40">, </span>}
-					<span className={getTierColorClass(t.tier)}>
-						{t.rollTierLabel.charAt(0)}
+		<Tooltip text={fullLabel}>
+			<span role="img" aria-label={fullLabel}>
+				{tiers.map((t, i) => (
+					<span key={t.rollTierLabel}>
+						{i > 0 && <span className="text-white/40">, </span>}
+						<span className={getTierColorClass(t.tier)}>
+							{t.rollTierLabel.charAt(0)}
+						</span>
 					</span>
-				</span>
-			))}
-		</span>
+				))}
+			</span>
+		</Tooltip>
 	)
 }
 
