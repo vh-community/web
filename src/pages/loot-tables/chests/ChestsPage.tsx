@@ -1,3 +1,4 @@
+import { Checkbox } from "@components/Checkbox"
 import { FramedContent } from "@components/FramedContent"
 import { EmptyState } from "../shared/EmptyState"
 import { ErrorState } from "../shared/ErrorState"
@@ -47,19 +48,14 @@ export function ChestsPage() {
 			{/* Search input & combine toggle */}
 			<div className="mb-4">
 				<div className="flex flex-col gap-2">
-					<label className="flex items-center gap-2 cursor-pointer select-none text-white/80">
-						<input
-							type="checkbox"
-							checked={settings.combineRollTiers}
-							onChange={(e) =>
-								setSettings({
-									...settings,
-									combineRollTiers: e.target.checked,
-								})
-							}
-						/>
-						Combine roll tiers
-					</label>
+					<Checkbox
+						id="combine-roll-tiers"
+						label="Combine roll tiers"
+						checked={settings.combineRollTiers}
+						onChange={(checked) =>
+							setSettings({ ...settings, combineRollTiers: checked })
+						}
+					/>
 					<div>
 						<label htmlFor="chest-search" className="sr-only">
 							Search chests or items
