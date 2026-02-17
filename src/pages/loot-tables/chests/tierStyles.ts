@@ -17,6 +17,12 @@ export const TIER_COLOR_CLASSES: Record<TierName, string> = {
 	omega: "text-green-500/80",
 }
 
+/** Returns the color class for a tier, or a default for addon items (null tier). */
+export function getTierColorClass(tier: TierName | null): string {
+	if (tier === null) return "text-yellow-500/80"
+	return TIER_COLOR_CLASSES[tier]
+}
+
 /** Human-readable tier labels for display (FR-003a: not color alone). */
 export const TIER_LABELS: Record<TierName, string> = {
 	common: "Common",

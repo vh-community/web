@@ -5,7 +5,10 @@ import {
 	type JsonIndex,
 	JsonIndexTypes,
 } from "../../src/models/jsonIndex"
-import type { TieredLootTableAddon } from "../../src/models/tieredLootTableAddon"
+import {
+	AddonGroups,
+	type TieredLootTableAddon,
+} from "../../src/models/tieredLootTableAddon"
 
 export function generateChestLootTableAddons(
 	outputDir: string,
@@ -17,6 +20,7 @@ export function generateChestLootTableAddons(
 function catalystFragmentsForWoodenChests(outputDir: string, index: JsonIndex) {
 	const addon: TieredLootTableAddon = {
 		id: "chest_wooden_catalyst" as IndexId,
+		group: AddonGroups.unmodified,
 		levelRequirement: 20,
 		items: [
 			{

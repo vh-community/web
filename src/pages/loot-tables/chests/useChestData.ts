@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import type { JsonIndex, JsonIndexEntry } from "../../../models/jsonIndex"
 import type { TieredLootTable } from "../../../models/tieredLootTable"
+import type { TieredLootTableAddon } from "../../../models/tieredLootTableAddon"
 import { fetchJson } from "../shared/fetchJson"
-import { TieredLootTableAddon } from "@models/tieredLootTableAddon"
 
 const INDEX_URL = "/data/loot_tables/index.json"
 const BASE_URL = "/data/loot_tables/"
@@ -48,7 +48,35 @@ export function useChestData(): UseChestDataReturn {
 				)
 				setIndexEntries(visible)
 
-				// TODO: Add addons
+				// Collect addon entries grouped by parentId
+				const addonEntries = index.filter(
+					(entry) => entry.type === "chest_addon",
+				)
+
+				// Load all addon JSON files in parallel
+				const addonResults = await Promise.all(
+					addonEntries.map(async (entry) => {
+						try {
+							const data = await fetchJson<TieredLootTableAddon>(
+								`${BASE_URL}${entry.file}`,
+							)
+							return { entry, addon: data }
+						} catch {
+							return { entry, addon: null }
+						}
+					}),
+				)
+				if (cancelled) return
+
+				// Group loaded addons by parentId
+				const addonsByParent = new Map<string, TieredLootTableAddon[]>()
+				for (const { entry, addon } of addonResults) {
+					if (addon && entry.parentId) {
+						const existing = addonsByParent.get(entry.parentId) ?? []
+						existing.push(addon)
+						addonsByParent.set(entry.parentId, existing)
+					}
+				}
 
 				// Load individual chest files in parallel
 				const results = await Promise.all(
@@ -57,11 +85,13 @@ export function useChestData(): UseChestDataReturn {
 							const data = await fetchJson<TieredLootTable>(
 								`${BASE_URL}${entry.file}`,
 							)
-							return { entry, chest: data, error: null }
+							const addons = addonsByParent.get(entry.id) ?? []
+							return { entry, chest: data, addons, error: null }
 						} catch (err) {
 							return {
 								entry,
 								chest: null,
+								addons: [],
 								error:
 									err instanceof Error
 										? err.message
