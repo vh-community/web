@@ -63,14 +63,6 @@ export function ChestsPage() {
 				</p>
 			</div>
 
-			{/* Warning about calculation accuracy */}
-			<div className="flex flex-col gap-4 mb-4 p-4 bg-yellow-900/30 border-l-4 border-yellow-500">
-				<p className="text-sm sm:text-base text-yellow-300">
-					⚠️ Calculations have not been double-checked for accuracy and may be
-					slightly off.
-				</p>
-			</div>
-
 			{/* Loading state */}
 			{loading && <LoadingState />}
 
