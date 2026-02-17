@@ -2,13 +2,15 @@ import { useEffect, useState } from "react"
 import type { JsonIndex, JsonIndexEntry } from "../../../models/jsonIndex"
 import type { TieredLootTable } from "../../../models/tieredLootTable"
 import { fetchJson } from "../shared/fetchJson"
+import { TieredLootTableAddon } from "@models/tieredLootTableAddon"
 
 const INDEX_URL = "/data/loot_tables/index.json"
 const BASE_URL = "/data/loot_tables/"
 
 export interface ChestLoadResult {
 	entry: JsonIndexEntry
-	data: TieredLootTable | null
+	chest: TieredLootTable | null
+	addons: TieredLootTableAddon[]
 	error: string | null
 }
 
@@ -46,6 +48,8 @@ export function useChestData(): UseChestDataReturn {
 				)
 				setIndexEntries(visible)
 
+				// TODO: Add addons
+
 				// Load individual chest files in parallel
 				const results = await Promise.all(
 					visible.map(async (entry): Promise<ChestLoadResult> => {
@@ -53,11 +57,11 @@ export function useChestData(): UseChestDataReturn {
 							const data = await fetchJson<TieredLootTable>(
 								`${BASE_URL}${entry.file}`,
 							)
-							return { entry, data, error: null }
+							return { entry, chest: data, error: null }
 						} catch (err) {
 							return {
 								entry,
-								data: null,
+								chest: null,
 								error:
 									err instanceof Error
 										? err.message

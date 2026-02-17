@@ -23,7 +23,6 @@ export function ChestsPage() {
 		indexEntries,
 		chestResults,
 		loading,
-		// TODO: Add chest addons
 		error: indexError,
 	} = useChestData()
 

@@ -1,5 +1,6 @@
 {
   "id": "chest_wooden_catalyst",
+  "tier": "unmodified",
   "levelRequirement": 20,
   "items": [
     {

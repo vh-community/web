@@ -9,6 +9,7 @@ import type { IndexId } from "./jsonIndex"
 export interface TieredLootTableAddon {
 	id: IndexId
 	levelRequirement: number
+	group: AddonGroups
 	items: TieredLootTableAddonItem[]
 }
 
@@ -21,4 +22,8 @@ export interface TieredLootTableAddonItem {
 		epic: number
 		omega: number
 	}
+}
+
+export enum AddonGroups {
+	unmodified = "unmodified",
 }
