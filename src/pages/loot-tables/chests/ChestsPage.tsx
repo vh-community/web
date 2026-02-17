@@ -51,6 +51,7 @@ export function ChestsPage() {
 					<Checkbox
 						id="combine-roll-tiers"
 						label="Combine roll tiers"
+						className="mb-4"
 						checked={settings.combineRollTiers}
 						onChange={(checked) =>
 							setSettings({ ...settings, combineRollTiers: checked })
