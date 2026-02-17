@@ -11,7 +11,7 @@ import { AddonGroups } from "../../../models/tieredLootTableAddon"
  * - Epic → Purple
  * - Omega → Green
  */
-export const TIER_COLOR_CLASSES: Record<TierName, string> = {
+export const tierColorClasses: Record<TierName, string> = {
 	common: "text-white/80",
 	rare: "text-blue-500/80",
 	epic: "text-purple-500/80",
@@ -21,11 +21,11 @@ export const TIER_COLOR_CLASSES: Record<TierName, string> = {
 /** Returns the color class for a tier, or a default for addon items (null tier). */
 export function getTierColorClass(tier: TierName | null): string {
 	if (tier === null) return "text-yellow-500/80"
-	return TIER_COLOR_CLASSES[tier]
+	return tierColorClasses[tier]
 }
 
 /** Human-readable tier labels for display (FR-003a: not color alone). */
-export const TIER_LABELS: Record<TierName, string> = {
+export const tierLabels: Record<TierName, string> = {
 	common: "Common",
 	rare: "Rare",
 	epic: "Epic",
