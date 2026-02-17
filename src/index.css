@@ -79,6 +79,9 @@ input[type="number"].no-spin {
 	input[type="range"]::-moz-range-track {
 		@apply h-2 rounded-full;
 	}
+	input[type="checkbox"] {
+		@apply appearance-none w-5 h-5 border border-white/20 text-lg sm:text-xl bg-black/40 rounded checked:bg-gold checked:border-gold cursor-pointer shrink-0;
+	}
 	input[type="text"],
 	input[type="number"],
 	input[type="email"],

@@ -216,6 +216,13 @@ function ItemRows({
 }
 
 function CombinedTierInitials({ tiers }: { tiers: TierBreakdown[] }) {
+	if (tiers.length === 1) {
+		return (
+			<span className={getTierColorClass(tiers[0].tier)}>
+				{tiers[0].rollTierLabel}
+			</span>
+		)
+	}
 	return (
 		<span>
 			{tiers.map((t, i) => (
