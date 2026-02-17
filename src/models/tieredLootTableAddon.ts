@@ -1,6 +1,6 @@
 // Tiered Loot Table Addon is for adding loot after the main loot table rolls.
 // This allows to add additional items to the loot without affecting the main loot table probabilities.
-// Examples of this includes the catalyst fragments from wooden chests,
+// Examples of this includes the catalyst fragments from wooden chests.
 
 import type { ItemId } from "./item"
 import type { IndexId } from "./jsonIndex"
