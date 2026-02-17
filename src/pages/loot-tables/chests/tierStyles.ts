@@ -1,5 +1,5 @@
 import type { TierName } from "../../../models/tieredLootTable"
-import type { AddonGroups } from "../../../models/tieredLootTableAddon"
+import { AddonGroups } from "../../../models/tieredLootTableAddon"
 
 /**
  * Tier rarity visual treatment (FR-003a).
