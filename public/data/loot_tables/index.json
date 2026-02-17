@@ -36,7 +36,7 @@
   },
   {
     "id": "chest_wooden_catalyst",
-    "parentId": "chest_wooden",
+    "parentId": "wooden_chest",
     "type": "chest_addon",
     "file": "chest_wooden_catalyst.json"
   }

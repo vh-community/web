@@ -42,7 +42,7 @@ function catalystFragmentsForWoodenChests(outputDir: string, index: JsonIndex) {
 
 	index.push({
 		id: id as IndexId,
-		parentId: "chest_wooden" as IndexId,
+		parentId: "wooden_chest" as IndexId,
 		type: JsonIndexTypes.chestAddon,
 		file: `${id}.json`,
 	})
