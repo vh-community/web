@@ -79,6 +79,20 @@ input[type="number"].no-spin {
 	input[type="range"]::-moz-range-track {
 		@apply h-2 rounded-full;
 	}
+	input[type="checkbox"] {
+		@apply appearance-none w-5 h-5 border border-white/20 bg-black/40 rounded checked:bg-gold checked:border-gold cursor-pointer shrink-0 relative;
+	}
+	input[type="checkbox"]:checked::after {
+		content: "";
+		@apply absolute block;
+		left: 6px;
+		top: 2px;
+		width: 5px;
+		height: 10px;
+		border: solid black;
+		border-width: 0 2px 2px 0;
+		transform: rotate(45deg);
+	}
 	input[type="text"],
 	input[type="number"],
 	input[type="email"],

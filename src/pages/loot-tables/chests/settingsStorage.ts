@@ -56,6 +56,10 @@ export function loadSettings(): LootSettings {
 				300,
 				DEFAULT_SETTINGS.itemQuantityPct,
 			),
+			combineRollTiers:
+				typeof parsed.combineRollTiers === "boolean"
+					? parsed.combineRollTiers
+					: DEFAULT_SETTINGS.combineRollTiers,
 		}
 	} catch {
 		return DEFAULT_SETTINGS

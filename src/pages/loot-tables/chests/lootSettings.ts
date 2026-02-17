@@ -3,6 +3,7 @@ export interface LootSettings {
 	level: number
 	itemRarityPct: number
 	itemQuantityPct: number
+	combineRollTiers: boolean
 }
 
 export const DEFAULT_SETTINGS: LootSettings = {
@@ -10,4 +11,5 @@ export const DEFAULT_SETTINGS: LootSettings = {
 	level: 0,
 	itemRarityPct: 0,
 	itemQuantityPct: 0,
+	combineRollTiers: false,
 }
