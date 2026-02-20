@@ -217,11 +217,20 @@ function ItemRows({
 
 function CombinedTierInitials({ tiers }: { tiers: TierBreakdown[] }) {
 	if (tiers.length === 1) {
-		return (
-			<span className={getTierColorClass(tiers[0].tier)}>
-				{tiers[0].rollTierLabel}
-			</span>
+		const t = tiers[0]
+		const content = (
+			<span className={getTierColorClass(t.tier)}>{t.rollTierLabel}</span>
 		)
+		if (t.addonGroup) {
+			const description =
+				addonGroupDescriptions[
+					t.addonGroup as keyof typeof addonGroupDescriptions
+				]
+			if (description) {
+				return <Tooltip text={description}>{content}</Tooltip>
+			}
+		}
+		return content
 	}
 	const fullLabel = tiers.map((t) => t.rollTierLabel).join(", ")
 	return (
