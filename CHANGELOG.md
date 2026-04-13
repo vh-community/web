@@ -14,6 +14,10 @@
 - Updated loot tables to VH 3.21.4.1
 - Increase Item Quantity and Item Rarity max values to 500%.
 
+## Fixes
+
+- Consistent borders (borders were rounded on home page)
+
 ## 2026-02-17 Catalyst Fragments And Fixed Item Quantity
 
 ### Added
