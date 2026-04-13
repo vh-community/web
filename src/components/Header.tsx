@@ -1,3 +1,4 @@
+import changelog from "virtual:changelog"
 import { Link } from "@components/Link"
 import { DesktopNav } from "@components/nav/DesktopNav"
 import { MobileMenu } from "@components/nav/MobileMenu"
@@ -64,13 +65,19 @@ export function Header() {
 								alt="community"
 								className={`mt-1 ${scrolled ? "h-6" : "h-10"}`}
 							/>
-							<p
-								className={`mt-0.5 text-sm text-white/80 ${
+							<div
+								className={`flex items-center gap-2 mt-0.5 transition-all duration-300 ${
 									scrolled ? "opacity-0 max-h-0" : "opacity-100 max-h-20"
 								}`}
 							>
-								Community resources and tools.
-							</p>
+								<p className="text-sm text-white/80">
+									Community resources and tools.
+								</p>
+								<span className="text-xs text-white/40">•</span>
+								<span className="text-xs text-white/50">
+									VH {changelog.vhVersion}
+								</span>
+							</div>
 						</div>
 					</div>
 
