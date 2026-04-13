@@ -48,9 +48,7 @@ export function HomePage() {
 					<div className="mt-3 space-y-3">
 						{latestEntry.sections.map((section) => (
 							<div key={section.heading}>
-								<h4 className="font-medium text-white/70">
-									{section.heading}
-								</h4>
+								<h4 className="font-medium text-white/70">{section.heading}</h4>
 								<ul className="mt-1 list-disc list-inside space-y-0.5 text-white/60">
 									{section.items.map((item) => (
 										<li key={item}>{item}</li>
