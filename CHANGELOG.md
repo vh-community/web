@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-04-13 Update to VH 3.21.4.1
+
+### Added
+
+- Information on the site which version of the game the loot tables are based on.
+- Changelog menu item
+- Added changelog page with all the changes since the initial release.
+- Added latest changes to the Home Page.
+
+### Changes
+
+- Updated loot tables to VH 3.21.4.1
+- Increase Item Quantity and Item Rarity max values to 500%.
+
+## Fixes
+
+- Consistent borders (borders were rounded on home page)
+
 ## 2026-02-17 Catalyst Fragments And Fixed Item Quantity
 
 ### Added

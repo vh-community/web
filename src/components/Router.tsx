@@ -1,3 +1,4 @@
+import { ChangelogPage } from "@pages/ChangelogPage"
 import { HomePage } from "@pages/HomePage"
 import { ChestsPage } from "@pages/loot-tables/chests/ChestsPage"
 import { PrivacyPolicyPage } from "@pages/PrivacyPolicyPage"
@@ -20,6 +21,8 @@ export function Router() {
 	switch (route) {
 		case "/":
 			return <HomePage />
+		case "/changelog":
+			return <ChangelogPage />
 		case "/privacy":
 			return <PrivacyPolicyPage />
 		case "/loot-table/chests":

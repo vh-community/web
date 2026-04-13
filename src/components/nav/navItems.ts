@@ -19,4 +19,5 @@ export const navItems: NavItem[] = [
 		label: "Loot Tables",
 		children: [{ label: "Chests", href: "/loot-table/chests" }],
 	},
+	{ kind: "link", label: "Changelog", href: "/changelog" },
 ]
