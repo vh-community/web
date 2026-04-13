@@ -1,5 +1,6 @@
 import * as fs from "node:fs"
 import * as path from "node:path"
+import { fileURLToPath } from "node:url"
 import type { Plugin } from "vite"
 import type {
 	Changelog,
@@ -10,8 +11,10 @@ import type {
 const virtualModuleId = "virtual:changelog"
 const resolvedVirtualModuleId = `\0${virtualModuleId}`
 
+const currentDir = path.dirname(fileURLToPath(import.meta.url))
+
 export function changelogPlugin(): Plugin {
-	const changelogPath = path.resolve(__dirname, "../CHANGELOG.md")
+	const changelogPath = path.resolve(currentDir, "../CHANGELOG.md")
 
 	return {
 		name: "vite-plugin-changelog",
@@ -70,15 +73,15 @@ function parseChangelog(raw: string): Changelog {
 			continue
 		}
 
-		// Match list items
-		const itemMatch = line.match(/^- (.+)/)
+		// Match list items (top-level and indented)
+		const itemMatch = line.match(/^(\s*)- (.+)/)
 		if (itemMatch && currentSection) {
-			currentSection.items.push(itemMatch[1])
+			currentSection.items.push(itemMatch[2])
 			continue
 		}
 
-		// Match continuation lines (indented lines that belong to the previous item)
-		const continuationMatch = line.match(/^ {2,}(.+)/)
+		// Match continuation lines (indented non-bullet lines that extend the previous item)
+		const continuationMatch = line.match(/^ {2,}(?!- )(.+)/)
 		if (
 			continuationMatch &&
 			currentSection &&
